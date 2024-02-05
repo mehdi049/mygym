@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gyms",
+  "info": {
+    "singularName": "gym",
+    "pluralName": "gyms",
+    "displayName": "Gym",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.address"
+    },
+    "map": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.map"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "social_media": {
+      "type": "component",
+      "repeatable": false,
+      "component": "social-media-links.social-media-links"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

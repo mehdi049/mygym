@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_address_maps",
+  "info": {
+    "displayName": "map"
+  },
+  "options": {},
+  "attributes": {
+    "langitude": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "string"
+    }
+  }
+}
