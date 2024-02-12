@@ -362,74 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiGymGym extends Schema.CollectionType {
-  collectionName: 'gyms';
-  info: {
-    singularName: 'gym';
-    pluralName: 'gyms';
-    displayName: 'Gym';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    name: Attribute.String;
-    phone: Attribute.String;
-    address: Attribute.Component<'address.address'>;
-    map: Attribute.Component<'address.map'>;
-    logo: Attribute.Media;
-    social_media: Attribute.Component<'social-media-links.social-media-links'>;
-    description: Attribute.RichText;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiUserInfoUserInfo extends Schema.CollectionType {
-  collectionName: 'user_infos';
-  info: {
-    singularName: 'user-info';
-    pluralName: 'user-infos';
-    displayName: 'User info';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    first_name: Attribute.String;
-    last_name: Attribute.String;
-    phone: Attribute.String;
-    birthday: Attribute.Date;
-    profile_picture: Attribute.Media;
-    account: Attribute.Relation<
-      'api::user-info.user-info',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    gender: Attribute.Enumeration<['Homme', 'Femme']>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::user-info.user-info',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::user-info.user-info',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -849,6 +781,84 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiGymGym extends Schema.CollectionType {
+  collectionName: 'gyms';
+  info: {
+    singularName: 'gym';
+    pluralName: 'gyms';
+    displayName: 'Gym';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    phone: Attribute.String;
+    address: Attribute.Component<'address.address'>;
+    map: Attribute.Component<'address.map'>;
+    logo: Attribute.Media;
+    social_media: Attribute.Component<'social-media-links.social-media-links'>;
+    description: Attribute.RichText;
+    user_info: Attribute.Relation<
+      'api::gym.gym',
+      'manyToOne',
+      'api::user-info.user-info'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserInfoUserInfo extends Schema.CollectionType {
+  collectionName: 'user_infos';
+  info: {
+    singularName: 'user-info';
+    pluralName: 'user-infos';
+    displayName: 'User info';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    first_name: Attribute.String;
+    last_name: Attribute.String;
+    phone: Attribute.String;
+    birthday: Attribute.Date;
+    profile_picture: Attribute.Media;
+    account: Attribute.Relation<
+      'api::user-info.user-info',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    gender: Attribute.Enumeration<['Homme', 'Femme']>;
+    gyms: Attribute.Relation<
+      'api::user-info.user-info',
+      'oneToMany',
+      'api::gym.gym'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-info.user-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-info.user-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -859,8 +869,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::gym.gym': ApiGymGym;
-      'api::user-info.user-info': ApiUserInfoUserInfo;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -869,6 +877,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::gym.gym': ApiGymGym;
+      'api::user-info.user-info': ApiUserInfoUserInfo;
     }
   }
 }

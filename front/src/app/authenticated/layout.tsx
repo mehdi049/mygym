@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import 'react-toastify/dist/ReactToastify.css'
-import './globals.css'
-import Providers from './providers'
+import '../globals.css'
+import Providers from '../providers'
 
 export const metadata: Metadata = {
   title: 'My Gym',
@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <p>abcd</p>
         <Providers>{children}</Providers>
       </body>
     </html>

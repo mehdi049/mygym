@@ -1,7 +1,8 @@
 {
   "collectionName": "components_address_maps",
   "info": {
-    "displayName": "map"
+    "displayName": "map",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -9,6 +10,9 @@
       "type": "string"
     },
     "latitude": {
+      "type": "string"
+    },
+    "link": {
       "type": "string"
     }
   }

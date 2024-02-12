@@ -43,6 +43,12 @@
         "Homme",
         "Femme"
       ]
+    },
+    "gyms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gym.gym",
+      "mappedBy": "user_info"
     }
   }
 }

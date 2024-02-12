@@ -16,10 +16,12 @@ export interface AddressMap extends Schema.Component {
   collectionName: 'components_address_maps';
   info: {
     displayName: 'map';
+    description: '';
   };
   attributes: {
     langitude: Attribute.String;
     latitude: Attribute.String;
+    link: Attribute.String;
   };
 }
 
