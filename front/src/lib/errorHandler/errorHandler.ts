@@ -13,22 +13,26 @@ export const handleErrors = (error: unknown) => {
 const handleStrapiErrors = (error: AxiosError) => {
   let errors: string[] = []
   if (error.response) {
-    const strapiError: StrapiErrorResponseError = (
-      error?.response?.data as StrapiResponse<any>
-    ).error
+    try {
+      const strapiError: StrapiErrorResponseError = (
+        error?.response?.data as StrapiResponse<any>
+      ).error
 
-    if (strapiError.status === 403)
-      errors.push(API_RESPONSE_ERRORS.NOT_AUTHORIZED)
-    else if (strapiError.message) {
-      // handled auth error responses
-      if (
-        strapiError.message
-          .toLowerCase()
-          .includes('invalid identifier or password')
-      )
-        errors.push(API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS)
-      else errors.push(ERRORS.GENERAL)
-    } else errors.push(ERRORS.GENERAL)
+      if (strapiError.status === 403)
+        errors.push(API_RESPONSE_ERRORS.NOT_AUTHORIZED)
+      else if (strapiError.message) {
+        // handled auth error responses
+        if (
+          strapiError.message
+            .toLowerCase()
+            .includes('invalid identifier or password')
+        )
+          errors.push(API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS)
+        else errors.push(ERRORS.GENERAL)
+      } else errors.push(ERRORS.GENERAL)
+    } catch (error) {
+      errors.push(ERRORS.GENERAL)
+    }
   } else errors.push(ERRORS.GENERAL)
   displayToastErrors(errors)
 }

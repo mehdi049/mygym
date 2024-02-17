@@ -1,4 +1,4 @@
-import { ROUTES } from '@/lib/const/routes'
+import { ROUTES } from '@/routes'
 import { getTokenFromLocalCookie, unsetToken } from '@/lib/utils/cookies'
 import axios from 'axios'
 import { API_ENDPOINT } from '@/lib/const/endpoints'

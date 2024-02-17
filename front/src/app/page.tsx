@@ -1,6 +1,6 @@
 'use client'
 
-import { ROUTES } from '@/lib/const/routes'
+import { ROUTES } from '@/routes'
 import Link from 'next/link'
 
 export default function Home() {

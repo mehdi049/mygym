@@ -1,4 +1,4 @@
-import { ROUTES } from '@/lib/const/routes'
+import { ROUTES } from '@/routes'
 import { handleErrors } from '@/lib/errorHandler/errorHandler'
 import { setToken } from '@/lib/utils/cookies'
 import {

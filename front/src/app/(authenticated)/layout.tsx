@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import 'react-toastify/dist/ReactToastify.css'
 import '../globals.css'
 import Providers from '../providers'
+import { LeftSidebar } from '@/components/admin/leftNavbar'
+import { Footer } from '@/components/admin/footer'
 
 export const metadata: Metadata = {
   title: 'My Gym',
@@ -16,8 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <p>abcd</p>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="flex gap-4">
+            <LeftSidebar />
+            <div className="pt-4">{children}</div>
+          </div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
