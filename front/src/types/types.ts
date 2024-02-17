@@ -15,6 +15,25 @@ export type StrapiAuthSuccess = {
 }
 
 /** strapi collections */
+export type StrapiUserMe = {
+  blocked: boolean
+  confirmed: boolean
+  email: string
+  id: number
+  provider: string
+  username: string
+  updatedAt: Date
+  createdAt: Date
+  role: {
+    description: string
+    name: string
+    type: string
+    updatedAt: Date
+    createdAt: Date
+    id: number
+  }
+}
+
 export type StrapiUser = {
   blocked: boolean
   confirmed: boolean

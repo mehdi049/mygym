@@ -1,61 +1,16 @@
 'use client'
 
-import {
-  displayToastErrors,
-  handleErrors,
-} from '@/lib/errorHandler/errorHandler'
-import { API_RESPONSE_ERRORS } from '@/lib/errorHandler/errorMapper'
-import { setupQuery, setupQueryGet } from '@/lib/utils/setupQuery'
-import {
-  StrapiAuthSuccess,
-  StrapiResponse,
-  StrapiUserInfo,
-} from '@/types/types'
-import { AxiosResponse } from 'axios'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { handleErrors } from '@/lib/errorHandler/errorHandler'
 import { useState } from 'react'
-import { useCookies } from 'react-cookie'
 import { ZodError, object, string } from 'zod'
+import useSignIn from '@/hooks/public/useSignin'
 
 export default function Auth() {
-  const router = useRouter()
-  const [cookies, setCookie] = useCookies(['token', 'user'])
-
+  const { isPending, mutate } = useSignIn()
   const [identifier, setIdentifier] = useState<string>('mehdi_admin')
   const [password, setPassword] = useState<string>('scorpion')
   const [passwordError, setPassworError] = useState<boolean>(false)
   const [identifierError, setIdentifierError] = useState<boolean>(false)
-
-  /*const loginMutation = setupQuery({
-    type: 'POST',
-    service: 'strapi',
-    endpoint: '/auth/local',
-    onSuccess: (response: AxiosResponse) => {
-      const authSuccess: StrapiAuthSuccess = response.data
-
-      setCookie('token', authSuccess.jwt)
-      setupQueryGet({
-        service: 'strapi',
-        endpoint:
-          '/user-infos?filters[account][id][$eq]=' +
-          authSuccess.user.id +
-          '&populate[account][populate][role]=*&populate[gyms]=*',
-        auth: true,
-        onSuccess: (response) => {
-          const userInfo = response.data as StrapiResponse<StrapiUserInfo[]>
-
-          if (userInfo.data.length > 0) {
-            setCookie('user', userInfo.data[0])
-            if(userInfo?.data[0].attributes.account.data && userInfo?.data[0].attributes.account.data?.attributes.role?.data)
-            window.location.href =
-              '/authenticated/' +
-              userInfo?.data[0].attributes.account.data.attributes.role.data.attributes.name.toLowerCase()
-          }
-        },
-      })
-    },
-  })*/
 
   const authSchema = object({
     identifier: string().min(1, {
@@ -74,19 +29,10 @@ export default function Auth() {
         identifier: identifier,
         password: password,
       })
-      /*loginMutation.mutate({
+      mutate({
         identifier: identifier,
         password: password,
-      })*/
-      const auth = await signIn('credentials', {
-        identifier: identifier,
-        password: password,
-        redirect: false,
       })
-      if (auth?.ok) {
-        router.push('/')
-        router.refresh()
-      } else displayToastErrors([API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS])
     } catch (error) {
       if (error instanceof ZodError) {
         const erros = error.errors
@@ -131,7 +77,7 @@ export default function Auth() {
           onClick={() => onSubmit()}
           className="mt-4 border border-1 rounded-lg p-2"
         >
-          Confirmer
+          {!isPending ? 'Confirmer' : 'loading...'}
         </button>
       </form>
     </main>

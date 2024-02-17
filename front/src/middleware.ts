@@ -1,23 +1,28 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
-import { StrapiUserInfo } from './types/types'
+import { unsetToken } from './lib/utils/cookies'
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   const tokenObject = request.cookies.get('token')
-  //console.log(atob(tokenObject?.value as string))
-  const userObject = request.cookies.get('user')
-
-  if (tokenObject && tokenObject.value) {
-    if (userObject?.value) {
-      const user: StrapiUserInfo = JSON.parse(userObject.value)
-      const role =
-        user.attributes.account.data?.attributes.role?.data?.attributes.name
+  if (!tokenObject || !tokenObject.value)
+    return NextResponse.redirect(new URL('/auth', request.url))
+  try {
+    const { exp } = JSON.parse(atob(tokenObject.value.split('.')[1]))
+    const expired = (exp ?? 0) * 1000 < new Date().getTime()
+    // redirect to sign in page if token expired
+    if (expired) {
+      unsetToken()
+      return NextResponse.redirect(new URL('/auth?reason=expired', request.url))
     }
-  } else return NextResponse.redirect(new URL('/auth', request.url))
+  } catch (error) {
+    // redirect to sign in page if invalid token
+    unsetToken()
+    return NextResponse.redirect(
+      new URL('/auth?reason=token-error', request.url)
+    )
+  }
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/authenticated/:path*'],
+  matcher: ['/admin/:path*', '/member/:path*', '/coach/:path*'],
 }
