@@ -4,7 +4,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
 
-export default function Providers({ children }: any) {
+type providersProps = {
+  children: React.ReactNode
+}
+export default function Providers({ children }: providersProps) {
   const [queryClient] = React.useState(() => new QueryClient())
   return (
     <>

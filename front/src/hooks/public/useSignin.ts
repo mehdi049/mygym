@@ -1,11 +1,10 @@
-import { ROUTES } from '@/routes'
 import { handleErrors } from '@/lib/errorHandler/errorHandler'
 import { setToken } from '@/lib/utils/cookies'
 import {
   getSignedInAccountService,
   signInService,
   signInServiceProps,
-} from '@/services/auth/auth'
+} from '@/services/public/auth'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 

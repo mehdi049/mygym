@@ -19,8 +19,6 @@ export interface AddressMap extends Schema.Component {
     description: '';
   };
   attributes: {
-    langitude: Attribute.String;
-    latitude: Attribute.String;
     link: Attribute.String;
   };
 }

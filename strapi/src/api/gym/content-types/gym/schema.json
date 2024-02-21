@@ -44,11 +44,11 @@
     "description": {
       "type": "richtext"
     },
-    "user_info": {
+    "user_infos": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::user-info.user-info",
-      "inversedBy": "gyms"
+      "mappedBy": "gym"
     }
   }
 }

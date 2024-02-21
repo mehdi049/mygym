@@ -44,11 +44,11 @@
         "Femme"
       ]
     },
-    "gyms": {
+    "gym": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::gym.gym",
-      "mappedBy": "user_info"
+      "inversedBy": "user_infos"
     }
   }
 }

@@ -800,9 +800,9 @@ export interface ApiGymGym extends Schema.CollectionType {
     logo: Attribute.Media;
     social_media: Attribute.Component<'social-media-links.social-media-links'>;
     description: Attribute.RichText;
-    user_info: Attribute.Relation<
+    user_infos: Attribute.Relation<
       'api::gym.gym',
-      'manyToOne',
+      'oneToMany',
       'api::user-info.user-info'
     >;
     createdAt: Attribute.DateTime;
@@ -837,9 +837,9 @@ export interface ApiUserInfoUserInfo extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     gender: Attribute.Enumeration<['Homme', 'Femme']>;
-    gyms: Attribute.Relation<
+    gym: Attribute.Relation<
       'api::user-info.user-info',
-      'oneToMany',
+      'manyToOne',
       'api::gym.gym'
     >;
     createdAt: Attribute.DateTime;

@@ -6,12 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "langitude": {
-      "type": "string"
-    },
-    "latitude": {
-      "type": "string"
-    },
     "link": {
       "type": "string"
     }

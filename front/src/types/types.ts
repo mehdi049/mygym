@@ -34,17 +34,43 @@ export type StrapiUserMe = {
   }
 }
 
-export type StrapiUser = {
-  blocked: boolean
-  confirmed: boolean
-  email: string
-  id: number
-  provider: string
-  username: string
-  updatedAt: Date
-  createdAt: Date
-  role?: {
-    data?: StrapiUserRole
+export type StrapiMediaFormat = {
+  name: string
+  hash: string
+  ext: string
+  mime: string
+  path: null
+  width: number
+  height: number
+  size: number
+  url: string
+}
+export type StrapiMedia = {
+  data: {
+    id: 1
+    attributes: {
+      name: string
+      alternativeText: string
+      caption: string
+      width: number
+      height: number
+      formats?: {
+        thumbnail?: StrapiMediaFormat
+        small?: StrapiMediaFormat
+        medium?: StrapiMediaFormat
+        large?: StrapiMediaFormat
+      }
+      hash: string
+      ext: string
+      mime: string
+      size: number
+      url: string
+      previewUrl: string
+      provider: string
+      provider_metadata: null
+      createdAt: Date
+      updatedAt: Date
+    }
   }
 }
 
@@ -59,6 +85,41 @@ export type StrapiUserRole = {
   id: number
 }
 
+export type StrapiMap = {
+  link: string
+}
+
+export type StrapiAddress = {
+  city: string
+  zipcode: string
+  street: string
+}
+
+export type StrapiSocialMediaLinks = {
+  attributes: {
+    website: string
+    facebook: string
+    instagram: string
+    twitter: string
+    youtube: string
+    linkedin: string
+  }
+}
+
+export type StrapiUser = {
+  blocked: boolean
+  confirmed: boolean
+  email: string
+  id: number
+  provider: string
+  username: string
+  updatedAt: Date
+  createdAt: Date
+  role?: {
+    data?: StrapiUserRole
+  }
+}
+
 export type StrapiUserAccount = {
   attributes: StrapiUser
   id: number
@@ -69,6 +130,13 @@ export type StrapiGym = {
     description: string
     name: string
     phone: string
+    address?: StrapiAddress
+    map?: StrapiMap
+    logo?: StrapiMedia
+    social_media?: StrapiSocialMediaLinks
+    user_infos?: {
+      data?: StrapiUserInfo[]
+    }
     updatedAt: Date
     createdAt: Date
   }
@@ -87,9 +155,13 @@ export type StrapiUserInfo = {
     account: {
       data?: StrapiUserAccount
     }
-    gyms?: {
-      data?: StrapiGym[]
+    gym?: {
+      data?: StrapiGym
     }
   }
   id: number
+}
+
+export type StrapiQueryResult<T> = {
+  data: T[]
 }

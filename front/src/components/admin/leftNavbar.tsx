@@ -1,6 +1,6 @@
 'use client'
 import { ROUTES } from '@/routes'
-import { signOut } from '@/services/auth/auth'
+import { signOut } from '@/services/public/auth'
 import Image from 'next/image'
 import Link from 'next/link'
 
