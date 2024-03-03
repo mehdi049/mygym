@@ -86,7 +86,6 @@ export default function UpdateGymInfoForm() {
       <div className="flex flex-col gap-4 mt-8">
         <h2 className="text-lg font-bold">General</h2>
 
-        <label className="mb-2 block">Logo</label>
         <Image
           width={200}
           height={200}
