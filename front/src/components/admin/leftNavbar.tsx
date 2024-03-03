@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const LeftSidebar = () => {
   return (
-    <div className="border-r border-r-gray-200 w-72 min-h-screen pt-4 bg-gray-50">
+    <div className="border-r border-r-gray-200 min-w-72 min-h-screen pt-4 bg-gray-50">
       <div className="flex gap-1 items-center w-full border-b border-b-gray-200 pb-4">
         <div>
           <Image

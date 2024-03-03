@@ -7,16 +7,21 @@ import {
 import { cookies } from 'next/headers'
 import { getCookie } from 'cookies-next'
 import UpdateGymInfoForm from './updateGymInfoForm'
+import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
+import { queryKeys } from '@/lib/const/queryKeys'
 
 export default async function Page() {
-  const accountId = 2
+  const token = getCookie('token', { cookies })
+
+  const accountId = getCurrentAccountIdFromToken(token)
+
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery({
-    queryKey: ['user_info'],
+    queryKey: [queryKeys.userInfo],
     queryFn: async () =>
       getUserInfoAllDetailsByAccountIdService({
         accountId: accountId,
-        token: getCookie('token', { cookies }),
+        token: token,
       }),
   })
 

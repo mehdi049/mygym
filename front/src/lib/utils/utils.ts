@@ -1,20 +1,23 @@
 import { StrapiMedia } from '@/types/types'
-import { getTokenFromLocalCookie } from './cookies'
+import { getTokenFromLocalCookie, unsetToken } from './cookies'
 import { STRAPI_URL } from '../const/constant'
 import { toast } from 'react-toastify'
+import { signOut } from '@/services/public/auth'
 
-export const getCurrentAccountId = () => {
-  const token = getTokenFromLocalCookie()
-  if (token) {
+export const getCurrentAccountIdFromToken = (token?: string) => {
+  const jwtToken = token ? token : getTokenFromLocalCookie()
+
+  if (jwtToken) {
     try {
-      const { id } = JSON.parse(atob((token as string).split('.')[1]))
+      const { id } = JSON.parse(atob((jwtToken as string).split('.')[1]))
       return id
     } catch (error) {
-      console.log('Token not valid')
-      return undefined
+      console.log('invalid token')
+      signOut()
     }
   }
-  return undefined
+  console.log('token not found')
+  signOut()
 }
 
 type getStrapiImageUrlProps = {
