@@ -12,10 +12,12 @@ const useUpdateGymInfo = () => {
     onError: (error) => {
       console.log(error)
     },
-    onSuccess: async (response) => {
-      displaySuccessToast('Information mis à jour avec succés')
-      const queryClient = new QueryClient()
-      queryClient.invalidateQueries({ queryKey: [queryKeys.userInfo] })
+    onSuccess: (response) => {
+      if (response) {
+        displaySuccessToast('Information mis à jour avec succés')
+        const queryClient = new QueryClient()
+        queryClient.invalidateQueries({ queryKey: [queryKeys.userInfo] })
+      }
     },
   })
 }

@@ -83,107 +83,109 @@ export default function UpdateGymInfoForm() {
       <h3 className="text-sm mt-4">{users?.data?.length} Membres</h3>
       <h3 className="text-sm">{users?.data?.length} Coaches</h3>
 
-      <div className="flex flex-col gap-4 mt-8">
-        <h2 className="text-lg font-bold">General</h2>
+      <div className="flex gap-8 mb-8">
+        <div className="flex flex-col gap-4 mt-8">
+          <h2 className="text-lg font-bold">General</h2>
 
-        <Image
-          width={200}
-          height={200}
-          src={getStrapiImageUrl({ data: gym?.logo })}
-          alt=""
-        />
-        <TextField
-          label="Nom"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField
-          label="Tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <TextField
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TextField
-          label="Site web"
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
+          <Image
+            width={200}
+            height={200}
+            src={getStrapiImageUrl({ data: gym?.logo })}
+            alt=""
+          />
+          <TextField
+            label="Nom"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            label="Tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <TextField
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <TextField
+            label="Site web"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col gap-4 mt-8">
+          <h2 className="text-lg font-bold">Adresse</h2>
+          <TextField
+            label="Cité"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <TextField
+            label="Code postal"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+          <TextField
+            label="Rue"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+          <TextField
+            label="Google map"
+            value={googleMapLink}
+            onChange={(e) => setGoogleMapLink(e.target.value)}
+          />
+          {googleMapLink && (
+            <a
+              href={googleMapLink as string}
+              target="_blank"
+              className=" underline text-xs"
+            >
+              Lien vers google map
+            </a>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-4 mt-8">
+          <h2 className="text-lg font-bold">Réseau sociaux</h2>
+
+          <TextField
+            label="Facebook"
+            value={fbLink}
+            onChange={(e) => setFbLink(e.target.value)}
+          />
+          <TextField
+            label="Instagram"
+            value={instaLink}
+            onChange={(e) => setInstaLink(e.target.value)}
+          />
+          <TextField
+            label="Twitter"
+            value={twLink}
+            onChange={(e) => setTwLink(e.target.value)}
+          />
+          <TextField
+            label="Youtube"
+            value={youtubeLink}
+            onChange={(e) => setYoutubeLink(e.target.value)}
+          />
+          <TextField
+            label="LinkedIn"
+            value={liLink}
+            onChange={(e) => setLiLink(e.target.value)}
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col gap-4 mt-8">
-        <h2 className="text-lg font-bold">Adresse</h2>
-        <TextField
-          label="Cité"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <TextField
-          label="Code postal"
-          value={zipCode}
-          onChange={(e) => setZipCode(e.target.value)}
-        />
-        <TextField
-          label="Rue"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-        />
-        <TextField
-          label="Google map"
-          value={googleMapLink}
-          onChange={(e) => setGoogleMapLink(e.target.value)}
-        />
-        {googleMapLink && (
-          <a
-            href={googleMapLink as string}
-            target="_blank"
-            className=" underline text-xs"
-          >
-            Lien vers google map
-          </a>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-4 mt-8">
-        <h2 className="text-lg font-bold">Réseau sociaux</h2>
-
-        <TextField
-          label="Facebook"
-          value={fbLink}
-          onChange={(e) => setFbLink(e.target.value)}
-        />
-        <TextField
-          label="Instagram"
-          value={instaLink}
-          onChange={(e) => setInstaLink(e.target.value)}
-        />
-        <TextField
-          label="Twitter"
-          value={twLink}
-          onChange={(e) => setTwLink(e.target.value)}
-        />
-        <TextField
-          label="Youtube"
-          value={youtubeLink}
-          onChange={(e) => setYoutubeLink(e.target.value)}
-        />
-        <TextField
-          label="LinkedIn"
-          value={liLink}
-          onChange={(e) => setLiLink(e.target.value)}
-        />
-
-        <Button
-          variant="primary"
-          onClick={() => HandleSubmitUpdate()}
-          isLoading={isPending}
-        >
-          Confirmer
-        </Button>
-      </div>
+      <Button
+        variant="primary"
+        onClick={() => HandleSubmitUpdate()}
+        isLoading={isPending}
+      >
+        Confirmer
+      </Button>
     </div>
   )
 }

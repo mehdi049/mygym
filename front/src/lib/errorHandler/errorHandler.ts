@@ -16,12 +16,14 @@ const handleFetchErrors = async (error: Response) => {
   let errors: string[] = []
   try {
     if (error.status === 403) errors.push(API_RESPONSE_ERRORS.NOT_AUTHORIZED)
+
     const fetchError = await error.json()
     // handle strapi error
     if (fetchError.data === null && fetchError.error)
       handleStrapiErrors(fetchError)
   } catch (error) {
-    errors.push(ERRORS.GENERAL)
+    console.log(error)
+    errors = [ERRORS.GENERAL]
   }
   displayToastErrors(errors)
 }
@@ -39,9 +41,9 @@ const handleStrapiErrors = (error: StrapiResponse<any>) => {
           .includes('invalid identifier or password')
       )
         errors.push(API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS)
-      else errors.push(ERRORS.GENERAL)
-    } else errors.push(ERRORS.GENERAL)
-  } else errors.push(ERRORS.GENERAL)
+      else errors = [ERRORS.GENERAL]
+    } else errors = [ERRORS.GENERAL]
+  } else errors = [ERRORS.GENERAL]
   displayToastErrors(errors)
 }
 

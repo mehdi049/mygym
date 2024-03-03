@@ -6,7 +6,7 @@ type fetcherGetProps = {
   auth?: boolean
   token?: string
 }
-export const fetcherGet = async <T>({ url, auth, token }: fetcherGetProps) => {
+export const fetcherGet = <T>({ url, auth, token }: fetcherGetProps) => {
   let headerInit: HeadersInit
   if (auth)
     headerInit = {

@@ -17,13 +17,15 @@ const useSignIn = () => {
     },
     onError: (error) => console.log(error),
     onSuccess: async (response) => {
-      setToken((response as StrapiAuthSuccess).jwt)
+      if (response) {
+        setToken((response as StrapiAuthSuccess).jwt)
 
-      const userAccountResponse = await getSignedInAccountService()
+        const userAccountResponse = await getSignedInAccountService()
 
-      router.push(
-        '/' + (userAccountResponse as StrapiUserMe).role.name.toLowerCase()
-      )
+        router.push(
+          '/' + (userAccountResponse as StrapiUserMe).role.name.toLowerCase()
+        )
+      }
     },
   })
 }
