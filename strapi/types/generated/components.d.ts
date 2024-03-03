@@ -30,7 +30,6 @@ export interface SocialMediaLinksSocialMediaLinks extends Schema.Component {
     description: '';
   };
   attributes: {
-    website: Attribute.String;
     facebook: Attribute.String;
     instagram: Attribute.String;
     twitter: Attribute.String;

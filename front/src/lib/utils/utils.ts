@@ -1,6 +1,7 @@
 import { StrapiMedia } from '@/types/types'
 import { getTokenFromLocalCookie } from './cookies'
 import { STRAPI_URL } from '../const/constant'
+import { toast } from 'react-toastify'
 
 export const getCurrentAccountId = () => {
   const token = getTokenFromLocalCookie()
@@ -36,4 +37,10 @@ export const getStrapiImageUrl = ({
       return STRAPI_URL + data.data.attributes.formats.large.url
   }
   return STRAPI_URL + data.data.attributes.url
+}
+
+export const displaySuccessToast = (msg: string) => {
+  toast.success(msg, {
+    position: 'top-right',
+  })
 }

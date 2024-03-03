@@ -1,17 +1,13 @@
-import Cookies from 'js-cookie'
+import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 
 export const setToken = (token: string) => {
-  if (typeof window === 'undefined') return
-
-  Cookies.set('token', token)
+  setCookie('token', token)
 }
 
 export const unsetToken = () => {
-  if (typeof window === 'undefined') return
-
-  Cookies.remove('token')
+  deleteCookie('token')
 }
 
 export const getTokenFromLocalCookie = () => {
-  return Cookies.get('token')
+  return getCookie('token')
 }

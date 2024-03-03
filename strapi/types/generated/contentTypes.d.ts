@@ -805,6 +805,7 @@ export interface ApiGymGym extends Schema.CollectionType {
       'oneToMany',
       'api::user-info.user-info'
     >;
+    website: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &

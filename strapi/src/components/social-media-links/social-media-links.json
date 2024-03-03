@@ -6,9 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "website": {
-      "type": "string"
-    },
     "facebook": {
       "type": "string"
     },

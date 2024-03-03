@@ -91,19 +91,16 @@ export type StrapiMap = {
 
 export type StrapiAddress = {
   city: string
-  zipcode: string
+  zip_code: string
   street: string
 }
 
 export type StrapiSocialMediaLinks = {
-  attributes: {
-    website: string
-    facebook: string
-    instagram: string
-    twitter: string
-    youtube: string
-    linkedin: string
-  }
+  facebook?: string
+  instagram?: string
+  twitter?: string
+  youtube?: string
+  linkedin?: string
 }
 
 export type StrapiUser = {
@@ -130,6 +127,7 @@ export type StrapiGym = {
     description: string
     name: string
     phone: string
+    website: string
     address?: StrapiAddress
     map?: StrapiMap
     logo?: StrapiMedia
@@ -164,4 +162,14 @@ export type StrapiUserInfo = {
 
 export type StrapiQueryResult<T> = {
   data: T[]
+}
+
+export type StrapiGymData = {
+  description: string
+  name: string
+  phone: string
+  website: string
+  address?: StrapiAddress
+  map?: StrapiMap
+  social_media?: StrapiSocialMediaLinks
 }

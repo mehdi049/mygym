@@ -5,6 +5,7 @@ import {
   signInService,
   signInServiceProps,
 } from '@/services/public/auth'
+import { StrapiAuthSuccess, StrapiUserMe } from '@/types/types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
@@ -14,18 +15,15 @@ const useSignIn = () => {
     mutationFn: (body: signInServiceProps) => {
       return signInService(body)
     },
-    onError: (error) => {
-      handleErrors(error)
-    },
+    onError: (error) => console.log(error),
     onSuccess: async (response) => {
-      // const queryClient = new QueryClient()
-      //queryClient.invalidateQueries({ queryKey: refetchKey })
-
-      setToken(response.data.jwt)
+      setToken((response as StrapiAuthSuccess).jwt)
 
       const userAccountResponse = await getSignedInAccountService()
-      if (userAccountResponse.status === 200)
-        router.push('/' + userAccountResponse.data.role.name.toLowerCase())
+
+      router.push(
+        '/' + (userAccountResponse as StrapiUserMe).role.name.toLowerCase()
+      )
     },
   })
 }

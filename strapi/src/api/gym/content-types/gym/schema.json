@@ -49,6 +49,9 @@
       "relation": "oneToMany",
       "target": "api::user-info.user-info",
       "mappedBy": "gym"
+    },
+    "website": {
+      "type": "string"
     }
   }
 }

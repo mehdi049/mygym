@@ -1,38 +1,46 @@
 import { ZodError } from 'zod'
 import { API_RESPONSE_ERRORS, ERRORS } from './errorMapper'
 import { StrapiErrorResponseError, StrapiResponse } from '@/types/types'
-import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 
 export const handleErrors = (error: unknown) => {
-  if (error instanceof AxiosError) handleStrapiErrors(error)
+  if (error instanceof Response) handleFetchErrors(error)
   else if (error instanceof ZodError) handleZodErrors(error)
-  else displayToastErrors([ERRORS.GENERAL])
+  else {
+    console.log(error)
+    displayToastErrors([ERRORS.GENERAL])
+  }
 }
 
-const handleStrapiErrors = (error: AxiosError) => {
+const handleFetchErrors = async (error: Response) => {
   let errors: string[] = []
-  if (error.response) {
-    try {
-      const strapiError: StrapiErrorResponseError = (
-        error?.response?.data as StrapiResponse<any>
-      ).error
+  try {
+    if (error.status === 403) errors.push(API_RESPONSE_ERRORS.NOT_AUTHORIZED)
+    const fetchError = await error.json()
+    // handle strapi error
+    if (fetchError.data === null && fetchError.error)
+      handleStrapiErrors(fetchError)
+  } catch (error) {
+    errors.push(ERRORS.GENERAL)
+  }
+  displayToastErrors(errors)
+}
 
-      if (strapiError.status === 403)
-        errors.push(API_RESPONSE_ERRORS.NOT_AUTHORIZED)
-      else if (strapiError.message) {
-        // handled auth error responses
-        if (
-          strapiError.message
-            .toLowerCase()
-            .includes('invalid identifier or password')
-        )
-          errors.push(API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS)
-        else errors.push(ERRORS.GENERAL)
-      } else errors.push(ERRORS.GENERAL)
-    } catch (error) {
-      errors.push(ERRORS.GENERAL)
-    }
+const handleStrapiErrors = (error: StrapiResponse<any>) => {
+  let errors: string[] = []
+  if (error) {
+    const strapiError: StrapiErrorResponseError = error.error
+
+    if (strapiError.message) {
+      // handled auth error responses
+      if (
+        strapiError.message
+          .toLowerCase()
+          .includes('invalid identifier or password')
+      )
+        errors.push(API_RESPONSE_ERRORS.INVALID_AUTH_CREDENTAILS)
+      else errors.push(ERRORS.GENERAL)
+    } else errors.push(ERRORS.GENERAL)
   } else errors.push(ERRORS.GENERAL)
   displayToastErrors(errors)
 }
