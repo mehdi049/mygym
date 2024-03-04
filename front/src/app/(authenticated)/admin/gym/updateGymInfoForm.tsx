@@ -6,20 +6,19 @@ import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
 import useGetUserInfoAllDetailsByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
-import { getStrapiImageUrl } from '@/lib/utils/utils'
-import Image from 'next/image'
 import { useState } from 'react'
+import UpdateGymLogoForm from './updateGymLogoForm'
 
 export default function UpdateGymInfoForm() {
   const { data, isLoading, isError } = useGetUserInfoAllDetailsByAccountId()
   const { isPending, mutate } = useUpdateGymInfo()
 
-  const gym = data?.data[0].attributes.gym?.data?.attributes
-  const id = data?.data[0].attributes.gym?.data?.id
-  const address = gym?.address
-  const map = gym?.map
-  const socialMedia = gym?.social_media
-  const users = gym?.user_infos
+  let gym = data?.data[0].attributes.gym?.data?.attributes
+  let gymId = data?.data[0].attributes.gym?.data?.id
+  let address = gym?.address
+  let map = gym?.map
+  let socialMedia = gym?.social_media
+  let users = gym?.user_infos
 
   const [name, setName] = useState<string>(gym?.name as string)
   const [phone, setPhone] = useState<string>(gym?.phone as string)
@@ -46,9 +45,9 @@ export default function UpdateGymInfoForm() {
   )
   const [liLink, setLiLink] = useState<string>(socialMedia?.linkedin as string)
 
-  const HandleSubmitUpdate = () => {
+  const handleSubmitUpdate = () => {
     mutate({
-      gymId: id as number,
+      gymId: gymId as number,
       gymData: {
         description: description,
         name: name,
@@ -87,12 +86,13 @@ export default function UpdateGymInfoForm() {
         <div className="flex flex-col gap-4 mt-8">
           <h2 className="text-lg font-bold">General</h2>
 
-          <Image
-            width={200}
-            height={200}
-            src={getStrapiImageUrl({ data: gym?.logo })}
-            alt=""
-          />
+          {gym?.logo && gymId && (
+            <UpdateGymLogoForm
+              currentLogoMedia={gym?.logo}
+              gymId={gymId as number}
+            />
+          )}
+
           <TextField
             label="Nom"
             value={name}
@@ -181,7 +181,7 @@ export default function UpdateGymInfoForm() {
 
       <Button
         variant="primary"
-        onClick={() => HandleSubmitUpdate()}
+        onClick={() => handleSubmitUpdate()}
         isLoading={isPending}
       >
         Confirmer

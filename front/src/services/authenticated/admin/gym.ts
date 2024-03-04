@@ -1,6 +1,11 @@
 import { API_ENDPOINT } from '@/lib/const/endpoints'
-import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiGymData, StrapiUserMe } from '@/types/types'
+import { fetcher, fetcherGet, fetcherMedia } from '@/lib/utils/fetcher'
+import {
+  StrapiGymData,
+  StrapiGymDataMedia,
+  StrapiMediaData,
+  StrapiUserMe,
+} from '@/types/types'
 
 type getGymInfoByUserInfoIdServiceProps = {
   userInfoId: number
@@ -20,7 +25,7 @@ export const getGymInfoByUserInfoIdService = ({
 
 type updateGymInfoServiceProps = {
   gymId: number
-  gymData: StrapiGymData
+  gymData: StrapiGymData | StrapiGymDataMedia
 }
 export const updateGymInfoService = ({
   gymId,

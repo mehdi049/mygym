@@ -45,32 +45,34 @@ export type StrapiMediaFormat = {
   size: number
   url: string
 }
+export type StrapiMediaData = {
+  id: number
+  name: string
+  alternativeText: string
+  caption: string
+  width: number
+  height: number
+  formats?: {
+    thumbnail?: StrapiMediaFormat
+    small?: StrapiMediaFormat
+    medium?: StrapiMediaFormat
+    large?: StrapiMediaFormat
+  }
+  hash: string
+  ext: string
+  mime: string
+  size: number
+  url: string
+  previewUrl: string
+  provider: string
+  provider_metadata: null
+  createdAt: Date
+  updatedAt: Date
+}
 export type StrapiMedia = {
   data: {
     id: 1
-    attributes: {
-      name: string
-      alternativeText: string
-      caption: string
-      width: number
-      height: number
-      formats?: {
-        thumbnail?: StrapiMediaFormat
-        small?: StrapiMediaFormat
-        medium?: StrapiMediaFormat
-        large?: StrapiMediaFormat
-      }
-      hash: string
-      ext: string
-      mime: string
-      size: number
-      url: string
-      previewUrl: string
-      provider: string
-      provider_metadata: null
-      createdAt: Date
-      updatedAt: Date
-    }
+    attributes: StrapiMediaData
   }
 }
 
@@ -172,4 +174,8 @@ export type StrapiGymData = {
   address?: StrapiAddress
   map?: StrapiMap
   social_media?: StrapiSocialMediaLinks
+}
+
+export type StrapiGymDataMedia = {
+  logo: number
 }

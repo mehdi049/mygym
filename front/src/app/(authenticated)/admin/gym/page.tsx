@@ -16,6 +16,7 @@ export default async function Page() {
   const accountId = getCurrentAccountIdFromToken(token)
 
   const queryClient = new QueryClient()
+  queryClient.clear()
   await queryClient.prefetchQuery({
     queryKey: [queryKeys.userInfo],
     queryFn: async () =>
