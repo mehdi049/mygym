@@ -1,11 +1,12 @@
 'use client'
 
 import Button from '@/components/ui/button'
-import { getStrapiImageUrl } from '@/lib/utils/utils'
+import { getStrapiImageUrl, validateImageUpload } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import useUpdateGymLogo from '@/hooks/authenticated/useUpdateGymLogo'
 import { StrapiMedia } from '@/types/types'
+import { handleErrors } from '@/lib/errorHandler/errorHandler'
 
 type updateGymLogoFormProps = {
   currentLogoMedia: StrapiMedia
@@ -36,9 +37,10 @@ export default function UpdateGymLogoForm({
     formData.append('files', imageFile as File, imageFile?.name)
     formData.append('field', 'logo')
 
-    mutateUpload({
-      media: formData,
-    })
+    if (validateImageUpload(imageFile as File))
+      mutateUpload({
+        media: formData,
+      })
   }
 
   useEffect(() => {
@@ -70,10 +72,12 @@ export default function UpdateGymLogoForm({
         onChange={(e) => {
           const reader = new FileReader()
           reader.onload = function (event) {
-            if (e.target.files) setImageFile(e.target.files[0])
-            setImageUri(
-              e.target.files ? URL.createObjectURL(e.target.files[0]) : ''
-            )
+            if (e.target.files) {
+              setImageFile(e.target.files[0])
+              setImageUri(
+                e.target.files ? URL.createObjectURL(e.target.files[0]) : ''
+              )
+            }
           }
           if (e.target.files) reader.readAsDataURL(e.target.files[0])
         }}
