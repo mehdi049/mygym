@@ -20,7 +20,12 @@ export default function UpdateGymLogoForm({
     isPending: isPendingUpload,
     mutate: mutateUpload,
     isSuccess: isSuccessUpload,
-  } = useUpdateGymLogo(gymId)
+  } = useUpdateGymLogo({
+    gymId: gymId,
+    currentMediaId: currentLogoMedia.data
+      ? currentLogoMedia.data.id
+      : undefined,
+  })
 
   const refFile = useRef<HTMLInputElement>(null)
   const [imageFile, setImageFile] = useState<File>()
