@@ -5,8 +5,7 @@ import { getStrapiImageUrl, validateImageUpload } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import useUpdateGymLogo from '@/hooks/authenticated/useUpdateGymLogo'
-import { StrapiMedia } from '@/types/types'
-import { handleErrors } from '@/lib/errorHandler/errorHandler'
+import { StrapiMedia } from '@/types/strapi.types'
 
 type updateGymLogoFormProps = {
   currentLogoMedia: StrapiMedia

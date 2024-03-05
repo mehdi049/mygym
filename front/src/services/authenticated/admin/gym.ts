@@ -1,11 +1,10 @@
 import { API_ENDPOINT } from '@/lib/const/endpoints'
-import { fetcher, fetcherGet, fetcherMedia } from '@/lib/utils/fetcher'
+import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
 import {
   StrapiGymData,
   StrapiGymDataMedia,
-  StrapiMediaData,
   StrapiUserMe,
-} from '@/types/types'
+} from '@/types/strapi.types'
 
 type getGymInfoByUserInfoIdServiceProps = {
   userInfoId: number

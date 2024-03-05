@@ -130,6 +130,7 @@ export type StrapiGym = {
     name: string
     phone: string
     website: string
+    email: string
     address?: StrapiAddress
     map?: StrapiMap
     logo?: StrapiMedia
@@ -171,6 +172,7 @@ export type StrapiGymData = {
   name: string
   phone: string
   website: string
+  email: string
   address?: StrapiAddress
   map?: StrapiMap
   social_media?: StrapiSocialMediaLinks

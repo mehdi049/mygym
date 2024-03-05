@@ -2,7 +2,7 @@ import { ROUTES } from '@/routes'
 import { unsetToken } from '@/lib/utils/cookies'
 import { API_ENDPOINT } from '@/lib/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiAuthSuccess, StrapiUserMe } from '@/types/types'
+import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
 
 export type signInServiceProps = {
   identifier: string

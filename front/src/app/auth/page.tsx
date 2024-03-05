@@ -1,16 +1,17 @@
 'use client'
 
-import { handleErrors } from '@/lib/errorHandler/errorHandler'
 import { useState } from 'react'
 import { ZodError, object, string } from 'zod'
 import useSignIn from '@/hooks/public/useSignin'
+import { TextField } from '@/components/ui/textField'
+import Button from '@/components/ui/button'
 
 export default function Auth() {
   const { isPending, mutate } = useSignIn()
   const [identifier, setIdentifier] = useState<string>('mehdi_admin')
   const [password, setPassword] = useState<string>('scorpion')
-  const [passwordError, setPassworError] = useState<boolean>(false)
-  const [identifierError, setIdentifierError] = useState<boolean>(false)
+  const [passwordError, setPassworError] = useState<string>()
+  const [identifierError, setIdentifierError] = useState<string>()
 
   const authSchema = object({
     identifier: string().min(1, {
@@ -23,8 +24,8 @@ export default function Auth() {
 
   const onSubmit = async () => {
     try {
-      setPassworError(false)
-      setIdentifierError(false)
+      setPassworError('')
+      setIdentifierError('')
       authSchema.parse({
         identifier: identifier,
         password: password,
@@ -37,48 +38,42 @@ export default function Auth() {
       if (error instanceof ZodError) {
         const erros = error.errors
         setPassworError(
-          erros.find((err) => err.path.includes('password')) !== undefined
+          erros.find((err) => err.path.includes('password'))?.message
         )
         setIdentifierError(
-          erros.find((err) => err.path.includes('identifier')) !== undefined
+          erros.find((err) => err.path.includes('identifier'))?.message
         )
       }
-      handleErrors(error)
     }
   }
 
   return (
     <main className="min-h-screen p-24">
-      <form>
-        <label className="block">Identifiant</label>
-        <input
-          className={
-            'block border border-1 rounded-lg p-2 ' +
-            (identifierError ? 'border-red-500' : '')
-          }
-          type="text"
+      <form className="flex flex-col gap-4 max-w-sm">
+        <TextField
+          label="Identifiant"
           placeholder="username"
           value={identifier}
           onChange={(e) => setIdentifier(e.target.value)}
+          error={identifierError}
         />
-        <label className="block mt-4">Mot de passe</label>
-        <input
-          className={
-            'block border border-1 rounded-lg p-2 ' +
-            (passwordError ? 'border-red-500' : '')
-          }
+
+        <TextField
           type="password"
+          label="Mot de passe"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          error={passwordError}
         />
-        <button
-          type="button"
+
+        <Button
+          variant="primary"
           onClick={() => onSubmit()}
-          className="mt-4 border border-1 rounded-lg p-2"
+          isLoading={isPending}
         >
-          {!isPending ? 'Confirmer' : 'loading...'}
-        </button>
+          Confirmer
+        </Button>
       </form>
     </main>
   )

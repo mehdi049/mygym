@@ -1,18 +1,6 @@
-export interface TextFieldProps {
-  value: string
-  type?: string
-  placeholder?: string
-  name?: string
-  label?: string
-  helper?: string
-  error?: string
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  disabled?: boolean
-  id?: string
-  onChange?: (e: any) => void
-}
-export const TextField = ({
+import { TextFieldProps } from './textField'
+
+export const TextAreaField = ({
   value,
   type,
   placeholder,
@@ -20,8 +8,6 @@ export const TextField = ({
   name,
   helper,
   error,
-  leftIcon,
-  rightIcon,
   disabled,
   id,
   onChange,
@@ -29,18 +15,17 @@ export const TextField = ({
   return (
     <div>
       {label && <label className="mb-2 block">{label}</label>}
-      <input
-        type="text"
-        value={value}
+      <textarea
         name={name}
         placeholder={placeholder}
         className={
-          'border  p-2 block w-full ' +
+          'border  p-2 block w-full h-80 resize-none ' +
           (error ? 'border-red-500' : 'border-gray-100')
         }
         id={id}
         disabled={disabled}
         onChange={onChange}
+        value={value}
       />
       {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
       {helper && <p className="mt-2 text-sm text-gray-600">{helper}</p>}

@@ -12,7 +12,6 @@ import { queryKeys } from '@/lib/const/queryKeys'
 
 export default async function Page() {
   const token = getCookie('token', { cookies })
-
   const accountId = getCurrentAccountIdFromToken(token)
 
   const queryClient = new QueryClient()

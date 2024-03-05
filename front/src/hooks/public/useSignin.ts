@@ -1,11 +1,10 @@
-import { handleErrors } from '@/lib/errorHandler/errorHandler'
 import { setToken } from '@/lib/utils/cookies'
 import {
   getSignedInAccountService,
   signInService,
   signInServiceProps,
 } from '@/services/public/auth'
-import { StrapiAuthSuccess, StrapiUserMe } from '@/types/types'
+import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 

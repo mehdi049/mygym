@@ -19,9 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-full">
             <LeftSidebar />
-            <div className="pt-4">{children}</div>
+            <div className="pt-4 w-full">{children}</div>
           </div>
           <Footer />
         </Providers>

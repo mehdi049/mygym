@@ -16,7 +16,7 @@ interface ButtonProps {
 const Button = ({
   variant,
   id,
-  size = 'sm',
+  size = 'lg',
   className,
   onClick,
   disabled,
@@ -74,7 +74,7 @@ const Button = ({
       type="button"
       className={styleClass}
       id={id}
-      onClick={onClick && !disabled ? onClick : undefined}
+      onClick={onClick && !disabled && !isLoading ? onClick : undefined}
       disabled={disabled}
     >
       {isLoading ? (

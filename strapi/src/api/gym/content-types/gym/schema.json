@@ -52,6 +52,9 @@
     },
     "website": {
       "type": "string"
+    },
+    "email": {
+      "type": "string"
     }
   }
 }
