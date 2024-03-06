@@ -6,13 +6,16 @@ import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
 import useGetUserInfoAllDetailsByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import UpdateGymLogoForm from './updateGymLogoForm'
 import { ZodError, literal, object, string, union } from 'zod'
 import { TextAreaField } from '@/components/ui/textAreaField'
+import DashboardBodyContainer from '@/components/admin/dashboardBodyContainer'
+import DashboardGroupContainer from '@/components/admin/dashboardGroupContainer'
 
 export default function UpdateGymInfoForm() {
-  const { data, isLoading, isError } = useGetUserInfoAllDetailsByAccountId()
+  const { data, isLoading, isError, isSuccess } =
+    useGetUserInfoAllDetailsByAccountId()
   const { isPending, mutate } = useUpdateGymInfo()
 
   let gym = data?.data[0].attributes.gym?.data?.attributes
@@ -20,7 +23,6 @@ export default function UpdateGymInfoForm() {
   let address = gym?.address
   let map = gym?.map
   let socialMedia = gym?.social_media
-  let users = gym?.user_infos
 
   const [name, setName] = useState<string>(gym?.name as string)
   const [nameError, setNameError] = useState<string>()
@@ -62,6 +64,28 @@ export default function UpdateGymInfoForm() {
   const [liLink, setLiLink] = useState<string>(socialMedia?.linkedin as string)
   const [liLinkError, setLiLinkError] = useState<string>()
 
+  useEffect(() => {
+    if (isSuccess) {
+      setName(gym?.name as string)
+      setPhone(gym?.phone as string)
+      setEmail(gym?.email as string)
+      setDescription(gym?.description as string)
+      setWebsite(gym?.website as string)
+
+      setCity(address?.city as string)
+      setZipCode(address?.zip_code as string)
+      setStreet(address?.street as string)
+
+      setGoogleMapLink(map?.link as string)
+
+      setFbLink(socialMedia?.facebook as string)
+      setInstaLink(socialMedia?.instagram as string)
+      setTwLink(socialMedia?.twitter as string)
+      setYoutubeLink(socialMedia?.youtube as string)
+      setLiLink(socialMedia?.linkedin as string)
+    }
+  }, [isLoading])
+
   const formSchema = object({
     name: string().min(1, {
       message: 'Nom de la salle obligatoire',
@@ -84,7 +108,7 @@ export default function UpdateGymInfoForm() {
       literal(''),
     ]),
     city: string().min(1, {
-      message: 'Cité obligatoire',
+      message: 'Ville obligatoire',
     }),
     zipCode: string().min(1, {
       message: 'Code postal obligatoire',
@@ -239,136 +263,155 @@ export default function UpdateGymInfoForm() {
   if (isError) return <ErrorArea />
 
   return (
-    <div>
-      <h1 className="text-xl font-bold">GYM PROFILE</h1>
-      <h3 className="text-sm mt-4">{users?.data?.length} Membres</h3>
-      <h3 className="text-sm">{users?.data?.length} Coaches</h3>
-
-      <div className="my-4">
-        {gym?.logo && gymId && (
-          <UpdateGymLogoForm
-            currentLogoMedia={gym?.logo}
-            gymId={gymId as number}
-          />
-        )}
+    <>
+      <div className="flex items-center justify-between gap-4 mb-8 sticky top-0 bg-white z-50 p-2 shadow-sm">
+        <h1 className="text-xl font-bold">Informations générales</h1>
+        <Button
+          variant="primary"
+          onClick={() => handleSubmitUpdate()}
+          isLoading={isPending}
+        >
+          Confirmer
+        </Button>
       </div>
 
-      <div className="flex gap-8 mb-8">
-        <div className="flex flex-col gap-4 mt-8">
-          <h2 className="text-lg font-bold">General</h2>
+      <DashboardBodyContainer>
+        <DashboardGroupContainer>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold">Logo</h2>
+            {gym?.logo && gymId && (
+              <UpdateGymLogoForm
+                currentLogoMedia={gym?.logo}
+                gymId={gymId as number}
+              />
+            )}
+          </div>
+        </DashboardGroupContainer>
 
-          <TextField
-            label="Nom"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            error={nameError}
-          />
-          <TextField
-            label="Tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            error={phoneError}
-          />
-          <TextField
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={emailError}
-          />
-          <TextAreaField
-            label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            error={descriptionError}
-          />
-          <TextField
-            label="Site web"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            error={websiteError}
-          />
-        </div>
+        <DashboardGroupContainer className="mt-8">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold">General</h2>
 
-        <div className="flex flex-col gap-4 mt-8">
-          <h2 className="text-lg font-bold">Adresse</h2>
-          <TextField
-            label="Cité"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            error={cityError}
-          />
-          <TextField
-            label="Code postal"
-            value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
-            error={zipCodeError}
-          />
-          <TextField
-            label="Rue"
-            value={street}
-            onChange={(e) => setStreet(e.target.value)}
-            error={streetError}
-          />
-          <TextField
-            label="Lien vers Google map"
-            value={googleMapLink}
-            onChange={(e) => setGoogleMapLink(e.target.value)}
-            error={googleMapLinkError}
-          />
-          {map?.link && (
-            <a
-              href={map.link as string}
-              target="_blank"
-              className=" underline text-xs"
-            >
-              Lien vers google map
-            </a>
-          )}
-        </div>
+            <div className="flex gap-4">
+              <TextField
+                label="Nom"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                error={nameError}
+              />
+              <TextField
+                label="Tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                error={phoneError}
+              />
+            </div>
+            <div className="flex gap-4">
+              <TextField
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={emailError}
+              />
+              <TextField
+                label="Site web"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                error={websiteError}
+              />
+            </div>
+            <TextAreaField
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              error={descriptionError}
+            />
+          </div>
+        </DashboardGroupContainer>
 
-        <div className="flex flex-col gap-4 mt-8">
-          <h2 className="text-lg font-bold">Réseau sociaux</h2>
+        <DashboardGroupContainer className="mt-8">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold">Adresse</h2>
 
-          <TextField
-            label="Facebook"
-            value={fbLink}
-            onChange={(e) => setFbLink(e.target.value)}
-            error={fbLinkError}
-          />
-          <TextField
-            label="Instagram"
-            value={instaLink}
-            onChange={(e) => setInstaLink(e.target.value)}
-            error={instaLinkError}
-          />
-          <TextField
-            label="Twitter"
-            value={twLink}
-            onChange={(e) => setTwLink(e.target.value)}
-            error={twLinkError}
-          />
-          <TextField
-            label="Youtube"
-            value={youtubeLink}
-            onChange={(e) => setYoutubeLink(e.target.value)}
-            error={youtubeLinkError}
-          />
-          <TextField
-            label="LinkedIn"
-            value={liLink}
-            onChange={(e) => setLiLink(e.target.value)}
-            error={liLinkError}
-          />
-        </div>
-      </div>
+            <div className="flex gap-4">
+              <TextField
+                label="Ville"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                error={cityError}
+              />
+              <TextField
+                label="Code postal"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+                error={zipCodeError}
+              />
+            </div>
+            <TextField
+              label="Rue"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              error={streetError}
+            />
+            <TextField
+              label="Lien vers Google map"
+              value={googleMapLink}
+              onChange={(e) => setGoogleMapLink(e.target.value)}
+              error={googleMapLinkError}
+            />
+            {map?.link && (
+              <a
+                href={map.link as string}
+                target="_blank"
+                className=" underline text-xs"
+              >
+                Lien vers google map
+              </a>
+            )}
+          </div>
+        </DashboardGroupContainer>
 
-      <Button
-        variant="primary"
-        onClick={() => handleSubmitUpdate()}
-        isLoading={isPending}
-      >
-        Confirmer
-      </Button>
-    </div>
+        <DashboardGroupContainer className="my-8">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold">Réseau sociaux</h2>
+            <div className="flex gap-4">
+              <TextField
+                label="Facebook"
+                value={fbLink}
+                onChange={(e) => setFbLink(e.target.value)}
+                error={fbLinkError}
+              />
+              <TextField
+                label="Instagram"
+                value={instaLink}
+                onChange={(e) => setInstaLink(e.target.value)}
+                error={instaLinkError}
+              />
+            </div>
+
+            <div className="flex gap-4">
+              <TextField
+                label="Twitter"
+                value={twLink}
+                onChange={(e) => setTwLink(e.target.value)}
+                error={twLinkError}
+              />
+              <TextField
+                label="Youtube"
+                value={youtubeLink}
+                onChange={(e) => setYoutubeLink(e.target.value)}
+                error={youtubeLinkError}
+              />
+            </div>
+            <TextField
+              label="LinkedIn"
+              value={liLink}
+              onChange={(e) => setLiLink(e.target.value)}
+              error={liLinkError}
+            />
+          </div>
+        </DashboardGroupContainer>
+      </DashboardBodyContainer>
+    </>
   )
 }

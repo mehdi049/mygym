@@ -1,11 +1,12 @@
 'use client'
 
-import Button from '@/components/ui/button'
 import { getStrapiImageUrl, validateImageUpload } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import useUpdateGymLogo from '@/hooks/authenticated/useUpdateGymLogo'
 import { StrapiMedia } from '@/types/strapi.types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 type updateGymLogoFormProps = {
   currentLogoMedia: StrapiMedia
@@ -47,15 +48,15 @@ export default function UpdateGymLogoForm({
   }, [isSuccessUpload])
 
   return (
-    <div className="relative">
+    <div className="relative max-w-xs max-h-xs pb-8 border border-gray-300 shadow-sm">
       {imageUri ? (
-        <Image width={200} height={200} src={imageUri} alt="" />
+        <Image width={320} height={320} src={imageUri} alt="" />
       ) : (
         <Image
-          width={200}
-          height={200}
+          width={320}
+          height={320}
           src={getStrapiImageUrl({
-            data: (isSuccessUpload && data
+            media: (isSuccessUpload && data
               ? { data: { attributes: data[0] } }
               : currentLogoMedia) as StrapiMedia,
           })}
@@ -81,36 +82,32 @@ export default function UpdateGymLogoForm({
           if (e.target.files) reader.readAsDataURL(e.target.files[0])
         }}
       />
-      <div className="mt-2">
+      <div className="mt-2 absolute bottom-0 left-0 w-full p-2 bg-white-transparent flex justify-end items-center gap-6">
         {imageUri ? (
-          <div className="flex gap-2">
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => handleSubmitImageUpdate()}
-              isLoading={isPendingUpload}
-            >
-              Confirmer
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
+          <>
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="text-black cursor-pointer"
               onClick={() => {
                 setImageUri(undefined)
                 if (refFile && refFile.current) refFile.current.value = ''
               }}
-            >
-              Annuler
-            </Button>
-          </div>
+            />
+
+            <FontAwesomeIcon
+              icon={faCheck}
+              className="text-black cursor-pointer"
+              onClick={() => handleSubmitImageUpdate()}
+            />
+          </>
         ) : (
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => refFile.current?.click()}
-          >
-            Modifier
-          </Button>
+          <>
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="text-black cursor-pointer"
+              onClick={() => refFile.current?.click()}
+            />
+          </>
         )}
       </div>
     </div>

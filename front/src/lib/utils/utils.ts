@@ -20,26 +20,26 @@ export const getCurrentAccountIdFromToken = (token?: string) => {
 }
 
 type getStrapiImageUrlProps = {
-  data?: StrapiMedia
+  media?: StrapiMedia
   format?: 'thumbnail' | 'small' | 'medium' | 'large'
 }
 export const getStrapiImageUrl = ({
-  data,
+  media,
   format,
 }: getStrapiImageUrlProps): string => {
-  if (data && data.data) {
-    if (data.data.attributes.formats && format) {
-      if (data.data.attributes.formats.thumbnail && format === 'thumbnail')
-        return STRAPI_URL + data.data.attributes.formats.thumbnail.url
-      else if (data.data.attributes.formats.small && format === 'small')
-        return STRAPI_URL + data.data.attributes.formats.small.url
-      else if (data.data.attributes.formats.medium && format === 'medium')
-        return STRAPI_URL + data.data.attributes.formats.medium.url
-      else if (data.data.attributes.formats.large && format === 'large')
-        return STRAPI_URL + data.data.attributes.formats.large.url
+  if (media && media.data) {
+    if (media.data.attributes.formats && format) {
+      if (media.data.attributes.formats.thumbnail && format === 'thumbnail')
+        return STRAPI_URL + media.data.attributes.formats.thumbnail.url
+      else if (media.data.attributes.formats.small && format === 'small')
+        return STRAPI_URL + media.data.attributes.formats.small.url
+      else if (media.data.attributes.formats.medium && format === 'medium')
+        return STRAPI_URL + media.data.attributes.formats.medium.url
+      else if (media.data.attributes.formats.large && format === 'large')
+        return STRAPI_URL + media.data.attributes.formats.large.url
     }
   } else return '/img/not-found.jpg'
-  return STRAPI_URL + data.data.attributes.url
+  return STRAPI_URL + media.data.attributes.url
 }
 
 export const displaySuccessToast = (msg: string) => {

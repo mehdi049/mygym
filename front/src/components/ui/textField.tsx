@@ -27,15 +27,15 @@ export const TextField = ({
   onChange,
 }: TextFieldProps) => {
   return (
-    <div>
-      {label && <label className="mb-2 block">{label}</label>}
+    <div className="w-full">
+      {label && <label className="mb-2 block text-sm">{label}</label>}
       <input
         type="text"
         value={value}
         name={name}
         placeholder={placeholder}
         className={
-          'border  p-2 block w-full ' +
+          'border border-gray-200 rounded-md  p-2 block w-full ' +
           (error ? 'border-red-500' : 'border-gray-100')
         }
         id={id}

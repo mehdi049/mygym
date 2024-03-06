@@ -13,8 +13,8 @@ export const TextAreaField = ({
   onChange,
 }: TextFieldProps) => {
   return (
-    <div>
-      {label && <label className="mb-2 block">{label}</label>}
+    <div className="w-full">
+      {label && <label className="mb-2 block text-sm">{label}</label>}
       <textarea
         name={name}
         placeholder={placeholder}

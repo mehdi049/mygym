@@ -4,6 +4,7 @@ import '../globals.css'
 import Providers from '../providers'
 import { LeftSidebar } from '@/components/admin/leftNavbar'
 import { Footer } from '@/components/admin/footer'
+import { LeftSubSidebar } from '@/components/admin/leftSubNavbar'
 
 export const metadata: Metadata = {
   title: 'My Gym',
@@ -19,9 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <div className="flex gap-4 w-full">
+          <div className="flex w-full">
             <LeftSidebar />
-            <div className="pt-4 w-full">{children}</div>
+            <LeftSubSidebar />
+            <div className="pt-4 w-full bg-gray-100 p-8">{children}</div>
           </div>
           <Footer />
         </Providers>
