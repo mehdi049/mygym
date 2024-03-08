@@ -37,6 +37,7 @@ export interface GymPricesGymPrices extends Schema.Component {
     currency: Attribute.Enumeration<['TND', 'EUR', 'USD']> &
       Attribute.DefaultTo<'TND'>;
     subscription_fees: Attribute.Decimal;
+    nine_months: Attribute.Component<'gym-prices.price-details'>;
   };
 }
 

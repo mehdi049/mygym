@@ -37,6 +37,11 @@
     },
     "subscription_fees": {
       "type": "decimal"
+    },
+    "nine_months": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.price-details"
     }
   }
 }

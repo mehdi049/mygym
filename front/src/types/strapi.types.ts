@@ -137,9 +137,9 @@ type GymPrice = {
   subscription_fees: number
   currency: string
   one_month?: GymPriceDetails
-  three_month?: GymPriceDetails
-  six_month?: GymPriceDetails
-  nine_month?: GymPriceDetails
+  three_months?: GymPriceDetails
+  six_months?: GymPriceDetails
+  nine_months?: GymPriceDetails
   one_year?: GymPriceDetails
 }
 
@@ -155,7 +155,7 @@ export type StrapiGym = {
     map?: StrapiMap
     logo?: StrapiMedia
     social_media?: StrapiSocialMediaLinks
-    price?: GymPrice
+    prices?: GymPrice
     user_infos?: {
       data?: StrapiUserInfo[]
     }
@@ -192,11 +192,12 @@ export type StrapiGymData = {
   description: string
   name: string
   phone: string
-  website: string
   email: string
+  website?: string
   address?: StrapiAddress
   map?: StrapiMap
   social_media?: StrapiSocialMediaLinks
+  prices?: GymPrice
 }
 
 export type StrapiGymDataMedia = {
