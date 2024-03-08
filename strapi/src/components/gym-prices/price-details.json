@@ -1,15 +1,16 @@
 {
   "collectionName": "components_gym_prices_price_details",
   "info": {
-    "displayName": "price-details"
+    "displayName": "price-details",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "price": {
-      "type": "string"
-    },
     "extra_info": {
-      "type": "string"
+      "type": "text"
+    },
+    "price": {
+      "type": "decimal"
     }
   }
 }

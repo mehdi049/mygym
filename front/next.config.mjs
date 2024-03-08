@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/admin',
-        destination: '/admin/gym/preview',
+        destination: '/admin/profile',
         permanent: true,
       },
       {

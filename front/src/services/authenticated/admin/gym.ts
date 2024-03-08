@@ -1,23 +1,23 @@
 import { API_ENDPOINT } from '@/lib/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
 import {
+  StrapiGym,
   StrapiGymData,
   StrapiGymDataMedia,
+  StrapiResponse,
   StrapiUserMe,
 } from '@/types/strapi.types'
 
-type getGymInfoByUserInfoIdServiceProps = {
-  userInfoId: number
+type getGymByIdServiceProps = {
+  id: number
 }
-export const getGymInfoByUserInfoIdService = ({
-  userInfoId,
-}: getGymInfoByUserInfoIdServiceProps) => {
-  return fetcherGet<StrapiUserMe>({
+export const getGymByIdService = ({ id }: getGymByIdServiceProps) => {
+  return fetcherGet<StrapiResponse<StrapiGym>>({
     url:
       API_ENDPOINT.STRAPI +
-      '/gyms?filters[user_infos][id][$eq]=' +
-      userInfoId +
-      '&populate=*',
+      '/gyms/' +
+      id +
+      '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*',
     auth: true,
   })
 }

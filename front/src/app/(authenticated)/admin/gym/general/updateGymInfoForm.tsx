@@ -4,22 +4,21 @@ import Button from '@/components/ui/button'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
-import useGetUserInfoAllDetailsByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
 import { useEffect, useState } from 'react'
 import UpdateGymLogoForm from './updateGymLogoForm'
 import { ZodError, literal, object, string, union } from 'zod'
 import { TextAreaField } from '@/components/ui/textAreaField'
-import DashboardBodyContainer from '@/components/admin/dashboardBodyContainer'
-import DashboardGroupContainer from '@/components/admin/dashboardGroupContainer'
+import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
+import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
+import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
 
 export default function UpdateGymInfoForm() {
-  const { data, isLoading, isError, isSuccess } =
-    useGetUserInfoAllDetailsByAccountId()
+  const { data, isLoading, isError, isSuccess } = useGetGymInfo()
   const { isPending, mutate } = useUpdateGymInfo()
 
-  let gym = data?.data[0].attributes.gym?.data?.attributes
-  let gymId = data?.data[0].attributes.gym?.data?.id
+  let gym = data?.data.attributes
+  let gymId = data?.data.id
   let address = gym?.address
   let map = gym?.map
   let socialMedia = gym?.social_media

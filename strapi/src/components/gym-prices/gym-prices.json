@@ -6,9 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "subscription_fees": {
-      "type": "string"
-    },
     "one_month": {
       "type": "component",
       "repeatable": false,
@@ -35,7 +32,11 @@
         "TND",
         "EUR",
         "USD"
-      ]
+      ],
+      "default": "TND"
+    },
+    "subscription_fees": {
+      "type": "decimal"
     }
   }
 }

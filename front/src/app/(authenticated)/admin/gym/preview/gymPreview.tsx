@@ -1,17 +1,18 @@
 'use client'
 
-import DashboardBodyContainer from '@/components/admin/dashboardBodyContainer'
+import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
-import useGetUserInfoAllDetailsByAccountId from '@/hooks/authenticated/useGetUserInfo'
-import { getStrapiImageUrl } from '@/lib/utils/utils'
+import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
+import { displayStrapiImage } from '@/lib/utils/utils'
+
 import Image from 'next/image'
 
 export default function GymPreview() {
-  const { data, isLoading, isError } = useGetUserInfoAllDetailsByAccountId()
+  const { data, isLoading, isError } = useGetGymInfo()
 
-  let gym = data?.data[0].attributes.gym?.data?.attributes
-  let gymId = data?.data[0].attributes.gym?.data?.id
+  let gym = data?.data.attributes
+  let gymId = data?.data.id
   let address = gym?.address
   let map = gym?.map
   let socialMedia = gym?.social_media
@@ -30,7 +31,7 @@ export default function GymPreview() {
             <Image
               width={200}
               height={200}
-              src={getStrapiImageUrl({
+              src={displayStrapiImage({
                 media: gym?.logo,
               })}
               alt=""

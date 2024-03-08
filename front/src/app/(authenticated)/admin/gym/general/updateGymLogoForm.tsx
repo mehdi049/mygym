@@ -1,12 +1,13 @@
 'use client'
 
-import { getStrapiImageUrl, validateImageUpload } from '@/lib/utils/utils'
+import { displayStrapiImage } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import useUpdateGymLogo from '@/hooks/authenticated/useUpdateGymLogo'
 import { StrapiMedia } from '@/types/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { validateImageUpload } from '@/lib/utils/fileValidation'
 
 type updateGymLogoFormProps = {
   currentLogoMedia: StrapiMedia
@@ -55,7 +56,7 @@ export default function UpdateGymLogoForm({
         <Image
           width={320}
           height={320}
-          src={getStrapiImageUrl({
+          src={displayStrapiImage({
             media: (isSuccessUpload && data
               ? { data: { attributes: data[0] } }
               : currentLogoMedia) as StrapiMedia,

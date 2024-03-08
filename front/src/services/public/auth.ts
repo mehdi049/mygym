@@ -29,5 +29,5 @@ export const getSignedInAccountService = async () => {
 
 export const signOut = () => {
   unsetToken()
-  document.location.href = ROUTES.AUTH
+  if (typeof window !== 'undefined') document.location.href = ROUTES.AUTH
 }

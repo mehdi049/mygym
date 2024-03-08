@@ -1,11 +1,8 @@
 import { StrapiMedia } from '@/types/strapi.types'
 import { getTokenFromLocalCookie } from './cookies'
-import { MAX_UPLOAD_SIZE_IMG, STRAPI_URL } from '../const/constant'
+import { STRAPI_URL } from '../const/constant'
 import { toast } from 'react-toastify'
 import { signOut } from '@/services/public/auth'
-import { any, object } from 'zod'
-import { ZOD_RESPONSE_ERRORS } from '../errorHandler/errorMapper'
-import { handleErrors } from '../errorHandler/errorHandler'
 
 export const getCurrentAccountIdFromToken = (token?: string) => {
   const jwtToken = token ? token : getTokenFromLocalCookie()
@@ -14,19 +11,20 @@ export const getCurrentAccountIdFromToken = (token?: string) => {
       const { id } = JSON.parse(atob((jwtToken as string).split('.')[1]))
       return id
     } catch (error) {
+      console.log(error)
       signOut()
     }
   }
 }
 
-type getStrapiImageUrlProps = {
+type displayStrapiImageProps = {
   media?: StrapiMedia
   format?: 'thumbnail' | 'small' | 'medium' | 'large'
 }
-export const getStrapiImageUrl = ({
+export const displayStrapiImage = ({
   media,
   format,
-}: getStrapiImageUrlProps): string => {
+}: displayStrapiImageProps): string => {
   if (media && media.data) {
     if (media.data.attributes.formats && format) {
       if (media.data.attributes.formats.thumbnail && format === 'thumbnail')
@@ -46,29 +44,4 @@ export const displaySuccessToast = (msg: string) => {
   toast.success(msg, {
     position: 'top-right',
   })
-}
-
-const getImageSchema = () => {
-  return object({
-    image: any().refine(
-      (file) =>
-        parseInt((file?.size / 1024 / 1024).toFixed(2)) <=
-        parseInt(MAX_UPLOAD_SIZE_IMG),
-
-      ZOD_RESPONSE_ERRORS.MAX_IMG_SIZE
-    ),
-  })
-}
-
-export const validateImageUpload = (image: File): boolean => {
-  try {
-    const imageSchema = getImageSchema()
-    imageSchema.parse({
-      image: image,
-    })
-    return true
-  } catch (error) {
-    handleErrors(error)
-    return false
-  }
 }

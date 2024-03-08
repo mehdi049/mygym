@@ -30,12 +30,13 @@ export interface GymPricesGymPrices extends Schema.Component {
     description: '';
   };
   attributes: {
-    subscription_fees: Attribute.String;
     one_month: Attribute.Component<'gym-prices.price-details'>;
     three_months: Attribute.Component<'gym-prices.price-details'>;
     six_months: Attribute.Component<'gym-prices.price-details'>;
     one_year: Attribute.Component<'gym-prices.price-details'>;
-    currency: Attribute.Enumeration<['TND', 'EUR', 'USD']>;
+    currency: Attribute.Enumeration<['TND', 'EUR', 'USD']> &
+      Attribute.DefaultTo<'TND'>;
+    subscription_fees: Attribute.Decimal;
   };
 }
 
@@ -43,10 +44,11 @@ export interface GymPricesPriceDetails extends Schema.Component {
   collectionName: 'components_gym_prices_price_details';
   info: {
     displayName: 'price-details';
+    description: '';
   };
   attributes: {
-    price: Attribute.String;
-    extra_info: Attribute.String;
+    extra_info: Attribute.Text;
+    price: Attribute.Decimal;
   };
 }
 

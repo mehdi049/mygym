@@ -76,10 +76,14 @@ export type StrapiMedia = {
   }
 }
 
+export type UserRoleName = {
+  name: 'Admin' | 'Coach' | 'Member'
+}
+
 export type StrapiUserRole = {
   attributes: {
     description: string
-    name: string
+    name: UserRoleName
     type: string
     updatedAt: Date
     createdAt: Date
@@ -124,6 +128,21 @@ export type StrapiUserAccount = {
   id: number
 }
 
+type GymPriceDetails = {
+  price: number
+  extra_info: string
+}
+
+type GymPrice = {
+  subscription_fees: number
+  currency: string
+  one_month?: GymPriceDetails
+  three_month?: GymPriceDetails
+  six_month?: GymPriceDetails
+  nine_month?: GymPriceDetails
+  one_year?: GymPriceDetails
+}
+
 export type StrapiGym = {
   attributes: {
     description: string
@@ -131,10 +150,12 @@ export type StrapiGym = {
     phone: string
     website: string
     email: string
+    slug: string
     address?: StrapiAddress
     map?: StrapiMap
     logo?: StrapiMedia
     social_media?: StrapiSocialMediaLinks
+    price?: GymPrice
     user_infos?: {
       data?: StrapiUserInfo[]
     }
