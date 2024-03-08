@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_gym_price_gym_prices",
+  "info": {
+    "displayName": "gym-prices",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "subscription_fees": {
+      "type": "string"
+    },
+    "one_month": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.price-details"
+    },
+    "three_months": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.price-details"
+    },
+    "six_months": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.price-details"
+    },
+    "one_year": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.price-details"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "TND",
+        "EUR",
+        "USD"
+      ]
+    }
+  }
+}

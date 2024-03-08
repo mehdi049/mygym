@@ -23,6 +23,33 @@ export interface AddressMap extends Schema.Component {
   };
 }
 
+export interface GymPricesGymPrices extends Schema.Component {
+  collectionName: 'components_gym_price_gym_prices';
+  info: {
+    displayName: 'gym-prices';
+    description: '';
+  };
+  attributes: {
+    subscription_fees: Attribute.String;
+    one_month: Attribute.Component<'gym-prices.price-details'>;
+    three_months: Attribute.Component<'gym-prices.price-details'>;
+    six_months: Attribute.Component<'gym-prices.price-details'>;
+    one_year: Attribute.Component<'gym-prices.price-details'>;
+    currency: Attribute.Enumeration<['TND', 'EUR', 'USD']>;
+  };
+}
+
+export interface GymPricesPriceDetails extends Schema.Component {
+  collectionName: 'components_gym_prices_price_details';
+  info: {
+    displayName: 'price-details';
+  };
+  attributes: {
+    price: Attribute.String;
+    extra_info: Attribute.String;
+  };
+}
+
 export interface SocialMediaLinksSocialMediaLinks extends Schema.Component {
   collectionName: 'components_social_media_links_social_media_links';
   info: {
@@ -43,6 +70,8 @@ declare module '@strapi/types' {
     export interface Components {
       'address.address': AddressAddress;
       'address.map': AddressMap;
+      'gym-prices.gym-prices': GymPricesGymPrices;
+      'gym-prices.price-details': GymPricesPriceDetails;
       'social-media-links.social-media-links': SocialMediaLinksSocialMediaLinks;
     }
   }

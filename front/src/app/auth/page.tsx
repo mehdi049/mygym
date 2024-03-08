@@ -71,6 +71,7 @@ export default function Auth() {
           variant="primary"
           onClick={() => onSubmit()}
           isLoading={isPending}
+          size="lg"
         >
           Confirmer
         </Button>

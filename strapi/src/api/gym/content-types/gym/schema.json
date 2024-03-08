@@ -55,6 +55,15 @@
     },
     "email": {
       "type": "string"
+    },
+    "prices": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-prices.gym-prices"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
