@@ -1,18 +1,20 @@
 'use client'
 import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import { ROUTES } from '@/routes'
+import { getCookie, setCookie } from 'cookies-next'
 import Link from 'next/link'
 import { useState } from 'react'
 
-enum SUB_NAVIGATION {
-  INFO,
-  PWD,
-  PREVIEW,
+const SUB_NAVIGATION = {
+  INFO: 'info',
+  PWD: 'pwd',
+  PREVIEW: 'preview',
 }
 export const MyProfileSubNavigation = () => {
+  const selectedSubNavCookie = getCookie('dash_sub_navigation')
   const { data, isLoading } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
-  const [selectedSubNav, setSelectedSubNav] = useState<SUB_NAVIGATION>(
-    SUB_NAVIGATION.INFO
+  const [selectedSubNav, setSelectedSubNav] = useState<string>(
+    selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )
 
   const linkClass =
@@ -35,7 +37,10 @@ export const MyProfileSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.INFO)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.INFO)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.INFO)
+            }}
           >
             Informations générales
           </Link>
@@ -49,7 +54,10 @@ export const MyProfileSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.PWD)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.PWD)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.PWD)
+            }}
           >
             Modifier mon mot de passe
           </Link>
@@ -63,7 +71,10 @@ export const MyProfileSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.PREVIEW)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.PREVIEW)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.PREVIEW)
+            }}
           >
             Preview
           </Link>

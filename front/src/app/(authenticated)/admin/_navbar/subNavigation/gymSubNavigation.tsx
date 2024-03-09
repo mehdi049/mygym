@@ -1,20 +1,23 @@
 'use client'
 import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import { ROUTES } from '@/routes'
+import { getCookie, setCookie } from 'cookies-next'
 import Link from 'next/link'
 import { useState } from 'react'
 
-enum SUB_NAVIGATION {
-  INFO,
-  PRICES,
-  PLANNING,
-  STATS,
-  PREVIEW,
+const SUB_NAVIGATION = {
+  INFO: 'info',
+  PRICES: 'prices',
+  PLANNING: 'planning',
+  STATS: 'stats',
+  PREVIEW: 'preview',
 }
 export const GymSubNavigation = () => {
+  const selectedSubNavCookie = getCookie('dash_sub_navigation')
+
   const { data, isLoading } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
-  const [selectedSubNav, setSelectedSubNav] = useState<SUB_NAVIGATION>(
-    SUB_NAVIGATION.INFO
+  const [selectedSubNav, setSelectedSubNav] = useState<string>(
+    selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )
 
   let gym = data?.data[0].attributes.gym?.data?.attributes
@@ -36,7 +39,10 @@ export const GymSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.INFO)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.INFO)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.INFO)
+            }}
           >
             Informations générales
           </Link>
@@ -50,7 +56,10 @@ export const GymSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.PRICES)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.PRICES)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.PRICES)
+            }}
           >
             Tarifs
           </Link>
@@ -64,7 +73,10 @@ export const GymSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.PLANNING)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.PLANNING)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.PLANNING)
+            }}
           >
             Planning de la semaine
           </Link>
@@ -78,7 +90,10 @@ export const GymSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.STATS)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.STATS)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.STATS)
+            }}
           >
             Statistique
           </Link>
@@ -92,7 +107,10 @@ export const GymSubNavigation = () => {
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
-            onClick={() => setSelectedSubNav(SUB_NAVIGATION.PREVIEW)}
+            onClick={() => {
+              setSelectedSubNav(SUB_NAVIGATION.PREVIEW)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.PREVIEW)
+            }}
           >
             Preview
           </Link>

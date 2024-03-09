@@ -8,17 +8,22 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { LeftSidebar } from '@/components/authenticated/leftNavbar'
 import { AdminSubNavigation } from './adminSubNavigation'
+import { getCookie, setCookie } from 'cookies-next'
 
-export enum NAVIGATION {
-  GYM,
-  MEMBERS,
-  COACHES,
-  CLASSES,
-  PROFILE,
+export const NAVIGATION = {
+  GYM: 'gym',
+  MEMBERS: 'members',
+  COACHES: 'coaches',
+  CLASSES: 'classes',
+  PROFILE: 'profile',
 }
 
 export const AdminNavigation = () => {
-  const [selectedNav, setSelectedNav] = useState<any>(NAVIGATION.PROFILE)
+  const selectedNavCookie = getCookie('dash_navigation')
+
+  const [selectedNav, setSelectedNav] = useState<string>(
+    selectedNavCookie ? selectedNavCookie : NAVIGATION.PROFILE
+  )
 
   const { data } = usegetUserInfoWithGymBaiscInfoAndLogoByAccountId()
   const linkClass =
@@ -68,6 +73,7 @@ export const AdminNavigation = () => {
               }
               onClick={() => {
                 setSelectedNav(NAVIGATION.PROFILE)
+                setCookie('dash_navigation', NAVIGATION.PROFILE)
               }}
             >
               Mon profile
@@ -83,6 +89,7 @@ export const AdminNavigation = () => {
               }
               onClick={() => {
                 setSelectedNav(NAVIGATION.GYM)
+                setCookie('dash_navigation', NAVIGATION.GYM)
               }}
             >
               GYM
@@ -99,6 +106,7 @@ export const AdminNavigation = () => {
               }
               onClick={() => {
                 setSelectedNav(NAVIGATION.MEMBERS)
+                setCookie('dash_navigation', NAVIGATION.MEMBERS)
               }}
             >
               Abonnés
@@ -113,7 +121,10 @@ export const AdminNavigation = () => {
                   ? 'bg-gray-200 font-bold'
                   : '')
               }
-              onClick={() => setSelectedNav(NAVIGATION.COACHES)}
+              onClick={() => {
+                setSelectedNav(NAVIGATION.COACHES)
+                setCookie('dash_navigation', NAVIGATION.COACHES)
+              }}
             >
               Coaches
             </Link>
@@ -127,7 +138,10 @@ export const AdminNavigation = () => {
                   ? 'bg-gray-200 font-bold'
                   : '')
               }
-              onClick={() => setSelectedNav(NAVIGATION.CLASSES)}
+              onClick={() => {
+                setSelectedNav(NAVIGATION.CLASSES)
+                setCookie('dash_navigation', NAVIGATION.CLASSES)
+              }}
             >
               Cours
             </Link>

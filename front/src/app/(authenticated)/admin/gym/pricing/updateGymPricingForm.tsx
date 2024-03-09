@@ -86,14 +86,63 @@ export default function UpdateGymPricingForm() {
   )
   const [oneYearExtraInfoError, setOneYearExtraInfoError] = useState<string>()
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (isSuccess) {
-      set(gym?.name as string)
-      setPhone(gym?.phone as string)
-      setEmail(gym?.email as string)
-      setDescription(gym?.description as string)
+      setSubscribtionPrice(
+        gym?.prices?.subscription_fees
+          ? gym?.prices?.subscription_fees.toString()
+          : ''
+      )
+      setOneMonthExtraInfo(
+        gym?.prices?.one_month ? gym?.prices?.one_month?.extra_info : ''
+      )
+
+      setOneMonthPrice(
+        gym?.prices?.one_month
+          ? (gym?.prices?.one_month?.price as unknown as string)
+          : ''
+      )
+      setOneMonthExtraInfo(
+        gym?.prices?.one_month ? gym?.prices?.one_month?.extra_info : ''
+      )
+
+      setThreeMonthPrice(
+        gym?.prices?.three_months
+          ? (gym?.prices?.three_months?.price as unknown as string)
+          : ''
+      )
+      setThreeMonthExtraInfo(
+        gym?.prices?.three_months ? gym?.prices?.three_months?.extra_info : ''
+      )
+
+      setSixMonthPrice(
+        gym?.prices?.six_months
+          ? (gym?.prices?.six_months?.price as unknown as string)
+          : ''
+      )
+      setSixMonthExtraInfo(
+        gym?.prices?.six_months ? gym?.prices?.six_months?.extra_info : ''
+      )
+
+      setNineMonthPrice(
+        gym?.prices?.nine_months
+          ? (gym?.prices?.nine_months?.price as unknown as string)
+          : ''
+      )
+      setNineMonthExtraInfo(
+        gym?.prices?.nine_months ? gym?.prices?.nine_months?.extra_info : ''
+      )
+
+      setOneYearPrice(
+        gym?.prices?.one_year
+          ? (gym?.prices?.one_year?.price as unknown as string)
+          : ''
+      )
+      setOneYearExtraInfo(
+        gym?.prices?.one_year ? gym?.prices?.one_year?.extra_info : ''
+      )
     }
-  }, [isLoading])*/
+  }, [isLoading])
 
   const formSchema = object({
     name: string().min(1, {
