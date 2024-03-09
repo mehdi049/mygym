@@ -268,7 +268,7 @@ export default function UpdateGymPricingForm() {
       <DashboardBodyContainer>
         <DashboardGroupContainer className="mt-8">
           <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">Frais abonnement</h2>
+            <h2 className="text-lg font-bold">Frais d'inscription</h2>
 
             <div className="flex gap-4">
               <TextField

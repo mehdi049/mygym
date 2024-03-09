@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_gym_prices_pack_prices",
+  "info": {
+    "displayName": "pack-prices",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Standard"
+    },
+    "description": {
+      "type": "text"
+    },
+    "one_month": {
+      "type": "decimal"
+    },
+    "three_months": {
+      "type": "decimal"
+    },
+    "six_months": {
+      "type": "decimal"
+    },
+    "nine_months": {
+      "type": "decimal"
+    },
+    "one_year": {
+      "type": "decimal"
+    }
+  }
+}

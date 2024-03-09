@@ -6,26 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "one_month": {
-      "type": "component",
-      "repeatable": false,
-      "component": "gym-prices.price-details"
-    },
-    "three_months": {
-      "type": "component",
-      "repeatable": false,
-      "component": "gym-prices.price-details"
-    },
-    "six_months": {
-      "type": "component",
-      "repeatable": false,
-      "component": "gym-prices.price-details"
-    },
-    "one_year": {
-      "type": "component",
-      "repeatable": false,
-      "component": "gym-prices.price-details"
-    },
     "currency": {
       "type": "enumeration",
       "enum": [
@@ -38,10 +18,10 @@
     "subscription_fees": {
       "type": "decimal"
     },
-    "nine_months": {
+    "packs": {
       "type": "component",
-      "repeatable": false,
-      "component": "gym-prices.price-details"
+      "repeatable": true,
+      "component": "gym-prices.pack-prices"
     }
   }
 }
