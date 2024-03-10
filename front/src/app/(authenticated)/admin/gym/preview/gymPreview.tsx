@@ -7,6 +7,7 @@ import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
 import { displayStrapiImage } from '@/lib/utils/utils'
 
 import Image from 'next/image'
+import { Fragment } from 'react'
 
 export default function GymPreview() {
   const { data, isLoading, isError } = useGetGymInfo()
@@ -16,6 +17,7 @@ export default function GymPreview() {
   const address = gym?.address
   const map = gym?.map
   const socialMedia = gym?.social_media
+  const prices = gym?.prices
 
   if (isLoading) return <LoadingArea />
 
@@ -61,6 +63,29 @@ export default function GymPreview() {
             <p>Instagram: {socialMedia?.instagram}</p>
             <p>Youtube: {socialMedia?.youtube}</p>
             <p>Twitter: {socialMedia?.twitter}</p>
+            {prices && (
+              <>
+                <hr />
+                <h2 className="text-lg font-bold">Tarifs</h2>
+                <p>
+                  Frais d'inscription:{' '}
+                  {prices?.subscription_fees + ' ' + prices.currency}
+                </p>
+                {prices.packs?.map((pack, key) => {
+                  return (
+                    <div key={key}>
+                      <p className="font-bold">{pack.name}</p>
+                      {pack.one_month && <p>1 mois: {pack.one_month}</p>}
+                      {pack.three_months && <p>3 mois: {pack.three_months}</p>}
+                      {pack.six_months && <p>6 mois: {pack.six_months}</p>}
+                      {pack.nine_months && <p>9 mois: {pack.nine_months}</p>}
+                      {pack.one_year && <p>1 année: {pack.one_year}</p>}
+                      <hr />
+                    </div>
+                  )
+                })}
+              </>
+            )}
           </div>
         </div>
       </DashboardBodyContainer>

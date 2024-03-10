@@ -58,12 +58,9 @@ export default function UpdateGymPricingForm() {
   }, [isLoading])
 
   const subscriptionSchema = object({
-    subscription_fees: coerce
-      .number()
-      .min(1, { message: "Frais d'inscription obligatoire" })
-      .positive({
-        message: "Frais d'inscription invalid",
-      }),
+    subscription_fees: coerce.number().positive({
+      message: "Frais d'inscription invalid",
+    }),
   })
 
   const resetErrors = () => {
@@ -76,6 +73,24 @@ export default function UpdateGymPricingForm() {
 
       subscriptionSchema.parse({
         subscription_fees: subscribtionPrice,
+      })
+
+      packs?.forEach((pack) => {
+        packSchema.parse({
+          name: pack.name,
+          one_month:
+            pack.one_month?.toString() === '' ? undefined : pack.one_month,
+          three_month:
+            pack.three_months?.toString() === ''
+              ? undefined
+              : pack.three_months,
+          six_month:
+            pack.six_months?.toString() === '' ? undefined : pack.six_months,
+          nine_month:
+            pack.nine_months?.toString() === '' ? undefined : pack.nine_months,
+          one_year:
+            pack.one_year?.toString() === '' ? undefined : pack.one_year,
+        })
       })
 
       mutate({
@@ -95,6 +110,8 @@ export default function UpdateGymPricingForm() {
           erros.find((err) => err.path.includes('subscription_fees'))?.message
         )
       }
+      // handle packs erros
+      handleErrors(error)
     }
   }
 
@@ -140,44 +157,51 @@ export default function UpdateGymPricingForm() {
     let _packs = packs ? [...packs] : []
 
     const packToValidate = _packs.slice(-1)
+
     try {
-      packSchema.parse({
-        name: packToValidate[0].name,
-        one_month:
-          packToValidate[0].one_month?.toString() === ''
-            ? undefined
-            : packToValidate[0].one_month,
-        three_month:
-          packToValidate[0].three_months?.toString() === ''
-            ? undefined
-            : packToValidate[0].three_months,
-        six_month:
-          packToValidate[0].six_months?.toString() === ''
-            ? undefined
-            : packToValidate[0].six_months,
-        nine_month:
-          packToValidate[0].nine_months?.toString() === ''
-            ? undefined
-            : packToValidate[0].nine_months,
-        one_year:
-          packToValidate[0].one_year?.toString() === ''
-            ? undefined
-            : packToValidate[0].one_year,
-      })
-      if (
-        (!packToValidate[0].one_month ||
-          packToValidate[0].one_month?.toString().length === 0) &&
-        (!packToValidate[0].three_months ||
-          packToValidate[0].three_months?.toString().length === 0) &&
-        (!packToValidate[0].six_months ||
-          packToValidate[0].six_months?.toString().length === 0) &&
-        (!packToValidate[0].nine_months ||
-          packToValidate[0].nine_months?.toString().length === 0) &&
-        (!packToValidate[0].one_year ||
-          packToValidate[0].one_year?.toString().length === 0)
-      )
-        displayToastErrors(["Il faut saisir au moin une tarif d'un mois"])
-      else {
+      // check if at least a pack exist for validation
+      if (packToValidate && packToValidate[0]) {
+        packSchema.parse({
+          name: packToValidate[0].name,
+          one_month:
+            packToValidate[0].one_month?.toString() === ''
+              ? undefined
+              : packToValidate[0].one_month,
+          three_month:
+            packToValidate[0].three_months?.toString() === ''
+              ? undefined
+              : packToValidate[0].three_months,
+          six_month:
+            packToValidate[0].six_months?.toString() === ''
+              ? undefined
+              : packToValidate[0].six_months,
+          nine_month:
+            packToValidate[0].nine_months?.toString() === ''
+              ? undefined
+              : packToValidate[0].nine_months,
+          one_year:
+            packToValidate[0].one_year?.toString() === ''
+              ? undefined
+              : packToValidate[0].one_year,
+        })
+        if (
+          (!packToValidate[0].one_month ||
+            packToValidate[0].one_month?.toString().length === 0) &&
+          (!packToValidate[0].three_months ||
+            packToValidate[0].three_months?.toString().length === 0) &&
+          (!packToValidate[0].six_months ||
+            packToValidate[0].six_months?.toString().length === 0) &&
+          (!packToValidate[0].nine_months ||
+            packToValidate[0].nine_months?.toString().length === 0) &&
+          (!packToValidate[0].one_year ||
+            packToValidate[0].one_year?.toString().length === 0)
+        )
+          displayToastErrors(["Il faut saisir au moin une tarif d'un mois"])
+        else {
+          _packs?.push(emptyPack)
+          setPacks(_packs)
+        }
+      } else {
         _packs?.push(emptyPack)
         setPacks(_packs)
       }
@@ -280,7 +304,6 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                   p[packKey].name = e.target.value
                   setPacks(p)
                 }}
-                //error={packNameError}
               />
             </div>
 
@@ -294,10 +317,11 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 value={packs[packKey].one_month as unknown as string}
                 onChange={(e) => {
                   const p = [...packs]
-                  p[packKey].one_month = e.target.value
+                  p[packKey].one_month =
+                    e.target.value.length === 0 ? undefined : e.target.value
                   setPacks(p)
                 }}
-                // error={oneMonthPriceError}
+                min={1}
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -308,10 +332,11 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 value={packs[packKey].three_months as unknown as string}
                 onChange={(e) => {
                   const p = [...packs]
-                  p[packKey].three_months = e.target.value
+                  p[packKey].three_months =
+                    e.target.value.length === 0 ? undefined : e.target.value
                   setPacks(p)
                 }}
-                // error={threeMonthPriceError}
+                min={1}
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -322,10 +347,11 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 value={packs[packKey].six_months as unknown as string}
                 onChange={(e) => {
                   const p = [...packs]
-                  p[packKey].six_months = e.target.value
+                  p[packKey].six_months =
+                    e.target.value.length === 0 ? undefined : e.target.value
                   setPacks(p)
                 }}
-                // error={sixMonthPriceError}
+                min={1}
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -336,11 +362,13 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 value={packs[packKey].nine_months as unknown as string}
                 onChange={(e) => {
                   const p = [...packs]
-                  p[packKey].nine_months = e.target.value
+
+                  p[packKey].nine_months =
+                    e.target.value.length === 0 ? undefined : e.target.value
+
                   setPacks(p)
                 }}
                 min={1}
-                //  error={nineMonthPriceError}
               />
             </div>
             <div className="flex gap-4 items-center">
@@ -351,10 +379,11 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 value={packs[packKey].one_year as unknown as string}
                 onChange={(e) => {
                   const p = [...packs]
-                  p[packKey].one_year = e.target.value
+                  p[packKey].one_year =
+                    e.target.value.length === 0 ? undefined : e.target.value
                   setPacks(p)
                 }}
-                // error={oneYearPriceError}
+                min={1}
               />
             </div>
           </div>
