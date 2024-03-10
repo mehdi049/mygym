@@ -135,7 +135,7 @@ export type StrapiUserAccount = {
 
 export type GymPackPrice = {
   name?: string
-  description?: string
+  extra_info?: string
   one_month?: number
   three_months?: number
   six_months?: number
@@ -146,6 +146,7 @@ export type GymPackPrice = {
 type GymPrice = {
   subscription_fees: number
   currency: string
+  extra_info?: string
   packs?: GymPackPrice[]
 }
 

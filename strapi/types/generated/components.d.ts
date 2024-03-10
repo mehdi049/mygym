@@ -34,6 +34,7 @@ export interface GymPricesGymPrices extends Schema.Component {
       Attribute.DefaultTo<'TND'>;
     subscription_fees: Attribute.Decimal;
     packs: Attribute.Component<'gym-prices.pack-prices', true>;
+    extra_info: Attribute.Text;
   };
 }
 
@@ -45,7 +46,7 @@ export interface GymPricesPackPrices extends Schema.Component {
   };
   attributes: {
     name: Attribute.String & Attribute.DefaultTo<'Standard'>;
-    description: Attribute.Text;
+    extra_info: Attribute.Text;
     one_month: Attribute.Decimal;
     three_months: Attribute.Decimal;
     six_months: Attribute.Decimal;

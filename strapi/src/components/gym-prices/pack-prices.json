@@ -10,7 +10,7 @@
       "type": "string",
       "default": "Standard"
     },
-    "description": {
+    "extra_info": {
       "type": "text"
     },
     "one_month": {

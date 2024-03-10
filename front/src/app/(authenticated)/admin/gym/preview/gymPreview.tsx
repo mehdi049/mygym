@@ -70,17 +70,37 @@ export default function GymPreview() {
                 <p>
                   Frais d'inscription:{' '}
                   {prices?.subscription_fees + ' ' + prices.currency}
+                  {prices.extra_info && (
+                    <p className="mt-2 text-sm">{prices.extra_info}</p>
+                  )}
                 </p>
                 {prices.packs?.map((pack, key) => {
                   return (
                     <div key={key}>
                       <p className="font-bold">{pack.name}</p>
-                      {pack.one_month && <p>1 mois: {pack.one_month}</p>}
-                      {pack.three_months && <p>3 mois: {pack.three_months}</p>}
-                      {pack.six_months && <p>6 mois: {pack.six_months}</p>}
-                      {pack.nine_months && <p>9 mois: {pack.nine_months}</p>}
-                      {pack.one_year && <p>1 année: {pack.one_year}</p>}
-                      <hr />
+                      {pack.one_month && (
+                        <p>1 mois: {pack.one_month + ' ' + prices.currency}</p>
+                      )}
+                      {pack.three_months && (
+                        <p>
+                          3 mois: {pack.three_months + ' ' + prices.currency}
+                        </p>
+                      )}
+                      {pack.six_months && (
+                        <p>6 mois: {pack.six_months + ' ' + prices.currency}</p>
+                      )}
+                      {pack.nine_months && (
+                        <p>
+                          9 mois: {pack.nine_months + ' ' + prices.currency}
+                        </p>
+                      )}
+                      {pack.one_year && (
+                        <p>1 année: {pack.one_year + ' ' + prices.currency}</p>
+                      )}
+                      {pack.extra_info && (
+                        <p className="mt-2 text-sm">{pack.extra_info}</p>
+                      )}
+                      <hr className="my-2" />
                     </div>
                   )
                 })}

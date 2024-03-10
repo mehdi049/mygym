@@ -17,6 +17,7 @@ import {
   displayToastErrors,
   handleErrors,
 } from '@/lib/errorHandler/errorHandler'
+import { TextAreaField } from '@/components/ui/textAreaField'
 
 export default function UpdateGymPricingForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
@@ -28,7 +29,7 @@ export default function UpdateGymPricingForm() {
 
   const emptyPack: GymPackPrice = {
     name: undefined,
-    description: undefined,
+    extra_info: undefined,
     one_month: undefined,
     three_months: undefined,
     six_months: undefined,
@@ -41,6 +42,9 @@ export default function UpdateGymPricingForm() {
     gym?.prices?.subscription_fees
       ? gym?.prices?.subscription_fees.toString()
       : ''
+  )
+  const [extraInfo, setExtraInfo] = useState<string>(
+    gym?.prices?.extra_info ? gym?.prices?.extra_info : ''
   )
   const [subscribtionPriceError, setSubscribtionPriceError] = useState<string>()
 
@@ -99,6 +103,7 @@ export default function UpdateGymPricingForm() {
           prices: {
             subscription_fees: parseFloat(subscribtionPrice),
             currency: currency,
+            extra_info: extraInfo,
             packs: packs?.filter((pack) => pack.name && pack.name.length > 0),
           },
         },
@@ -248,6 +253,14 @@ export default function UpdateGymPricingForm() {
                 disabled
               />
             </div>
+
+            <div className="flex gap-4">
+              <TextAreaField
+                label="Information additionnelle"
+                value={extraInfo}
+                onChange={(e) => setExtraInfo(e.target.value)}
+              />
+            </div>
           </div>
         </DashboardGroupContainer>
         {packs?.map((pack, key) => {
@@ -302,6 +315,20 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].name = e.target.value
+                  setPacks(p)
+                }}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg font-bold w-40">
+                Information additionnelle
+              </h2>
+
+              <TextAreaField
+                value={packs[packKey].extra_info as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].extra_info = e.target.value
                   setPacks(p)
                 }}
               />
