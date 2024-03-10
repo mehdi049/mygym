@@ -8,6 +8,11 @@ export const unsetToken = () => {
   deleteCookie('token')
 }
 
+export const unsetNavCookies = () => {
+  deleteCookie('dash_navigation')
+  deleteCookie('dash_sub_navigation')
+}
+
 export const getTokenFromLocalCookie = () => {
   return getCookie('token')
 }

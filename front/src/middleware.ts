@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
-import { unsetToken } from './lib/utils/cookies'
+import { unsetNavCookies, unsetToken } from './lib/utils/cookies'
 
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   const tokenObject = request.cookies.get('token')
@@ -12,11 +12,13 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     // redirect to sign in page if token expired
     if (expired) {
       unsetToken()
+      unsetNavCookies()
       return NextResponse.redirect(new URL('/auth?reason=expired', request.url))
     }
   } catch (error) {
     // redirect to sign in page if invalid token
     unsetToken()
+    unsetNavCookies()
     return NextResponse.redirect(
       new URL('/auth?reason=token-error', request.url)
     )

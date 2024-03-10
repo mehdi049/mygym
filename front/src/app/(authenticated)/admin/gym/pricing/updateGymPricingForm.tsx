@@ -5,86 +5,46 @@ import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
 import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
-import { useEffect, useState } from 'react'
-import { ZodError, literal, object, string, union } from 'zod'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { ZodError, coerce, object, string } from 'zod'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
 import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
+import { GymPackPrice } from '@/types/strapi.types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  displayToastErrors,
+  handleErrors,
+} from '@/lib/errorHandler/errorHandler'
 
 export default function UpdateGymPricingForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
   const { isPending, mutate } = useUpdateGymInfo()
 
-  let gym = data?.data.attributes
+  const gym = data?.data.attributes
 
-  let gymId = data?.data.id
+  const gymId = data?.data.id
+
+  const emptyPack: GymPackPrice = {
+    name: undefined,
+    description: undefined,
+    one_month: undefined,
+    three_months: undefined,
+    six_months: undefined,
+    nine_months: undefined,
+    one_year: undefined,
+  }
+  const [packs, setPacks] = useState(gym?.prices?.packs)
 
   const [subscribtionPrice, setSubscribtionPrice] = useState<string>(
     gym?.prices?.subscription_fees
       ? gym?.prices?.subscription_fees.toString()
       : ''
   )
-  const [subscribtionPriceError, setSubscribtionPricePriceError] =
-    useState<string>()
+  const [subscribtionPriceError, setSubscribtionPriceError] = useState<string>()
 
   const [currency, setCurrency] = useState<string>('TND')
-
-  const [oneMonthPrice, setOneMonthPrice] = useState<string>(
-    gym?.prices?.one_month
-      ? (gym?.prices?.one_month?.price as unknown as string)
-      : ''
-  )
-  const [oneMonthPriceError, setOneMonthPriceError] = useState<string>()
-  const [oneMonthExtraInfo, setOneMonthExtraInfo] = useState<string>(
-    gym?.prices?.one_month ? gym?.prices?.one_month?.extra_info : ''
-  )
-  const [oneMonthExtraInfoError, setOneMonthExtraInfoError] = useState<string>()
-
-  const [threeMonthPrice, setThreeMonthPrice] = useState<string>(
-    gym?.prices?.three_months
-      ? (gym?.prices?.three_months?.price as unknown as string)
-      : ''
-  )
-  const [threeMonthPriceError, setThreeMonthPriceError] = useState<string>()
-  const [threeMonthExtraInfo, setThreeMonthExtraInfo] = useState<string>(
-    gym?.prices?.three_months ? gym?.prices?.three_months?.extra_info : ''
-  )
-  const [threeMonthExtraInfoError, setThreeMonthExtraInfoError] =
-    useState<string>()
-
-  const [sixMonthPrice, setSixMonthPrice] = useState<string>(
-    gym?.prices?.six_months
-      ? (gym?.prices?.six_months?.price as unknown as string)
-      : ''
-  )
-  const [sixMonthPriceError, setSixMonthPriceError] = useState<string>()
-  const [sixMonthExtraInfo, setSixMonthExtraInfo] = useState<string>(
-    gym?.prices?.six_months ? gym?.prices?.six_months?.extra_info : ''
-  )
-  const [sixMonthExtraInfoError, setSixMonthExtraInfoError] = useState<string>()
-
-  const [nineMonthPrice, setNineMonthPrice] = useState<string>(
-    gym?.prices?.nine_months
-      ? (gym?.prices?.nine_months?.price as unknown as string)
-      : ''
-  )
-  const [nineMonthPriceError, setNineMonthPriceError] = useState<string>()
-  const [nineMonthExtraInfo, setNineMonthExtraInfo] = useState<string>(
-    gym?.prices?.nine_months ? gym?.prices?.nine_months?.extra_info : ''
-  )
-  const [nineMonthExtraInfoError, setNineMonthExtraInfoError] =
-    useState<string>()
-
-  const [oneYearPrice, setOneYearPrice] = useState<string>(
-    gym?.prices?.one_year
-      ? (gym?.prices?.one_year?.price as unknown as string)
-      : ''
-  )
-  const [oneYearPriceError, setOneYearPriceError] = useState<string>()
-  const [oneYearExtraInfo, setOneYearExtraInfo] = useState<string>(
-    gym?.prices?.one_year ? gym?.prices?.one_year?.extra_info : ''
-  )
-  const [oneYearExtraInfoError, setOneYearExtraInfoError] = useState<string>()
 
   useEffect(() => {
     if (isSuccess) {
@@ -93,159 +53,137 @@ export default function UpdateGymPricingForm() {
           ? gym?.prices?.subscription_fees.toString()
           : ''
       )
-      setOneMonthExtraInfo(
-        gym?.prices?.one_month ? gym?.prices?.one_month?.extra_info : ''
-      )
-
-      setOneMonthPrice(
-        gym?.prices?.one_month
-          ? (gym?.prices?.one_month?.price as unknown as string)
-          : ''
-      )
-      setOneMonthExtraInfo(
-        gym?.prices?.one_month ? gym?.prices?.one_month?.extra_info : ''
-      )
-
-      setThreeMonthPrice(
-        gym?.prices?.three_months
-          ? (gym?.prices?.three_months?.price as unknown as string)
-          : ''
-      )
-      setThreeMonthExtraInfo(
-        gym?.prices?.three_months ? gym?.prices?.three_months?.extra_info : ''
-      )
-
-      setSixMonthPrice(
-        gym?.prices?.six_months
-          ? (gym?.prices?.six_months?.price as unknown as string)
-          : ''
-      )
-      setSixMonthExtraInfo(
-        gym?.prices?.six_months ? gym?.prices?.six_months?.extra_info : ''
-      )
-
-      setNineMonthPrice(
-        gym?.prices?.nine_months
-          ? (gym?.prices?.nine_months?.price as unknown as string)
-          : ''
-      )
-      setNineMonthExtraInfo(
-        gym?.prices?.nine_months ? gym?.prices?.nine_months?.extra_info : ''
-      )
-
-      setOneYearPrice(
-        gym?.prices?.one_year
-          ? (gym?.prices?.one_year?.price as unknown as string)
-          : ''
-      )
-      setOneYearExtraInfo(
-        gym?.prices?.one_year ? gym?.prices?.one_year?.extra_info : ''
-      )
+      setPacks(gym?.prices?.packs)
     }
   }, [isLoading])
 
-  const formSchema = object({
-    name: string().min(1, {
-      message: 'Nom de la salle obligatoire',
-    }),
-    phone: string().min(1, {
-      message: 'Numéro de téléphone obligatoire',
-    }),
-    email: string()
-      .min(1, {
-        message: 'Email obligatoire',
-      })
-      .email({
-        message: 'Email invalid',
+  const subscriptionSchema = object({
+    subscription_fees: coerce
+      .number()
+      .min(1, { message: "Frais d'inscription obligatoire" })
+      .positive({
+        message: "Frais d'inscription invalid",
       }),
-    description: string().optional(),
-    website: union([
-      string().url({
-        message: 'Lien invalid',
-      }),
-      literal(''),
-    ]),
-    city: string().min(1, {
-      message: 'Ville obligatoire',
-    }),
-    zipCode: string().min(1, {
-      message: 'Code postal obligatoire',
-    }),
-    street: string().min(1, {
-      message: 'Nom de rue obligatoire',
-    }),
-    googleMapLink: union([
-      string().startsWith('https://maps.app.goo.gl/', {
-        message: 'Lien vers Google map invalid',
-      }),
-      literal(''),
-    ]),
-    fbLink: union([
-      string().startsWith('https://www.facebook.com/', {
-        message: 'Lien Facebook invalid',
-      }),
-      literal(''),
-    ]),
-    instaLink: union([
-      string().startsWith('https://www.instagram.com/', {
-        message: 'Lien Instagram invalid',
-      }),
-      literal(''),
-    ]),
-    twLink: union([
-      string().startsWith('https://twitter.com/', {
-        message: 'Lien Twitter invalid',
-      }),
-      literal(''),
-    ]),
-    youtubeLink: union([
-      string().startsWith('https://www.youtube.com/', {
-        message: 'Lien Youtube invalid',
-      }),
-      literal(''),
-    ]),
-    liLink: union([
-      string().startsWith('https://www.linkedin.com/', {
-        message: 'Lien LinkedIn invalid',
-      }),
-      literal(''),
-    ]),
   })
 
   const resetErrors = () => {
-    /* setNameError('')
-    setPhoneError('')
-    setEmailError('')*/
+    setSubscribtionPriceError('')
   }
 
   const handleSubmitUpdate = () => {
-    /* try {
+    try {
       resetErrors()
 
-      formSchema.parse({
-        name: name,
-        phone: phone,
-        email: email,
-        description: description,
+      subscriptionSchema.parse({
+        subscription_fees: subscribtionPrice,
       })
 
       mutate({
         gymId: gymId as number,
         gymData: {
-          description: description,
-          name: name,
-          phone: phone,
-          email: email,
+          prices: {
+            subscription_fees: parseFloat(subscribtionPrice),
+            currency: currency,
+            packs: packs?.filter((pack) => pack.name && pack.name.length > 0),
+          },
         },
       })
     } catch (error) {
       if (error instanceof ZodError) {
         const erros = error.errors
-        setNameError(erros.find((err) => err.path.includes('name'))?.message)
-        setPhoneError(erros.find((err) => err.path.includes('phone'))?.message)
-        setEmailError(erros.find((err) => err.path.includes('email'))?.message)
+        setSubscribtionPriceError(
+          erros.find((err) => err.path.includes('subscription_fees'))?.message
+        )
       }
-    }*/
+    }
+  }
+
+  const packSchema = object({
+    name: string()
+      .min(1, {
+        message: 'Nom du pack obligatoire',
+      })
+      .default(''),
+    one_month: coerce
+      .number()
+      .positive({
+        message: "Tarif du '1 mois' est invalid",
+      })
+      .nullish(),
+    three_month: coerce
+      .number()
+      .positive({
+        message: "Tarif du '3 mois' est invalid",
+      })
+      .nullish(),
+    six_month: coerce
+      .number()
+      .positive({
+        message: "Tarif du '6 mois' est invalid",
+      })
+      .nullish(),
+    nine_month: coerce
+      .number()
+      .positive({
+        message: "Tarif du '9 mois' est invalid",
+      })
+      .nullish(),
+    one_year: coerce
+      .number()
+      .positive({
+        message: "Tarif du '1 année' est invalide",
+      })
+      .nullish(),
+  })
+
+  const handleAddPack = () => {
+    let _packs = packs ? [...packs] : []
+
+    const packToValidate = _packs.slice(-1)
+    try {
+      packSchema.parse({
+        name: packToValidate[0].name,
+        one_month:
+          packToValidate[0].one_month?.toString() === ''
+            ? undefined
+            : packToValidate[0].one_month,
+        three_month:
+          packToValidate[0].three_months?.toString() === ''
+            ? undefined
+            : packToValidate[0].three_months,
+        six_month:
+          packToValidate[0].six_months?.toString() === ''
+            ? undefined
+            : packToValidate[0].six_months,
+        nine_month:
+          packToValidate[0].nine_months?.toString() === ''
+            ? undefined
+            : packToValidate[0].nine_months,
+        one_year:
+          packToValidate[0].one_year?.toString() === ''
+            ? undefined
+            : packToValidate[0].one_year,
+      })
+      if (
+        (!packToValidate[0].one_month ||
+          packToValidate[0].one_month?.toString().length === 0) &&
+        (!packToValidate[0].three_months ||
+          packToValidate[0].three_months?.toString().length === 0) &&
+        (!packToValidate[0].six_months ||
+          packToValidate[0].six_months?.toString().length === 0) &&
+        (!packToValidate[0].nine_months ||
+          packToValidate[0].nine_months?.toString().length === 0) &&
+        (!packToValidate[0].one_year ||
+          packToValidate[0].one_year?.toString().length === 0)
+      )
+        displayToastErrors(["Il faut saisir au moin une tarif d'un mois"])
+      else {
+        _packs?.push(emptyPack)
+        setPacks(_packs)
+      }
+    } catch (error) {
+      handleErrors(error)
+    }
   }
 
   if (isLoading) return <LoadingArea />
@@ -276,6 +214,8 @@ export default function UpdateGymPricingForm() {
                 value={subscribtionPrice}
                 onChange={(e) => setSubscribtionPrice(e.target.value)}
                 error={subscribtionPriceError}
+                type="number"
+                min={1}
               />
               <TextField
                 label="devise"
@@ -286,112 +226,140 @@ export default function UpdateGymPricingForm() {
             </div>
           </div>
         </DashboardGroupContainer>
-
-        <DashboardGroupContainer className="mt-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">1 mois</h2>
-
-            <div className="flex gap-4">
-              <TextField
-                label="Prix"
-                value={oneMonthPrice}
-                onChange={(e) => setOneMonthPrice(e.target.value)}
-                error={oneMonthPriceError}
-              />
-              <TextField
-                label="Information additionnelle"
-                value={oneMonthExtraInfo}
-                onChange={(e) => setOneMonthExtraInfo(e.target.value)}
-                error={oneMonthExtraInfoError}
-              />
-            </div>
-          </div>
-        </DashboardGroupContainer>
-
-        <DashboardGroupContainer className="mt-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">3 mois</h2>
-
-            <div className="flex gap-4">
-              <TextField
-                label="Prix"
-                value={threeMonthPrice}
-                onChange={(e) => setThreeMonthPrice(e.target.value)}
-                error={threeMonthPriceError}
-              />
-              <TextField
-                label="Information additionnelle"
-                value={threeMonthExtraInfo}
-                onChange={(e) => setThreeMonthExtraInfo(e.target.value)}
-                error={threeMonthExtraInfoError}
-              />
-            </div>
-          </div>
-        </DashboardGroupContainer>
-
-        <DashboardGroupContainer className="mt-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">6 mois</h2>
-
-            <div className="flex gap-4">
-              <TextField
-                label="Prix"
-                value={sixMonthPrice}
-                onChange={(e) => setSixMonthPrice(e.target.value)}
-                error={sixMonthPriceError}
-              />
-              <TextField
-                label="Information additionnelle"
-                value={sixMonthExtraInfo}
-                onChange={(e) => setSixMonthExtraInfo(e.target.value)}
-                error={sixMonthExtraInfoError}
-              />
-            </div>
-          </div>
-        </DashboardGroupContainer>
-
-        <DashboardGroupContainer className="mt-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">9 mois</h2>
-
-            <div className="flex gap-4">
-              <TextField
-                label="Prix"
-                value={nineMonthPrice}
-                onChange={(e) => setNineMonthPrice(e.target.value)}
-                error={nineMonthPriceError}
-              />
-              <TextField
-                label="Information additionnelle"
-                value={nineMonthExtraInfo}
-                onChange={(e) => setNineMonthExtraInfo(e.target.value)}
-                error={nineMonthExtraInfoError}
-              />
-            </div>
-          </div>
-        </DashboardGroupContainer>
-
-        <DashboardGroupContainer className="mt-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold">1 année</h2>
-
-            <div className="flex gap-4">
-              <TextField
-                label="Prix"
-                value={oneYearPrice}
-                onChange={(e) => setOneYearPrice(e.target.value)}
-                error={oneYearPriceError}
-              />
-              <TextField
-                label="Information additionnelle"
-                value={oneYearExtraInfo}
-                onChange={(e) => setOneYearExtraInfo(e.target.value)}
-                error={oneYearExtraInfoError}
-              />
-            </div>
-          </div>
-        </DashboardGroupContainer>
+        {packs?.map((pack, key) => {
+          return (
+            <Pack key={key} packKey={key} packs={packs} setPacks={setPacks} />
+          )
+        })}
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full mt-8"
+          onClick={() => handleAddPack()}
+        >
+          Ajouter un pack
+        </Button>
       </DashboardBodyContainer>
+    </>
+  )
+}
+
+type PackProps = {
+  packKey: number
+  packs: GymPackPrice[] | undefined
+  setPacks: Dispatch<SetStateAction<GymPackPrice[] | undefined>>
+}
+
+const Pack = ({ packKey, packs, setPacks }: PackProps) => {
+  const handleRemovePack = () => {
+    let p = packs ? [...packs] : undefined
+    p = p?.filter((pack) => pack.name !== (p as GymPackPrice[])[packKey].name)
+    setPacks(p)
+  }
+
+  return (
+    <>
+      {packs && packs.length > 0 && (
+        <DashboardGroupContainer className="mt-8">
+          <div
+            className="bg-gray-200 absolute top-0 right-0 py-2 px-3 rounded-md cursor-pointer hover:bg-gray-300 duration-200"
+            onClick={() => {
+              handleRemovePack()
+            }}
+          >
+            <FontAwesomeIcon icon={faTrash} className="text-black " />
+          </div>
+          <div className="flex flex-col gap-4 mt-8">
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg font-bold w-40">Pack</h2>
+
+              <TextField
+                value={packs[packKey].name as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].name = e.target.value
+                  setPacks(p)
+                }}
+                //error={packNameError}
+              />
+            </div>
+
+            <hr />
+
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg w-40">1 mois</h2>
+
+              <TextField
+                type="number"
+                value={packs[packKey].one_month as unknown as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].one_month = e.target.value
+                  setPacks(p)
+                }}
+                // error={oneMonthPriceError}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg w-40">3 mois</h2>
+
+              <TextField
+                type="number"
+                value={packs[packKey].three_months as unknown as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].three_months = e.target.value
+                  setPacks(p)
+                }}
+                // error={threeMonthPriceError}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg w-40">6 mois</h2>
+
+              <TextField
+                type="number"
+                value={packs[packKey].six_months as unknown as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].six_months = e.target.value
+                  setPacks(p)
+                }}
+                // error={sixMonthPriceError}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg w-40">9 mois</h2>
+
+              <TextField
+                type="number"
+                value={packs[packKey].nine_months as unknown as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].nine_months = e.target.value
+                  setPacks(p)
+                }}
+                min={1}
+                //  error={nineMonthPriceError}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <h2 className="text-lg w-40">1 année</h2>
+
+              <TextField
+                type="number"
+                value={packs[packKey].one_year as unknown as string}
+                onChange={(e) => {
+                  const p = [...packs]
+                  p[packKey].one_year = e.target.value
+                  setPacks(p)
+                }}
+                // error={oneYearPriceError}
+              />
+            </div>
+          </div>
+        </DashboardGroupContainer>
+      )}
     </>
   )
 }

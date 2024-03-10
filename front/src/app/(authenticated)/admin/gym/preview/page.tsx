@@ -1,5 +1,4 @@
 import { queryKeys } from '@/lib/const/queryKeys'
-import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
 import {
   HydrationBoundary,
   QueryClient,

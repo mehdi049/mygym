@@ -45,3 +45,9 @@ export const displaySuccessToast = (msg: string) => {
     position: 'top-right',
   })
 }
+
+export const removeItemByKey = (arr: unknown[], key: number) => {
+  if (key > -1) arr.splice(key, 1)
+
+  return arr
+}

@@ -4,6 +4,11 @@ export type StrapiErrorResponseError = {
   name: string
   status: number
 }
+
+export type StrapiQueryResult<T> = {
+  data: T[]
+}
+
 export type StrapiResponse<T> = {
   data: T
   error: StrapiErrorResponseError
@@ -128,19 +133,20 @@ export type StrapiUserAccount = {
   id: number
 }
 
-type GymPriceDetails = {
-  price: number
-  extra_info: string
+export type GymPackPrice = {
+  name?: string
+  description?: string
+  one_month?: number
+  three_months?: number
+  six_months?: number
+  nine_months?: number
+  one_year?: number
 }
 
 type GymPrice = {
   subscription_fees: number
   currency: string
-  one_month?: GymPriceDetails
-  three_months?: GymPriceDetails
-  six_months?: GymPriceDetails
-  nine_months?: GymPriceDetails
-  one_year?: GymPriceDetails
+  packs?: GymPackPrice[]
 }
 
 export type StrapiGym = {
@@ -184,15 +190,11 @@ export type StrapiUserInfo = {
   id: number
 }
 
-export type StrapiQueryResult<T> = {
-  data: T[]
-}
-
 export type StrapiGymData = {
-  description: string
-  name: string
-  phone: string
-  email: string
+  description?: string
+  name?: string
+  phone?: string
+  email?: string
   website?: string
   address?: StrapiAddress
   map?: StrapiMap

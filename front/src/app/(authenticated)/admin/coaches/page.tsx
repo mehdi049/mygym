@@ -1,6 +1,3 @@
-import { ROUTES } from '@/routes'
-import Link from 'next/link'
-
 export default function Coaches() {
   return (
     <div>

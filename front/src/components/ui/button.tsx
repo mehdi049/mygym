@@ -59,7 +59,7 @@ const Button = ({
         break
       case 'secondary':
         styleClass +=
-          'text-gray-600 hover:text-gray-900 bg-white border border-gray-100 hover:bg-gray-100 cursor-pointer '
+          'text-gray-600 hover:text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 cursor-pointer '
         break
       default:
         break

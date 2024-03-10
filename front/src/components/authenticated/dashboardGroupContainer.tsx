@@ -5,5 +5,9 @@ export default function DashboardGroupContainer({
   children: React.ReactNode
   className?: string
 }>) {
-  return <div className={'bg-gray-100 p-4 sm:p-8 ' + className}>{children}</div>
+  return (
+    <div className={'bg-gray-100 p-4 sm:p-8 relative ' + className}>
+      {children}
+    </div>
+  )
 }

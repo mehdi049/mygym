@@ -6,7 +6,7 @@ import usegetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authentica
 import { setCookie } from 'cookies-next'
 
 export default function Profile() {
-  const { data, isLoading, isError, isSuccess } =
+  const { data, isLoading, isError } =
     usegetUserInfoWithGymBaiscInfoAndLogoByAccountId()
 
   if (isLoading) return <LoadingArea />

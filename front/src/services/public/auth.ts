@@ -1,5 +1,5 @@
 import { ROUTES } from '@/routes'
-import { unsetToken } from '@/lib/utils/cookies'
+import { unsetNavCookies, unsetToken } from '@/lib/utils/cookies'
 import { API_ENDPOINT } from '@/lib/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
 import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
@@ -29,5 +29,6 @@ export const getSignedInAccountService = async () => {
 
 export const signOut = () => {
   unsetToken()
+  unsetNavCookies()
   if (typeof window !== 'undefined') document.location.href = ROUTES.AUTH
 }

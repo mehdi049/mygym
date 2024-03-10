@@ -10,6 +10,8 @@ export interface TextFieldProps {
   rightIcon?: React.ReactNode
   disabled?: boolean
   id?: string
+  min?: number
+  max?: number
   onChange?: (e: any) => void
 }
 export const TextField = ({
@@ -24,13 +26,15 @@ export const TextField = ({
   rightIcon,
   disabled,
   id,
+  min,
+  max,
   onChange,
 }: TextFieldProps) => {
   return (
     <div className="w-full">
       {label && <label className="mb-2 block text-sm">{label}</label>}
       <input
-        type="text"
+        type={type}
         value={value}
         name={name}
         placeholder={placeholder}
@@ -41,6 +45,8 @@ export const TextField = ({
         id={id}
         disabled={disabled}
         onChange={onChange}
+        min={min}
+        max={max}
       />
       {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
       {helper && <p className="mt-2 text-sm text-gray-600">{helper}</p>}

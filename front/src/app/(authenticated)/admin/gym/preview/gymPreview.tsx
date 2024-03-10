@@ -11,11 +11,11 @@ import Image from 'next/image'
 export default function GymPreview() {
   const { data, isLoading, isError } = useGetGymInfo()
 
-  let gym = data?.data.attributes
-  let gymId = data?.data.id
-  let address = gym?.address
-  let map = gym?.map
-  let socialMedia = gym?.social_media
+  const gym = data?.data.attributes
+  const gymId = data?.data.id
+  const address = gym?.address
+  const map = gym?.map
+  const socialMedia = gym?.social_media
 
   if (isLoading) return <LoadingArea />
 

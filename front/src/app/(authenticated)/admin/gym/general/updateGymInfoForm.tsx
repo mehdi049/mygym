@@ -17,11 +17,11 @@ export default function UpdateGymInfoForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
   const { isPending, mutate } = useUpdateGymInfo()
 
-  let gym = data?.data.attributes
-  let gymId = data?.data.id
-  let address = gym?.address
-  let map = gym?.map
-  let socialMedia = gym?.social_media
+  const gym = data?.data.attributes
+  const gymId = data?.data.id
+  const address = gym?.address
+  const map = gym?.map
+  const socialMedia = gym?.social_media
 
   const [name, setName] = useState<string>(gym?.name as string)
   const [nameError, setNameError] = useState<string>()

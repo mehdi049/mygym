@@ -19,8 +19,8 @@ const useUpdateGymInfo = () => {
       if (response) {
         displaySuccessToast('Information mis à jour avec succés')
         const queryClient = new QueryClient()
-        //queryClient.refetchQueries({ queryKey: [queryKeys.userInfo] })
-        queryClient.invalidateQueries({ queryKey: [queryKeys.userInfo] })
+        //queryClient.refetchQueries({ queryKey: [queryKeys.gymInfo] })
+        queryClient.invalidateQueries({ queryKey: [queryKeys.gymInfo] })
       }
     },
   })

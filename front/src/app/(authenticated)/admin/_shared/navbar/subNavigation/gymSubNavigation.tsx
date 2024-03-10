@@ -1,4 +1,5 @@
 'use client'
+
 import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authenticated/useGetUserInfo'
 import { ROUTES } from '@/routes'
 import { getCookie, setCookie } from 'cookies-next'
@@ -15,7 +16,7 @@ const SUB_NAVIGATION = {
 export const GymSubNavigation = () => {
   const selectedSubNavCookie = getCookie('dash_sub_navigation')
 
-  const { data, isLoading } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
+  const { data } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
   const [selectedSubNav, setSelectedSubNav] = useState<string>(
     selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )
