@@ -42,10 +42,11 @@ export interface GymComponentsOpenClose extends Schema.Component {
   collectionName: 'components_gym_components_open_closes';
   info: {
     displayName: 'open-close';
+    description: '';
   };
   attributes: {
-    open: Attribute.Time;
-    close: Attribute.Time;
+    open: Attribute.Time & Attribute.DefaultTo<'06:00'>;
+    close: Attribute.Time & Attribute.DefaultTo<'23:00'>;
   };
 }
 

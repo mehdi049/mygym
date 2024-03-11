@@ -1,6 +1,7 @@
 export type SelectOption = {
   label: string
   value: string | number
+  disabled?: boolean
 }
 type SelectProps = {
   value: string | number
@@ -11,7 +12,7 @@ type SelectProps = {
   error?: string
   disabled?: boolean
   id?: string
-  onChange: (e: any) => void
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 export const Select = ({
   value,
@@ -44,6 +45,7 @@ export const Select = ({
               key={key}
               value={option.value}
               selected={value === option.value}
+              disabled={option.disabled}
             >
               {option.label}
             </option>

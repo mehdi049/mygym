@@ -71,7 +71,7 @@ export default function UpdateGymLogoForm({
         ref={refFile}
         onChange={(e) => {
           const reader = new FileReader()
-          reader.onload = function (event) {
+          reader.onload = function () {
             if (e.target.files) {
               setImageFile(e.target.files[0])
               setImageUri(

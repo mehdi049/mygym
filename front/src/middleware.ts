@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import type { NextFetchEvent, NextRequest } from 'next/server'
+import type { /*NextFetchEvent,*/ NextRequest } from 'next/server'
 import { unsetNavCookies, unsetToken } from './lib/utils/cookies'
 
-export function middleware(request: NextRequest, event: NextFetchEvent) {
+export function middleware(request: NextRequest /*, event: NextFetchEvent*/) {
   const tokenObject = request.cookies.get('token')
   if (!tokenObject || !tokenObject.value)
     return NextResponse.redirect(new URL('/auth', request.url))

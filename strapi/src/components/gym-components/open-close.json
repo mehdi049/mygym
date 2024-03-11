@@ -1,15 +1,18 @@
 {
   "collectionName": "components_gym_components_open_closes",
   "info": {
-    "displayName": "open-close"
+    "displayName": "open-close",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "open": {
-      "type": "time"
+      "type": "time",
+      "default": "06:00"
     },
     "close": {
-      "type": "time"
+      "type": "time",
+      "default": "23:00"
     }
   }
 }

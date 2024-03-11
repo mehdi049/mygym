@@ -12,7 +12,7 @@ export type TextFieldProps = {
   id?: string
   min?: number
   max?: number
-  onChange?: (e: any) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 export const TextField = ({
   value,
@@ -22,8 +22,8 @@ export const TextField = ({
   name,
   helper,
   error,
-  leftIcon,
-  rightIcon,
+  //leftIcon,
+  //rightIcon,
   disabled,
   id,
   min,

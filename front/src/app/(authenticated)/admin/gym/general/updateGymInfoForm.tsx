@@ -57,43 +57,43 @@ export default function UpdateGymInfoForm() {
     openTime?.monday?.open?.toString() as string
   )
   const [closeTimeMonday, setCloseTimeMonday] = useState<string>(
-    openTime?.monday?.open?.toString() as string
+    openTime?.monday?.close?.toString() as string
   )
   const [openTimeTuesday, setOpenTimeTuesday] = useState<string>(
     openTime?.tuesday?.open?.toString() as string
   )
   const [closeTimeTuesday, setCloseTimeTuesday] = useState<string>(
-    openTime?.tuesday?.open?.toString() as string
+    openTime?.tuesday?.close?.toString() as string
   )
   const [openTimeWednesday, setOpenTimeWednesday] = useState<string>(
     openTime?.wednesday?.open?.toString() as string
   )
   const [closeTimeWednesday, setCloseTimeWednesday] = useState<string>(
-    openTime?.wednesday?.open?.toString() as string
+    openTime?.wednesday?.close?.toString() as string
   )
   const [openTimeThursday, setOpenTimeThursday] = useState<string>(
     openTime?.thursday?.open?.toString() as string
   )
   const [closeTimeThursday, setCloseTimeThursday] = useState<string>(
-    openTime?.thursday?.open?.toString() as string
+    openTime?.thursday?.close?.toString() as string
   )
   const [openTimeFriday, setOpenTimeFriday] = useState<string>(
     openTime?.friday?.open?.toString() as string
   )
   const [closeTimeFriday, setCloseTimeFriday] = useState<string>(
-    openTime?.friday?.open?.toString() as string
+    openTime?.friday?.close?.toString() as string
   )
   const [openTimeSaturday, setOpenTimeSaturday] = useState<string>(
     openTime?.saturday?.open?.toString() as string
   )
   const [closeTimeSaturday, setCloseTimeSaturday] = useState<string>(
-    openTime?.saturday?.open?.toString() as string
+    openTime?.saturday?.close?.toString() as string
   )
   const [openTimeSunday, setOpenTimeSunday] = useState<string>(
     openTime?.sunday?.open?.toString() as string
   )
   const [closeTimeSunday, setCloseTimeSunday] = useState<string>(
-    openTime?.sunday?.open?.toString() as string
+    openTime?.sunday?.close?.toString() as string
   )
 
   const [fbLink, setFbLink] = useState<string>(socialMedia?.facebook as string)
@@ -126,19 +126,19 @@ export default function UpdateGymInfoForm() {
       setGoogleMapLink(map?.link as string)
 
       setOpenTimeMonday(openTime?.monday?.open?.toString() as string)
-      setCloseTimeMonday(openTime?.monday?.open?.toString() as string)
+      setCloseTimeMonday(openTime?.monday?.close?.toString() as string)
       setOpenTimeTuesday(openTime?.tuesday?.open?.toString() as string)
-      setCloseTimeTuesday(openTime?.tuesday?.open?.toString() as string)
+      setCloseTimeTuesday(openTime?.tuesday?.close?.toString() as string)
       setOpenTimeWednesday(openTime?.wednesday?.open?.toString() as string)
-      setCloseTimeWednesday(openTime?.wednesday?.open?.toString() as string)
+      setCloseTimeWednesday(openTime?.wednesday?.close?.toString() as string)
       setOpenTimeThursday(openTime?.thursday?.open?.toString() as string)
-      setCloseTimeThursday(openTime?.thursday?.open?.toString() as string)
+      setCloseTimeThursday(openTime?.thursday?.close?.toString() as string)
       setOpenTimeFriday(openTime?.friday?.open?.toString() as string)
-      setCloseTimeFriday(openTime?.friday?.open?.toString() as string)
+      setCloseTimeFriday(openTime?.friday?.close?.toString() as string)
       setOpenTimeSaturday(openTime?.saturday?.open?.toString() as string)
-      setCloseTimeSaturday(openTime?.saturday?.open?.toString() as string)
+      setCloseTimeSaturday(openTime?.saturday?.close?.toString() as string)
       setOpenTimeSunday(openTime?.sunday?.open?.toString() as string)
-      setCloseTimeSunday(openTime?.sunday?.open?.toString() as string)
+      setCloseTimeSunday(openTime?.sunday?.close?.toString() as string)
 
       setFbLink(socialMedia?.facebook as string)
       setInstaLink(socialMedia?.instagram as string)
@@ -147,6 +147,16 @@ export default function UpdateGymInfoForm() {
       setLiLink(socialMedia?.linkedin as string)
     }
   }, [isLoading])
+
+  useEffect(() => {
+    if (timeOptions.length === 0)
+      [...Array(24).keys()].map((x) => {
+        return timeOptions.push({
+          label: doubleDigitDisplay(x.toString()) + ':00',
+          value: doubleDigitDisplay(x.toString()),
+        })
+      })
+  }, [])
 
   const formSchema = object({
     name: string().min(1, {
@@ -320,13 +330,6 @@ export default function UpdateGymInfoForm() {
     }
   }
 
-  ;[...Array(24).keys()].map((x) => {
-    return timeOptions.push({
-      label: doubleDigitDisplay(x.toString()),
-      value: x,
-    })
-  })
-
   if (isLoading) return <LoadingArea />
 
   if (isError) return <ErrorArea />
@@ -444,128 +447,128 @@ export default function UpdateGymInfoForm() {
           <div className="flex flex-col gap-4">
             <h2 className="text-lg font-bold">Horraire d'ouverture</h2>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Lundi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Lundi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeMonday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeMonday}
+                  value={openTimeMonday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeMonday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeMonday}
+                  value={closeTimeMonday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Mardi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Mardi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeTuesday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeTuesday}
+                  value={openTimeTuesday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeTuesday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeTuesday}
+                  value={closeTimeTuesday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Mercredi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Mercredi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeWednesday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeWednesday}
+                  value={openTimeWednesday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeWednesday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeWednesday}
+                  value={closeTimeWednesday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Jeudi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Jeudi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeThursday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeThursday}
+                  value={openTimeThursday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeThursday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeThursday}
+                  value={closeTimeThursday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Vendredi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Vendredi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeFriday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeFriday}
+                  value={openTimeFriday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeFriday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeFriday}
+                  value={closeTimeFriday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Samedi</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Samedi</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeSaturday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeSaturday}
+                  value={openTimeSaturday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeSaturday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeSaturday}
+                  value={closeTimeSaturday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <p className="font-bold w-full max-w-20">Dimanche</p>
-              <div className="w-full max-w-20">
+              <p className="font-bold w-full max-w-24">Dimanche</p>
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setOpenTimeSunday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeSunday}
+                  value={openTimeSunday?.toString().substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
-              <div className="w-full max-w-20">
+              <div className="w-full max-w-24">
                 <Select
-                  onChange={() => {}}
+                  onChange={(e) => setCloseTimeSunday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeSunday}
+                  value={closeTimeSunday?.toString().substring(0, 2)}
                 />
               </div>
             </div>
