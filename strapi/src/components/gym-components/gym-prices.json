@@ -21,7 +21,7 @@
     "packs": {
       "type": "component",
       "repeatable": true,
-      "component": "gym-prices.pack-prices"
+      "component": "gym-components.pack-prices"
     },
     "extra_info": {
       "type": "text"

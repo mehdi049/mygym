@@ -807,8 +807,9 @@ export interface ApiGymGym extends Schema.CollectionType {
     >;
     website: Attribute.String;
     email: Attribute.String;
-    prices: Attribute.Component<'gym-prices.gym-prices'>;
+    prices: Attribute.Component<'gym-components.gym-prices'>;
     slug: Attribute.UID<'api::gym.gym', 'name'>;
+    open_time: Attribute.Component<'gym-components.open-time'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &

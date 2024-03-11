@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_gym_components_open_times",
+  "info": {
+    "displayName": "open-time"
+  },
+  "options": {},
+  "attributes": {
+    "monday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "tuesday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "wednesday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "thursday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "friday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "saturday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    },
+    "sunday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-close"
+    }
+  }
+}

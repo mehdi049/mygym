@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_gym_components_open_closes",
+  "info": {
+    "displayName": "open-close"
+  },
+  "options": {},
+  "attributes": {
+    "open": {
+      "type": "time"
+    },
+    "close": {
+      "type": "time"
+    }
+  }
+}

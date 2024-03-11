@@ -23,7 +23,7 @@ export interface AddressMap extends Schema.Component {
   };
 }
 
-export interface GymPricesGymPrices extends Schema.Component {
+export interface GymComponentsGymPrices extends Schema.Component {
   collectionName: 'components_gym_price_gym_prices';
   info: {
     displayName: 'gym-prices';
@@ -33,12 +33,39 @@ export interface GymPricesGymPrices extends Schema.Component {
     currency: Attribute.Enumeration<['TND', 'EUR', 'USD']> &
       Attribute.DefaultTo<'TND'>;
     subscription_fees: Attribute.Decimal;
-    packs: Attribute.Component<'gym-prices.pack-prices', true>;
+    packs: Attribute.Component<'gym-components.pack-prices', true>;
     extra_info: Attribute.Text;
   };
 }
 
-export interface GymPricesPackPrices extends Schema.Component {
+export interface GymComponentsOpenClose extends Schema.Component {
+  collectionName: 'components_gym_components_open_closes';
+  info: {
+    displayName: 'open-close';
+  };
+  attributes: {
+    open: Attribute.Time;
+    close: Attribute.Time;
+  };
+}
+
+export interface GymComponentsOpenTime extends Schema.Component {
+  collectionName: 'components_gym_components_open_times';
+  info: {
+    displayName: 'open-time';
+  };
+  attributes: {
+    monday: Attribute.Component<'gym-components.open-close'>;
+    tuesday: Attribute.Component<'gym-components.open-close'>;
+    wednesday: Attribute.Component<'gym-components.open-close'>;
+    thursday: Attribute.Component<'gym-components.open-close'>;
+    friday: Attribute.Component<'gym-components.open-close'>;
+    saturday: Attribute.Component<'gym-components.open-close'>;
+    sunday: Attribute.Component<'gym-components.open-close'>;
+  };
+}
+
+export interface GymComponentsPackPrices extends Schema.Component {
   collectionName: 'components_gym_prices_pack_prices';
   info: {
     displayName: 'pack-prices';
@@ -75,8 +102,10 @@ declare module '@strapi/types' {
     export interface Components {
       'address.address': AddressAddress;
       'address.map': AddressMap;
-      'gym-prices.gym-prices': GymPricesGymPrices;
-      'gym-prices.pack-prices': GymPricesPackPrices;
+      'gym-components.gym-prices': GymComponentsGymPrices;
+      'gym-components.open-close': GymComponentsOpenClose;
+      'gym-components.open-time': GymComponentsOpenTime;
+      'gym-components.pack-prices': GymComponentsPackPrices;
       'social-media-links.social-media-links': SocialMediaLinksSocialMediaLinks;
     }
   }

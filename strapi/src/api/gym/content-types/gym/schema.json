@@ -59,11 +59,16 @@
     "prices": {
       "type": "component",
       "repeatable": false,
-      "component": "gym-prices.gym-prices"
+      "component": "gym-components.gym-prices"
     },
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "open_time": {
+      "type": "component",
+      "repeatable": false,
+      "component": "gym-components.open-time"
     }
   }
 }
