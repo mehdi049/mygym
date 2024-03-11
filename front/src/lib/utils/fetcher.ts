@@ -77,7 +77,7 @@ export const fetcher = <T>({
 
 type fetcherMediaProps = {
   url: string
-  body: any
+  body: BodyInit
   token?: string
 }
 export const fetcherMedia = <T>({ url, body, token }: fetcherMediaProps) => {

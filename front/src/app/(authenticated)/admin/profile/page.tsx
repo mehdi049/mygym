@@ -11,12 +11,12 @@ import { queryKeys } from '@/lib/const/queryKeys'
 import { cookies } from 'next/headers'
 
 export default async function Page() {
-  const token = getCookie('gym', { cookies })
+  const token = getCookie('token', { cookies })
   const accountId = getCurrentAccountIdFromToken(token)
 
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery({
-    queryKey: [queryKeys.gymInfo],
+    queryKey: [queryKeys.accountInfo, accountId, token],
     queryFn: async () =>
       getUserInfoWithGymBaiscInfoAndLogoByAccountIdService({
         accountId: accountId,

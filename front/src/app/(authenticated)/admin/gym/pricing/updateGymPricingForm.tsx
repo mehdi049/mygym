@@ -161,7 +161,7 @@ export default function UpdateGymPricingForm() {
   })
 
   const handleAddPack = () => {
-    let _packs = packs ? [...packs] : []
+    const _packs = packs ? [...packs] : []
 
     const packToValidate = _packs.slice(-1)
 

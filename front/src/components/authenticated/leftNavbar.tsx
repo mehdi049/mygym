@@ -1,9 +1,7 @@
-import { LeftSubSidebar } from './leftSubNavbar'
-
-type leftSidebarProps = {
+type LeftSidebarProps = {
   children?: React.ReactNode
 }
-export const LeftSidebar = ({ children }: leftSidebarProps) => {
+export const LeftSidebar = ({ children }: LeftSidebarProps) => {
   return (
     <>
       <div>

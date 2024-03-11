@@ -14,7 +14,7 @@ export default async function Page() {
 
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery({
-    queryKey: [queryKeys.userInfo],
+    queryKey: [queryKeys.gymInfo, gymId],
     queryFn: async () =>
       getGymByIdService({
         id: parseInt(gymId as string),

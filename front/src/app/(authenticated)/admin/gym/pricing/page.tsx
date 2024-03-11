@@ -1,5 +1,4 @@
 import { queryKeys } from '@/lib/const/queryKeys'
-import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
 import {
   HydrationBoundary,
   QueryClient,
@@ -15,7 +14,7 @@ export default async function Page() {
 
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery({
-    queryKey: [queryKeys.userInfo],
+    queryKey: [queryKeys.gymInfo, gymId],
     queryFn: async () =>
       getGymByIdService({
         id: parseInt(gymId as string),

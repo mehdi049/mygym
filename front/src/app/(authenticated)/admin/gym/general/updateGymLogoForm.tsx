@@ -19,7 +19,6 @@ export default function UpdateGymLogoForm({
 }: updateGymLogoFormProps) {
   const {
     data,
-    isPending: isPendingUpload,
     mutate: mutateUpload,
     isSuccess: isSuccessUpload,
   } = useUpdateGymLogo({

@@ -5,7 +5,7 @@ import { userRoleNames } from '@/lib/const/constant'
 import { AdminNavigation } from './admin/_shared/navbar/adminNavigation'
 
 export default function Navigation() {
-  const { data, isLoading, isError, isSuccess } = useGetUserMe()
+  const { data } = useGetUserMe()
   /*
   if (isLoading) return <LoadingArea />
 

@@ -12,7 +12,7 @@ const SUB_NAVIGATION = {
 }
 export const MyProfileSubNavigation = () => {
   const selectedSubNavCookie = getCookie('dash_sub_navigation')
-  const { data, isLoading } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
+  const { data } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
   const [selectedSubNav, setSelectedSubNav] = useState<string>(
     selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )

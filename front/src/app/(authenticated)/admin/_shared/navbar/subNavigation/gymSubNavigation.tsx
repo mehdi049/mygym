@@ -21,7 +21,8 @@ export const GymSubNavigation = () => {
     selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )
 
-  let gym = data?.data[0].attributes.gym?.data?.attributes
+  const gym = data?.data[0].attributes.gym?.data?.attributes
+
   const linkClass =
     'block w-full px-4 py-2 hover:font-bold hover:bg-gray-200 duration-100 '
 

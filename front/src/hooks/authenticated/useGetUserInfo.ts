@@ -8,7 +8,7 @@ import { queryKeys } from '@/lib/const/queryKeys'
 const useGetUserInfoWithGymBaiscInfoAndLogoByAccountId = () => {
   const accountId = getCurrentAccountIdFromToken()
   return useQuery({
-    queryKey: [queryKeys.userInfo],
+    queryKey: [queryKeys.userInfo, accountId],
     queryFn: async () =>
       getUserInfoWithGymBaiscInfoAndLogoByAccountIdService({
         accountId: accountId,

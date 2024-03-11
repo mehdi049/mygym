@@ -28,7 +28,7 @@ const handleFetchErrors = async (error: Response) => {
   displayToastErrors(errors)
 }
 
-const handleStrapiErrors = (error: StrapiResponse<any>) => {
+const handleStrapiErrors = (error: StrapiResponse<unknown>) => {
   let errors: string[] = []
   if (error) {
     const strapiError: StrapiErrorResponseError = error.error
@@ -48,7 +48,7 @@ const handleStrapiErrors = (error: StrapiResponse<any>) => {
 }
 
 const handleZodErrors = (error: ZodError) => {
-  let errors: string[] = []
+  const errors: string[] = []
   error.errors.forEach((err) => {
     errors.push(err.message)
   })

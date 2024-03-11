@@ -15,7 +15,7 @@ import useGetGymInfo from '@/hooks/authenticated/gym/useGetGymInfo'
 import { Select, SelectOption } from '@/components/ui/select'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
 
-let timeOptions: SelectOption[] = []
+const timeOptions: SelectOption[] = []
 
 export default function UpdateGymInfoForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()

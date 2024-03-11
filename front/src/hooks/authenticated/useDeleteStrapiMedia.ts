@@ -9,7 +9,7 @@ const useDeleteStrapiMedia = () => {
     onError: (error) => {
       console.log(error)
     },
-    onSuccess: (response) => {
+    onSuccess: () => {
       console.log('strapi media deleted after update')
     },
   })

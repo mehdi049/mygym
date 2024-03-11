@@ -8,7 +8,7 @@ import { getCookie } from 'cookies-next'
 const useGetGymInfo = () => {
   const gymId = getCookie('gym')
   return useQuery({
-    queryKey: [queryKeys.gymInfo],
+    queryKey: [queryKeys.gymInfo, gymId],
     queryFn: async () => getGymByIdService({ id: parseInt(gymId as string) }),
   })
 }
