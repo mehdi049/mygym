@@ -4,12 +4,12 @@ import Button from '@/components/ui/button'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
-import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
+import useUpdateGymInfo from '@/hooks/authenticated/gym/useUpdateGymInfo'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ZodError, coerce, object, string } from 'zod'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
-import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
+import useGetGymInfo from '@/hooks/authenticated/gym/useGetGymInfo'
 import { GymPackPrice } from '@/types/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +19,16 @@ import {
 } from '@/lib/errorHandler/errorHandler'
 import { TextAreaField } from '@/components/ui/textAreaField'
 
+const emptyPack: GymPackPrice = {
+  name: undefined,
+  extra_info: undefined,
+  one_month: undefined,
+  three_months: undefined,
+  six_months: undefined,
+  nine_months: undefined,
+  one_year: undefined,
+}
+
 export default function UpdateGymPricingForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
   const { isPending, mutate } = useUpdateGymInfo()
@@ -27,15 +37,6 @@ export default function UpdateGymPricingForm() {
 
   const gymId = data?.data.id
 
-  const emptyPack: GymPackPrice = {
-    name: undefined,
-    extra_info: undefined,
-    one_month: undefined,
-    three_months: undefined,
-    six_months: undefined,
-    nine_months: undefined,
-    one_year: undefined,
-  }
   const [packs, setPacks] = useState(gym?.prices?.packs)
 
   const [subscribtionPrice, setSubscribtionPrice] = useState<string>(
@@ -57,6 +58,7 @@ export default function UpdateGymPricingForm() {
           ? gym?.prices?.subscription_fees.toString()
           : ''
       )
+      setExtraInfo(gym?.prices?.extra_info ? gym?.prices?.extra_info : '')
       setPacks(gym?.prices?.packs)
     }
   }, [isLoading])

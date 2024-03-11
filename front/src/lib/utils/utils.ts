@@ -51,3 +51,9 @@ export const removeItemByKey = (arr: unknown[], key: number) => {
 
   return arr
 }
+
+export const doubleDigitDisplay = (digit: string | string) => {
+  if (digit.toString().length < 2) return '0' + digit
+
+  return digit
+}

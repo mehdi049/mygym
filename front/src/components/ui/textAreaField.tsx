@@ -2,7 +2,6 @@ import { TextFieldProps } from './textField'
 
 export const TextAreaField = ({
   value,
-  type,
   placeholder,
   label,
   name,

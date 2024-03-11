@@ -5,7 +5,6 @@ import {
   StrapiGymData,
   StrapiGymDataMedia,
   StrapiResponse,
-  StrapiUserMe,
 } from '@/types/strapi.types'
 
 type getGymByIdServiceProps = {
@@ -17,7 +16,7 @@ export const getGymByIdService = ({ id }: getGymByIdServiceProps) => {
       API_ENDPOINT.STRAPI +
       '/gyms/' +
       id +
-      '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*',
+      '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*&populate[open_time][populate]=*',
     auth: true,
   })
 }
@@ -30,9 +29,9 @@ export const updateGymInfoService = ({
   gymId,
   gymData,
 }: updateGymInfoServiceProps) => {
-  return fetcher<StrapiUserMe>({
+  return fetcher<StrapiGymData>({
     url: API_ENDPOINT.STRAPI + '/gyms/' + gymId,
     method: 'PUT',
-    body: { data: gymData },
+    body: { data: gymData } as unknown as BodyInit,
   })
 }

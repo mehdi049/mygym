@@ -1,4 +1,4 @@
-export interface TextFieldProps {
+export type TextFieldProps = {
   value: string
   type?: string
   placeholder?: string
@@ -6,8 +6,8 @@ export interface TextFieldProps {
   label?: string
   helper?: string
   error?: string
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
+  leftIcon?: JSX.Element
+  rightIcon?: JSX.Element
   disabled?: boolean
   id?: string
   min?: number

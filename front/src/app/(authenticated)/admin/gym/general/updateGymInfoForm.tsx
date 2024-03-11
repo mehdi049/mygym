@@ -4,14 +4,18 @@ import Button from '@/components/ui/button'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
 import { TextField } from '@/components/ui/textField'
-import useUpdateGymInfo from '@/hooks/authenticated/useUpdateGymInfo'
+import useUpdateGymInfo from '@/hooks/authenticated/gym/useUpdateGymInfo'
 import { useEffect, useState } from 'react'
 import UpdateGymLogoForm from './updateGymLogoForm'
 import { ZodError, literal, object, string, union } from 'zod'
 import { TextAreaField } from '@/components/ui/textAreaField'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
-import useGetGymInfo from '@/hooks/authenticated/useGetGymInfo'
+import useGetGymInfo from '@/hooks/authenticated/gym/useGetGymInfo'
+import { Select, SelectOption } from '@/components/ui/select'
+import { doubleDigitDisplay } from '@/lib/utils/utils'
+
+let timeOptions: SelectOption[] = []
 
 export default function UpdateGymInfoForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
@@ -22,6 +26,7 @@ export default function UpdateGymInfoForm() {
   const address = gym?.address
   const map = gym?.map
   const socialMedia = gym?.social_media
+  const openTime = gym?.open_time
 
   const [name, setName] = useState<string>(gym?.name as string)
   const [nameError, setNameError] = useState<string>()
@@ -47,6 +52,49 @@ export default function UpdateGymInfoForm() {
     map?.link as string
   )
   const [googleMapLinkError, setGoogleMapLinkError] = useState<string>()
+
+  const [openTimeMonday, setOpenTimeMonday] = useState<string>(
+    openTime?.monday?.open?.toString() as string
+  )
+  const [closeTimeMonday, setCloseTimeMonday] = useState<string>(
+    openTime?.monday?.open?.toString() as string
+  )
+  const [openTimeTuesday, setOpenTimeTuesday] = useState<string>(
+    openTime?.tuesday?.open?.toString() as string
+  )
+  const [closeTimeTuesday, setCloseTimeTuesday] = useState<string>(
+    openTime?.tuesday?.open?.toString() as string
+  )
+  const [openTimeWednesday, setOpenTimeWednesday] = useState<string>(
+    openTime?.wednesday?.open?.toString() as string
+  )
+  const [closeTimeWednesday, setCloseTimeWednesday] = useState<string>(
+    openTime?.wednesday?.open?.toString() as string
+  )
+  const [openTimeThursday, setOpenTimeThursday] = useState<string>(
+    openTime?.thursday?.open?.toString() as string
+  )
+  const [closeTimeThursday, setCloseTimeThursday] = useState<string>(
+    openTime?.thursday?.open?.toString() as string
+  )
+  const [openTimeFriday, setOpenTimeFriday] = useState<string>(
+    openTime?.friday?.open?.toString() as string
+  )
+  const [closeTimeFriday, setCloseTimeFriday] = useState<string>(
+    openTime?.friday?.open?.toString() as string
+  )
+  const [openTimeSaturday, setOpenTimeSaturday] = useState<string>(
+    openTime?.saturday?.open?.toString() as string
+  )
+  const [closeTimeSaturday, setCloseTimeSaturday] = useState<string>(
+    openTime?.saturday?.open?.toString() as string
+  )
+  const [openTimeSunday, setOpenTimeSunday] = useState<string>(
+    openTime?.sunday?.open?.toString() as string
+  )
+  const [closeTimeSunday, setCloseTimeSunday] = useState<string>(
+    openTime?.sunday?.open?.toString() as string
+  )
 
   const [fbLink, setFbLink] = useState<string>(socialMedia?.facebook as string)
   const [fbLinkError, setFbLinkError] = useState<string>()
@@ -76,6 +124,21 @@ export default function UpdateGymInfoForm() {
       setStreet(address?.street as string)
 
       setGoogleMapLink(map?.link as string)
+
+      setOpenTimeMonday(openTime?.monday?.open?.toString() as string)
+      setCloseTimeMonday(openTime?.monday?.open?.toString() as string)
+      setOpenTimeTuesday(openTime?.tuesday?.open?.toString() as string)
+      setCloseTimeTuesday(openTime?.tuesday?.open?.toString() as string)
+      setOpenTimeWednesday(openTime?.wednesday?.open?.toString() as string)
+      setCloseTimeWednesday(openTime?.wednesday?.open?.toString() as string)
+      setOpenTimeThursday(openTime?.thursday?.open?.toString() as string)
+      setCloseTimeThursday(openTime?.thursday?.open?.toString() as string)
+      setOpenTimeFriday(openTime?.friday?.open?.toString() as string)
+      setCloseTimeFriday(openTime?.friday?.open?.toString() as string)
+      setOpenTimeSaturday(openTime?.saturday?.open?.toString() as string)
+      setCloseTimeSaturday(openTime?.saturday?.open?.toString() as string)
+      setOpenTimeSunday(openTime?.sunday?.open?.toString() as string)
+      setCloseTimeSunday(openTime?.sunday?.open?.toString() as string)
 
       setFbLink(socialMedia?.facebook as string)
       setInstaLink(socialMedia?.instagram as string)
@@ -257,6 +320,13 @@ export default function UpdateGymInfoForm() {
     }
   }
 
+  ;[...Array(24).keys()].map((x) => {
+    return timeOptions.push({
+      label: doubleDigitDisplay(x.toString()),
+      value: x,
+    })
+  })
+
   if (isLoading) return <LoadingArea />
 
   if (isError) return <ErrorArea />
@@ -367,6 +437,138 @@ export default function UpdateGymInfoForm() {
                 Lien vers google map
               </a>
             )}
+          </div>
+        </DashboardGroupContainer>
+
+        <DashboardGroupContainer className="my-8">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold">Horraire d'ouverture</h2>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Lundi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeMonday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeMonday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Mardi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeTuesday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeTuesday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Mercredi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeWednesday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeWednesday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Jeudi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeThursday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeThursday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Vendredi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeFriday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeFriday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Samedi</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeSaturday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeSaturday}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <p className="font-bold w-full max-w-20">Dimanche</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={openTimeSunday}
+                />
+              </div>
+              <p>jusqu'à</p>
+              <div className="w-full max-w-20">
+                <Select
+                  onChange={() => {}}
+                  options={timeOptions}
+                  value={closeTimeSunday}
+                />
+              </div>
+            </div>
           </div>
         </DashboardGroupContainer>
 

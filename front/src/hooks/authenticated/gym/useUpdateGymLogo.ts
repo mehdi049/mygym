@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { uploadStrapiMedia } from '@/services/authenticated/strapiMedia'
 import useUpdateGymInfo from './useUpdateGymInfo'
-import useDeleteStrapiMedia from './useDeleteStrapiMedia'
+import useDeleteStrapiMedia from '../useDeleteStrapiMedia'
 
 type useUpdateGymLogoProps = {
   gymId: number

@@ -3,7 +3,7 @@
 import { displayStrapiImage } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import useUpdateGymLogo from '@/hooks/authenticated/useUpdateGymLogo'
+import useUpdateGymLogo from '@/hooks/authenticated/gym/useUpdateGymLogo'
 import { StrapiMedia } from '@/types/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'

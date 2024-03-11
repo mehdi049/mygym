@@ -133,6 +133,21 @@ export type StrapiUserAccount = {
   id: number
 }
 
+export type GymOpenCloseTime = {
+  open?: Date
+  close?: Date
+}
+
+export type GymOpentTime = {
+  monday?: GymOpenCloseTime
+  tuesday?: GymOpenCloseTime
+  wednesday?: GymOpenCloseTime
+  thursday?: GymOpenCloseTime
+  friday?: GymOpenCloseTime
+  saturday?: GymOpenCloseTime
+  sunday?: GymOpenCloseTime
+}
+
 export type GymPackPrice = {
   name?: string
   extra_info?: string
@@ -161,6 +176,7 @@ export type StrapiGym = {
     address?: StrapiAddress
     map?: StrapiMap
     logo?: StrapiMedia
+    open_time?: GymOpentTime
     social_media?: StrapiSocialMediaLinks
     prices?: GymPrice
     user_infos?: {
