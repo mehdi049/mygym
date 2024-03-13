@@ -781,6 +781,52 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiClassClass extends Schema.CollectionType {
+  collectionName: 'classes';
+  info: {
+    singularName: 'class';
+    pluralName: 'classes';
+    displayName: 'class';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    start: Attribute.DateTime;
+    end: Attribute.DateTime;
+    room: Attribute.Relation<'api::class.class', 'oneToOne', 'api::room.room'>;
+    attendees: Attribute.Relation<
+      'api::class.class',
+      'oneToMany',
+      'api::user-info.user-info'
+    >;
+    max_attendees: Attribute.Integer;
+    coaches: Attribute.Relation<
+      'api::class.class',
+      'oneToMany',
+      'api::user-info.user-info'
+    >;
+    is_les_mills: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::class.class',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::class.class',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGymGym extends Schema.CollectionType {
   collectionName: 'gyms';
   info: {
@@ -810,11 +856,36 @@ export interface ApiGymGym extends Schema.CollectionType {
     prices: Attribute.Component<'gym-components.gym-prices'>;
     slug: Attribute.UID<'api::gym.gym', 'name'>;
     open_time: Attribute.Component<'gym-components.open-time'>;
+    rooms: Attribute.Relation<'api::gym.gym', 'oneToMany', 'api::room.room'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRoomRoom extends Schema.CollectionType {
+  collectionName: 'rooms';
+  info: {
+    singularName: 'room';
+    pluralName: 'rooms';
+    displayName: 'room';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    gym: Attribute.Relation<'api::room.room', 'manyToOne', 'api::gym.gym'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -882,7 +953,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::class.class': ApiClassClass;
       'api::gym.gym': ApiGymGym;
+      'api::room.room': ApiRoomRoom;
       'api::user-info.user-info': ApiUserInfoUserInfo;
     }
   }

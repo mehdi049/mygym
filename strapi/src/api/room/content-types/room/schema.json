@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rooms",
+  "info": {
+    "singularName": "room",
+    "pluralName": "rooms",
+    "displayName": "room",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "gym": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::gym.gym",
+      "inversedBy": "rooms"
+    }
+  }
+}
