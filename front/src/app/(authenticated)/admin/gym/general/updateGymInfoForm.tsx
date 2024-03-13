@@ -15,7 +15,8 @@ import useGetGymInfo from '@/hooks/authenticated/gym/useGetGymInfo'
 import { Select, SelectOption } from '@/components/ui/select'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
 
-const timeOptions: SelectOption[] = []
+const DEFAULT_OPENING_TIME = '06'
+const DEFAULT_CLOSING_TIME = '23'
 
 export default function UpdateGymInfoForm() {
   const { data, isLoading, isError, isSuccess } = useGetGymInfo()
@@ -53,47 +54,50 @@ export default function UpdateGymInfoForm() {
   )
   const [googleMapLinkError, setGoogleMapLinkError] = useState<string>()
 
+  const [timeOptions, setTimeOptions] = useState<SelectOption[]>([])
   const [openTimeMonday, setOpenTimeMonday] = useState<string>(
-    openTime?.monday?.open?.toString() as string
+    openTime?.monday?.open ? openTime?.monday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeMonday, setCloseTimeMonday] = useState<string>(
-    openTime?.monday?.close?.toString() as string
+    openTime?.monday?.close ? openTime?.monday?.close : DEFAULT_CLOSING_TIME
   )
   const [openTimeTuesday, setOpenTimeTuesday] = useState<string>(
-    openTime?.tuesday?.open?.toString() as string
+    openTime?.tuesday?.open ? openTime?.tuesday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeTuesday, setCloseTimeTuesday] = useState<string>(
-    openTime?.tuesday?.close?.toString() as string
+    openTime?.tuesday?.close ? openTime?.tuesday?.close : DEFAULT_CLOSING_TIME
   )
   const [openTimeWednesday, setOpenTimeWednesday] = useState<string>(
-    openTime?.wednesday?.open?.toString() as string
+    openTime?.wednesday?.open ? openTime?.wednesday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeWednesday, setCloseTimeWednesday] = useState<string>(
-    openTime?.wednesday?.close?.toString() as string
+    openTime?.wednesday?.close
+      ? openTime?.wednesday?.close
+      : DEFAULT_CLOSING_TIME
   )
   const [openTimeThursday, setOpenTimeThursday] = useState<string>(
-    openTime?.thursday?.open?.toString() as string
+    openTime?.thursday?.open ? openTime?.thursday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeThursday, setCloseTimeThursday] = useState<string>(
-    openTime?.thursday?.close?.toString() as string
+    openTime?.thursday?.close ? openTime?.thursday?.close : DEFAULT_CLOSING_TIME
   )
   const [openTimeFriday, setOpenTimeFriday] = useState<string>(
-    openTime?.friday?.open?.toString() as string
+    openTime?.friday?.open ? openTime?.friday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeFriday, setCloseTimeFriday] = useState<string>(
-    openTime?.friday?.close?.toString() as string
+    openTime?.friday?.close ? openTime?.friday?.close : DEFAULT_CLOSING_TIME
   )
   const [openTimeSaturday, setOpenTimeSaturday] = useState<string>(
-    openTime?.saturday?.open?.toString() as string
+    openTime?.saturday?.open ? openTime?.saturday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeSaturday, setCloseTimeSaturday] = useState<string>(
-    openTime?.saturday?.close?.toString() as string
+    openTime?.saturday?.close ? openTime?.saturday?.close : DEFAULT_CLOSING_TIME
   )
   const [openTimeSunday, setOpenTimeSunday] = useState<string>(
-    openTime?.sunday?.open?.toString() as string
+    openTime?.sunday?.open ? openTime?.sunday?.open : DEFAULT_OPENING_TIME
   )
   const [closeTimeSunday, setCloseTimeSunday] = useState<string>(
-    openTime?.sunday?.close?.toString() as string
+    openTime?.sunday?.close ? openTime?.sunday?.close : DEFAULT_CLOSING_TIME
   )
 
   const [fbLink, setFbLink] = useState<string>(socialMedia?.facebook as string)
@@ -125,20 +129,62 @@ export default function UpdateGymInfoForm() {
 
       setGoogleMapLink(map?.link as string)
 
-      setOpenTimeMonday(openTime?.monday?.open?.toString() as string)
-      setCloseTimeMonday(openTime?.monday?.close?.toString() as string)
-      setOpenTimeTuesday(openTime?.tuesday?.open?.toString() as string)
-      setCloseTimeTuesday(openTime?.tuesday?.close?.toString() as string)
-      setOpenTimeWednesday(openTime?.wednesday?.open?.toString() as string)
-      setCloseTimeWednesday(openTime?.wednesday?.close?.toString() as string)
-      setOpenTimeThursday(openTime?.thursday?.open?.toString() as string)
-      setCloseTimeThursday(openTime?.thursday?.close?.toString() as string)
-      setOpenTimeFriday(openTime?.friday?.open?.toString() as string)
-      setCloseTimeFriday(openTime?.friday?.close?.toString() as string)
-      setOpenTimeSaturday(openTime?.saturday?.open?.toString() as string)
-      setCloseTimeSaturday(openTime?.saturday?.close?.toString() as string)
-      setOpenTimeSunday(openTime?.sunday?.open?.toString() as string)
-      setCloseTimeSunday(openTime?.sunday?.close?.toString() as string)
+      setOpenTimeMonday(
+        openTime?.monday?.open ? openTime?.monday?.open : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeMonday(
+        openTime?.monday?.close ? openTime?.monday?.close : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeTuesday(
+        openTime?.tuesday?.open ? openTime?.tuesday?.open : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeTuesday(
+        openTime?.tuesday?.close
+          ? openTime?.tuesday?.close
+          : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeWednesday(
+        openTime?.wednesday?.open
+          ? openTime?.wednesday?.open
+          : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeWednesday(
+        openTime?.wednesday?.close
+          ? openTime?.wednesday?.close
+          : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeThursday(
+        openTime?.thursday?.open
+          ? openTime?.thursday?.open
+          : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeThursday(
+        openTime?.thursday?.close
+          ? openTime?.thursday?.close
+          : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeFriday(
+        openTime?.friday?.open ? openTime?.friday?.open : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeFriday(
+        openTime?.friday?.close ? openTime?.friday?.close : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeSaturday(
+        openTime?.saturday?.open
+          ? openTime?.saturday?.open
+          : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeSaturday(
+        openTime?.saturday?.close
+          ? openTime?.saturday?.close
+          : DEFAULT_CLOSING_TIME
+      )
+      setOpenTimeSunday(
+        openTime?.sunday?.open ? openTime?.sunday?.open : DEFAULT_OPENING_TIME
+      )
+      setCloseTimeSunday(
+        openTime?.sunday?.close ? openTime?.sunday?.close : DEFAULT_CLOSING_TIME
+      )
 
       setFbLink(socialMedia?.facebook as string)
       setInstaLink(socialMedia?.instagram as string)
@@ -149,13 +195,14 @@ export default function UpdateGymInfoForm() {
   }, [isLoading])
 
   useEffect(() => {
-    if (timeOptions.length === 0)
-      [...Array(24).keys()].map((x) => {
-        return timeOptions.push({
-          label: doubleDigitDisplay(x.toString()) + ':00',
-          value: doubleDigitDisplay(x.toString()),
-        })
+    const _timeOptions: SelectOption[] = []
+    ;[...Array(24).keys()].map((x) => {
+      return _timeOptions.push({
+        label: doubleDigitDisplay(x.toString()),
+        value: doubleDigitDisplay(x.toString()),
       })
+    })
+    setTimeOptions(_timeOptions)
   }, [])
 
   const formSchema = object({
@@ -178,52 +225,72 @@ export default function UpdateGymInfoForm() {
         message: 'Lien invalid',
       }),
       literal(''),
-    ]),
-    city: string().min(1, {
+    ])
+      .optional()
+      .nullable(),
+    city: string({
+      required_error: 'Ville obligatoire',
+    }).min(1, {
       message: 'Ville obligatoire',
     }),
-    zipCode: string().min(1, {
+    zipCode: string({
+      required_error: 'Code postal obligatoire',
+    }).min(1, {
       message: 'Code postal obligatoire',
     }),
-    street: string().min(1, {
-      message: 'Nom de rue obligatoire',
+    street: string({
+      required_error: 'Nom de la rue obligatoire',
+    }).min(1, {
+      message: 'Nom de la rue obligatoire',
     }),
     googleMapLink: union([
       string().startsWith('https://maps.app.goo.gl/', {
         message: 'Lien vers Google map invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
     fbLink: union([
       string().startsWith('https://www.facebook.com/', {
         message: 'Lien Facebook invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
     instaLink: union([
       string().startsWith('https://www.instagram.com/', {
         message: 'Lien Instagram invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
     twLink: union([
       string().startsWith('https://twitter.com/', {
         message: 'Lien Twitter invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
     youtubeLink: union([
       string().startsWith('https://www.youtube.com/', {
         message: 'Lien Youtube invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
     liLink: union([
       string().startsWith('https://www.linkedin.com/', {
         message: 'Lien LinkedIn invalid',
       }),
       literal(''),
-    ]),
+    ])
+      .nullable()
+      .optional(),
   })
 
   const resetErrors = () => {
@@ -241,6 +308,12 @@ export default function UpdateGymInfoForm() {
     setTwLinkError('')
     setYoutubeLinkError('')
     setLiLinkError('')
+  }
+
+  const timeRefactor = (time: string) => {
+    if (time.length === 2) return time + ':00:00'
+
+    return time
   }
 
   const handleSubmitUpdate = () => {
@@ -287,10 +360,41 @@ export default function UpdateGymInfoForm() {
             instagram: instaLink,
             youtube: youtubeLink,
           },
+          open_time: {
+            monday: {
+              open: timeRefactor(openTimeMonday),
+              close: timeRefactor(closeTimeMonday),
+            },
+            tuesday: {
+              open: timeRefactor(openTimeTuesday),
+              close: timeRefactor(closeTimeTuesday),
+            },
+            wednesday: {
+              open: timeRefactor(openTimeWednesday),
+              close: timeRefactor(closeTimeWednesday),
+            },
+            thursday: {
+              open: timeRefactor(openTimeThursday),
+              close: timeRefactor(closeTimeThursday),
+            },
+            friday: {
+              open: timeRefactor(openTimeFriday),
+              close: timeRefactor(closeTimeFriday),
+            },
+            saturday: {
+              open: timeRefactor(openTimeSaturday),
+              close: timeRefactor(closeTimeSaturday),
+            },
+            sunday: {
+              open: timeRefactor(openTimeSunday),
+              close: timeRefactor(closeTimeSunday),
+            },
+          },
         },
       })
     } catch (error) {
       if (error instanceof ZodError) {
+        console.log(error)
         const erros = error.errors
         setNameError(erros.find((err) => err.path.includes('name'))?.message)
         setPhoneError(erros.find((err) => err.path.includes('phone'))?.message)
@@ -451,8 +555,8 @@ export default function UpdateGymInfoForm() {
               <div className="w-full max-w-24">
                 <Select
                   onChange={(e) => setOpenTimeMonday(e.target.value)}
-                  options={timeOptions}
-                  value={openTimeMonday?.toString().substring(0, 2)}
+                  options={timeOptions as SelectOption[]}
+                  value={openTimeMonday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -460,7 +564,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeMonday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeMonday?.toString().substring(0, 2)}
+                  value={closeTimeMonday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -470,7 +574,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeTuesday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeTuesday?.toString().substring(0, 2)}
+                  value={openTimeTuesday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -478,7 +582,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeTuesday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeTuesday?.toString().substring(0, 2)}
+                  value={closeTimeTuesday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -488,7 +592,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeWednesday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeWednesday?.toString().substring(0, 2)}
+                  value={openTimeWednesday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -496,7 +600,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeWednesday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeWednesday?.toString().substring(0, 2)}
+                  value={closeTimeWednesday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -506,7 +610,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeThursday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeThursday?.toString().substring(0, 2)}
+                  value={openTimeThursday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -514,7 +618,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeThursday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeThursday?.toString().substring(0, 2)}
+                  value={closeTimeThursday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -524,7 +628,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeFriday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeFriday?.toString().substring(0, 2)}
+                  value={openTimeFriday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -532,7 +636,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeFriday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeFriday?.toString().substring(0, 2)}
+                  value={closeTimeFriday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -542,7 +646,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeSaturday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeSaturday?.toString().substring(0, 2)}
+                  value={openTimeSaturday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -550,7 +654,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeSaturday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeSaturday?.toString().substring(0, 2)}
+                  value={closeTimeSaturday?.substring(0, 2)}
                 />
               </div>
             </div>
@@ -560,7 +664,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setOpenTimeSunday(e.target.value)}
                   options={timeOptions}
-                  value={openTimeSunday?.toString().substring(0, 2)}
+                  value={openTimeSunday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
@@ -568,7 +672,7 @@ export default function UpdateGymInfoForm() {
                 <Select
                   onChange={(e) => setCloseTimeSunday(e.target.value)}
                   options={timeOptions}
-                  value={closeTimeSunday?.toString().substring(0, 2)}
+                  value={closeTimeSunday?.substring(0, 2)}
                 />
               </div>
             </div>

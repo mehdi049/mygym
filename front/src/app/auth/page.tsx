@@ -14,10 +14,14 @@ export default function Auth() {
   const [identifierError, setIdentifierError] = useState<string>()
 
   const authSchema = object({
-    identifier: string().min(1, {
+    identifier: string({
+      required_error: 'Identifiant obligatoire',
+    }).min(1, {
       message: 'Identifiant obligatoire',
     }),
-    password: string().min(1, {
+    password: string({
+      required_error: 'Mot de passe obligatoire',
+    }).min(1, {
       message: 'Mot de passe obligatoire',
     }),
   })

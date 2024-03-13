@@ -123,7 +123,9 @@ export default function UpdateGymPricingForm() {
   }
 
   const packSchema = object({
-    name: string()
+    name: string({
+      required_error: 'Nom du pack obligatoire',
+    })
       .min(1, {
         message: 'Nom du pack obligatoire',
       })
@@ -347,7 +349,9 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].one_month =
-                    e.target.value.length === 0 ? undefined : e.target.value
+                    e.target.value.length === 0
+                      ? undefined
+                      : parseInt(e.target.value)
                   setPacks(p)
                 }}
                 min={1}
@@ -362,7 +366,9 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].three_months =
-                    e.target.value.length === 0 ? undefined : e.target.value
+                    e.target.value.length === 0
+                      ? undefined
+                      : parseInt(e.target.value)
                   setPacks(p)
                 }}
                 min={1}
@@ -377,7 +383,9 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].six_months =
-                    e.target.value.length === 0 ? undefined : e.target.value
+                    e.target.value.length === 0
+                      ? undefined
+                      : parseInt(e.target.value)
                   setPacks(p)
                 }}
                 min={1}
@@ -393,7 +401,9 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                   const p = [...packs]
 
                   p[packKey].nine_months =
-                    e.target.value.length === 0 ? undefined : e.target.value
+                    e.target.value.length === 0
+                      ? undefined
+                      : parseInt(e.target.value)
 
                   setPacks(p)
                 }}
@@ -409,7 +419,9 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].one_year =
-                    e.target.value.length === 0 ? undefined : e.target.value
+                    e.target.value.length === 0
+                      ? undefined
+                      : parseInt(e.target.value)
                   setPacks(p)
                 }}
                 min={1}
