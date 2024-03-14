@@ -1,8 +1,8 @@
 import { StrapiMedia } from '@/types/strapi.types'
 import { getTokenFromLocalCookie } from './cookies'
-import { STRAPI_URL } from '../const/constant'
+import { STRAPI_URL } from '../../const/constant'
 import { toast } from 'react-toastify'
-import { signOut } from '@/services/public/auth'
+import { signOut } from '@/services/auth'
 
 export const getCurrentAccountIdFromToken = (token?: string) => {
   const jwtToken = token ? token : getTokenFromLocalCookie()

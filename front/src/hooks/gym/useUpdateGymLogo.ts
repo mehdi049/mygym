@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { uploadStrapiMedia } from '@/services/authenticated/strapiMedia'
+import { uploadStrapiMedia } from '@/services/strapiMedia'
 import useUpdateGymInfo from './useUpdateGymInfo'
 import useDeleteStrapiMedia from '../useDeleteStrapiMedia'
 

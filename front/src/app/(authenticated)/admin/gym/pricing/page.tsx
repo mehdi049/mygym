@@ -1,4 +1,4 @@
-import { queryKeys } from '@/lib/const/queryKeys'
+import { queryKeys } from '@/const/queryKeys'
 import {
   HydrationBoundary,
   QueryClient,
@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { cookies } from 'next/headers'
-import { getGymByIdService } from '@/services/authenticated/admin/gym'
+import { getGymByIdService } from '@/services/gym'
 import UpdateGymPricingForm from './updateGymPricingForm'
 
 export default async function Page() {

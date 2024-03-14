@@ -2,7 +2,7 @@
 // The config you add here will be used whenever a users loads a page in their browser.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import { ENV } from '@/lib/const/constant'
+import { ENV } from '@/const/constant'
 import * as Sentry from '@sentry/nextjs'
 
 if (ENV !== 'local')

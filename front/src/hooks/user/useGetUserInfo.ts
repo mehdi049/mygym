@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { getUserInfoWithGymBaiscInfoAndLogoByAccountIdService } from '@/services/authenticated/userInfo'
+import { getUserInfoWithGymBaiscInfoAndLogoByAccountIdService } from '@/services/userInfo'
 import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
-import { queryKeys } from '@/lib/const/queryKeys'
+import { queryKeys } from '@/const/queryKeys'
 
 const useGetUserInfoWithGymBaiscInfoAndLogoByAccountId = () => {
   const accountId = getCurrentAccountIdFromToken()

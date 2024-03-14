@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '@/lib/const/endpoints'
+import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherMedia } from '@/lib/utils/fetcher'
 import { StrapiMediaData } from '@/types/strapi.types'
 

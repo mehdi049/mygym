@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { ZodError, object, string } from 'zod'
-import useSignIn from '@/hooks/public/useSignin'
+import useSignIn from '@/hooks/auth/useSignin'
 import { TextField } from '@/components/ui/textField'
 import Button from '@/components/ui/button'
 

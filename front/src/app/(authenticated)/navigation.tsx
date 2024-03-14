@@ -1,7 +1,7 @@
 'use client'
 
-import useGetUserMe from '@/hooks/authenticated/useGetUserMe'
-import { userRoleNames } from '@/lib/const/constant'
+import useGetUserMe from '@/hooks/user/useGetUserMe'
+import { userRoleNames } from '@/const/constant'
 import { AdminNavigation } from './admin/_shared/navbar/adminNavigation'
 
 export default function Navigation() {

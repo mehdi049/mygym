@@ -6,8 +6,8 @@ import {
 } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
-import { getUserInfoWithGymBaiscInfoAndLogoByAccountIdService } from '@/services/authenticated/userInfo'
-import { queryKeys } from '@/lib/const/queryKeys'
+import { getUserInfoWithGymBaiscInfoAndLogoByAccountIdService } from '@/services/userInfo'
+import { queryKeys } from '@/const/queryKeys'
 import { cookies } from 'next/headers'
 
 export default async function Page() {

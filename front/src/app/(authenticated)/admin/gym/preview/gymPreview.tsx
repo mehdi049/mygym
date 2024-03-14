@@ -3,10 +3,11 @@
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
-import useGetGymInfo from '@/hooks/authenticated/gym/useGetGymInfo'
+import useGetGymInfo from '@/hooks/gym/useGetGymInfo'
 import { displayStrapiImage } from '@/lib/utils/utils'
 
 import Image from 'next/image'
+import Planning from '../planning/planning'
 
 export default function GymPreview() {
   const { data, isLoading, isError } = useGetGymInfo()
@@ -172,6 +173,9 @@ export default function GymPreview() {
                 })}
               </>
             )}
+
+            <h2 className="text-lg font-bold">Planning</h2>
+            <Planning />
           </div>
         </div>
       </DashboardBodyContainer>

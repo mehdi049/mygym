@@ -2,7 +2,7 @@
 
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
-import usegetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authenticated/useGetUserInfo'
+import usegetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
 import { setCookie } from 'cookies-next'
 
 export default function Profile() {

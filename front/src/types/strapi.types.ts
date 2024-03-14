@@ -195,6 +195,7 @@ export type StrapiUserInfo = {
     last_name: string
     gender: 'Homme' | 'Femme'
     phone: string
+    profile_picture?: StrapiMedia
     updatedAt: Date
     createdAt: Date
     account: {
@@ -222,4 +223,30 @@ export type StrapiGymData = {
 
 export type StrapiGymDataMedia = {
   logo: number
+}
+
+export type StrapiRoom = {
+  name: string
+  gym: {
+    data?: StrapiGym
+  }
+  updatedAt: Date
+  createdAt: Date
+}
+export type StrapiClass = {
+  attributes: {
+    start: Date
+    end: Date
+    name: string
+    is_les_mills: boolean
+    max_attendees?: number
+    room: {
+      data?: StrapiRoom
+    }
+    coaches: { data?: StrapiUserInfo[] }
+    attendees: { data?: StrapiUserInfo[] }
+    updatedAt: Date
+    createdAt: Date
+  }
+  id: number
 }

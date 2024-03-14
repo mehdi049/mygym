@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '@/lib/const/endpoints'
+import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
 import {
   StrapiGym,

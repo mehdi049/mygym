@@ -3,7 +3,7 @@ import {
   getSignedInAccountService,
   signInService,
   signInServiceProps,
-} from '@/services/public/auth'
+} from '@/services/auth'
 import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'

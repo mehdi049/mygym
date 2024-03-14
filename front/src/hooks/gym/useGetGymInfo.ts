@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { queryKeys } from '@/lib/const/queryKeys'
-import { getGymByIdService } from '@/services/authenticated/admin/gym'
+import { queryKeys } from '@/const/queryKeys'
+import { getGymByIdService } from '@/services/gym'
 import { getCookie } from 'cookies-next'
 
 const useGetGymInfo = () => {

@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '@/lib/const/endpoints'
+import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcherGet } from '@/lib/utils/fetcher'
 import { StrapiQueryResult, StrapiUserInfo } from '@/types/strapi.types'
 

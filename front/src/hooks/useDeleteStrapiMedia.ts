@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { deleteStrapiMedia } from '@/services/authenticated/strapiMedia'
+import { deleteStrapiMedia } from '@/services/strapiMedia'
 
 const useDeleteStrapiMedia = () => {
   return useMutation({

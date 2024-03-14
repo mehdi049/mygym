@@ -6,8 +6,8 @@ import {
 import { cookies } from 'next/headers'
 import { getCookie } from 'cookies-next'
 import UpdateGymInfoForm from './updateGymInfoForm'
-import { queryKeys } from '@/lib/const/queryKeys'
-import { getGymByIdService } from '@/services/authenticated/admin/gym'
+import { queryKeys } from '@/const/queryKeys'
+import { getGymByIdService } from '@/services/gym'
 
 export default async function Page() {
   const gymId = getCookie('gym', { cookies })

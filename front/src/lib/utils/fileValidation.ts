@@ -1,6 +1,6 @@
 import { any, object } from 'zod'
 import { ZOD_RESPONSE_ERRORS } from '../errorHandler/errorMapper'
-import { MAX_UPLOAD_SIZE_IMG } from '../const/constant'
+import { MAX_UPLOAD_SIZE_IMG } from '../../const/constant'
 import { handleErrors } from '../errorHandler/errorHandler'
 
 const getImageSchema = () => {

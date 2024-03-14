@@ -31,7 +31,7 @@ export const fetcherGet = <T>({ url, auth, token }: fetcherGetProps) => {
 type fetcherProps = {
   method: 'POST' | 'PUT' | 'DELETE'
   url: string
-  body: BodyInit
+  body?: BodyInit
   auth?: boolean
   token?: string
   isMedia?: boolean

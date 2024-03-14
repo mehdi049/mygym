@@ -1,4 +1,4 @@
-import { MAX_UPLOAD_SIZE_IMG } from '../const/constant'
+import { MAX_UPLOAD_SIZE_IMG } from '../../const/constant'
 
 export const ERRORS = {
   GENERAL: 'Une erreur est survénue, veuillez réessayer plus tard.',

@@ -1,6 +1,6 @@
 'use client'
 
-import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/authenticated/useGetUserInfo'
+import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
 import { ROUTES } from '@/routes'
 import { getCookie, setCookie } from 'cookies-next'
 import Link from 'next/link'

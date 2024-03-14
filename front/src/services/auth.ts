@@ -1,6 +1,6 @@
 import { ROUTES } from '@/routes'
 import { unsetNavCookies, unsetToken } from '@/lib/utils/cookies'
-import { API_ENDPOINT } from '@/lib/const/endpoints'
+import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
 import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
 
@@ -15,7 +15,7 @@ export const signInService = async ({
   return fetcher<StrapiAuthSuccess>({
     url: API_ENDPOINT.STRAPI + '/auth/local',
     method: 'POST',
-    body: { identifier: identifier, password: password },
+    body: { identifier: identifier, password: password } as unknown as BodyInit,
     auth: false,
   })
 }

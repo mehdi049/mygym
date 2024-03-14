@@ -1,4 +1,4 @@
-import { queryKeys } from '@/lib/const/queryKeys'
+import { queryKeys } from '@/const/queryKeys'
 import {
   HydrationBoundary,
   QueryClient,
@@ -7,7 +7,7 @@ import {
 import { getCookie } from 'cookies-next'
 import { cookies } from 'next/headers'
 import GymPreview from './gymPreview'
-import { getGymByIdService } from '@/services/authenticated/admin/gym'
+import { getGymByIdService } from '@/services/gym'
 
 export default async function Page() {
   const gymId = getCookie('gym', { cookies })
