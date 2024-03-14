@@ -1,6 +1,9 @@
 'use client'
-import usegetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
-import { displayStrapiImage } from '@/lib/utils/utils'
+import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
+import {
+  displayStrapiImage,
+  getCurrentAccountIdFromToken,
+} from '@/lib/utils/utils'
 import { ROUTES } from '@/routes'
 import { signOut } from '@/services/auth'
 import Image from 'next/image'
@@ -14,7 +17,7 @@ export const NAVIGATION = {
   GYM: 'gym',
   MEMBERS: 'members',
   COACHES: 'coaches',
-  CLASSES: 'classes',
+  ROOMS: 'rooms',
   PROFILE: 'profile',
 }
 
@@ -25,7 +28,11 @@ export const AdminNavigation = () => {
     selectedNavCookie ? selectedNavCookie : NAVIGATION.PROFILE
   )
 
-  const { data } = usegetUserInfoWithGymBaiscInfoAndLogoByAccountId()
+  const accountId = getCurrentAccountIdFromToken()
+  const { data } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId({
+    id: accountId,
+  })
+
   const linkClass =
     'block w-full px-4 py-2 hover:font-bold hover:bg-gray-200 duration-100 '
   return (
@@ -134,16 +141,16 @@ export const AdminNavigation = () => {
               href={ROUTES.ADMIN.PLANNING}
               className={
                 linkClass +
-                (selectedNav === NAVIGATION.CLASSES
+                (selectedNav === NAVIGATION.ROOMS
                   ? 'bg-gray-200 font-bold'
                   : '')
               }
               onClick={() => {
-                setSelectedNav(NAVIGATION.CLASSES)
-                setCookie('dash_navigation', NAVIGATION.CLASSES)
+                setSelectedNav(NAVIGATION.ROOMS)
+                setCookie('dash_navigation', NAVIGATION.ROOMS)
               }}
             >
-              Cours
+              Salle des cours
             </Link>
           </li>
 

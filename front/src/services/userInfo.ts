@@ -1,22 +1,28 @@
 import { API_ENDPOINT } from '@/const/endpoints'
+import { queryKeys } from '@/const/queryKeys'
 import { fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiQueryResult, StrapiUserInfo } from '@/types/strapi.types'
 
-type getUserInfoWithGymBaiscInfoAndLogoByAccountIdServiceProps = {
+type getUserInfoWithGymBasicInfoAndLogoByAccountIdQueryProps = {
   accountId: number
   token?: string
 }
-export const getUserInfoWithGymBaiscInfoAndLogoByAccountIdService = async ({
+export const getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery = ({
   accountId,
   token,
-}: getUserInfoWithGymBaiscInfoAndLogoByAccountIdServiceProps) => {
-  return fetcherGet<StrapiQueryResult<StrapiUserInfo>>({
-    url:
-      API_ENDPOINT.STRAPI +
-      '/user-infos?filters[account][id][$eq]=' +
-      accountId +
-      '&populate[gym][populate]=logo',
-    auth: true,
-    token: token,
-  })
+}: getUserInfoWithGymBasicInfoAndLogoByAccountIdQueryProps) => {
+  const query = {
+    queryKey: [queryKeys.gymInfo, accountId, token],
+    queryFn: async () =>
+      fetcherGet({
+        url:
+          API_ENDPOINT.STRAPI +
+          '/user-infos?filters[account][id][$eq]=' +
+          accountId +
+          '&populate[gym][populate]=logo',
+        auth: true,
+        token: token,
+      }),
+  }
+
+  return query
 }

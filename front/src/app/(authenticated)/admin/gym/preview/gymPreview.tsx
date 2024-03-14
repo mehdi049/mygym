@@ -7,10 +7,14 @@ import useGetGymInfo from '@/hooks/gym/useGetGymInfo'
 import { displayStrapiImage } from '@/lib/utils/utils'
 
 import Image from 'next/image'
-import Planning from '../planning/planning'
+import { getCookie } from 'cookies-next'
+import PlanningCallendarByGymId from '@/app/_components/planning/planningCalendar'
 
 export default function GymPreview() {
-  const { data, isLoading, isError } = useGetGymInfo()
+  const id = getCookie('gym')
+  const { data, isLoading, isError } = useGetGymInfo({
+    id: parseInt(id as string),
+  })
 
   const gym = data?.data.attributes
   const gymId = data?.data.id
@@ -175,7 +179,7 @@ export default function GymPreview() {
             )}
 
             <h2 className="text-lg font-bold">Planning</h2>
-            <Planning />
+            <PlanningCallendarByGymId id={parseInt(id as string)} />
           </div>
         </div>
       </DashboardBodyContainer>

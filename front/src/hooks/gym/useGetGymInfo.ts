@@ -1,16 +1,14 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { queryKeys } from '@/const/queryKeys'
-import { getGymByIdService } from '@/services/gym'
-import { getCookie } from 'cookies-next'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
+import { getGymByIdQuery } from '@/services/gym'
+import { StrapiGym, StrapiResponse } from '@/types/strapi.types'
+import { IdProps } from '@/types/numberProps.types'
 
-const useGetGymInfo = () => {
-  const gymId = getCookie('gym')
-  return useQuery({
-    queryKey: [queryKeys.gymInfo, gymId],
-    queryFn: async () => getGymByIdService({ id: parseInt(gymId as string) }),
-  })
+const useGetGymInfo = ({
+  id,
+}: IdProps): UseQueryResult<StrapiResponse<StrapiGym>> => {
+  return useQuery(getGymByIdQuery({ id: id }))
 }
 
 export default useGetGymInfo

@@ -1,9 +1,7 @@
+import { API_ENDPOINT } from '@/const/endpoints'
 import { setToken } from '@/lib/utils/cookies'
-import {
-  getSignedInAccountService,
-  signInService,
-  signInServiceProps,
-} from '@/services/auth'
+import { fetcherGet } from '@/lib/utils/fetcher'
+import { signInQuery, signInQueryProps } from '@/services/auth'
 import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -11,18 +9,21 @@ import { useRouter } from 'next/navigation'
 const useSignIn = () => {
   const router = useRouter()
   return useMutation({
-    mutationFn: (body: signInServiceProps) => {
-      return signInService(body)
+    mutationFn: (body: signInQueryProps) => {
+      return signInQuery(body)
     },
     onError: (error) => console.log(error),
     onSuccess: async (response) => {
       if (response) {
         setToken((response as StrapiAuthSuccess).jwt)
 
-        const userAccountResponse = await getSignedInAccountService()
+        const userInfoResonse = await fetcherGet({
+          url: API_ENDPOINT.STRAPI + '/users/me?populate=*',
+          auth: true,
+        })
 
         router.push(
-          '/' + (userAccountResponse as StrapiUserMe).role.name.toLowerCase()
+          '/' + (userInfoResonse as StrapiUserMe).role.name.toLowerCase()
         )
       }
     },

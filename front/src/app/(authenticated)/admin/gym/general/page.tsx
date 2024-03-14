@@ -6,20 +6,17 @@ import {
 import { cookies } from 'next/headers'
 import { getCookie } from 'cookies-next'
 import UpdateGymInfoForm from './updateGymInfoForm'
-import { queryKeys } from '@/const/queryKeys'
-import { getGymByIdService } from '@/services/gym'
+import { getGymByIdQuery } from '@/services/gym'
 
 export default async function Page() {
   const gymId = getCookie('gym', { cookies })
 
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery({
-    queryKey: [queryKeys.gymInfo, gymId],
-    queryFn: async () =>
-      getGymByIdService({
-        id: parseInt(gymId as string),
-      }),
-  })
+  await queryClient.prefetchQuery(
+    getGymByIdQuery({
+      id: parseInt(gymId as string),
+    })
+  )
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -2,12 +2,14 @@
 
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
-import usegetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
+import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
+import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
 import { setCookie } from 'cookies-next'
 
 export default function Profile() {
+  const accountId = getCurrentAccountIdFromToken()
   const { data, isLoading, isError } =
-    usegetUserInfoWithGymBaiscInfoAndLogoByAccountId()
+    useGetUserInfoWithGymBaiscInfoAndLogoByAccountId({ id: accountId })
 
   if (isLoading) return <LoadingArea />
 

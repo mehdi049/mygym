@@ -19,7 +19,7 @@ const DEFAULT_OPENING_TIME = '06'
 const DEFAULT_CLOSING_TIME = '23'
 
 export default function UpdateGymInfoForm() {
-  const { data, isLoading, isError, isSuccess } = useGetGymInfo()
+  const { data, isLoading, isError, isSuccess } = useGetGymInfo({ id: 1 })
   const { isPending, mutate } = useUpdateGymInfo()
 
   const gym = data?.data.attributes

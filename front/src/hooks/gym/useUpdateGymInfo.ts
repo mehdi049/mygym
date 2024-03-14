@@ -1,5 +1,5 @@
 import { QueryClient, useMutation } from '@tanstack/react-query'
-import { updateGymInfoService } from '@/services/gym'
+import { updateGymInfo } from '@/services/gym'
 import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi.types'
 import { displaySuccessToast } from '@/lib/utils/utils'
 import { queryKeys } from '@/const/queryKeys'
@@ -10,7 +10,7 @@ const useUpdateGymInfo = () => {
       gymId: number
       gymData: StrapiGymData | StrapiGymDataMedia
     }) => {
-      return updateGymInfoService({ gymId: body.gymId, gymData: body.gymData })
+      return updateGymInfo({ gymId: body.gymId, gymData: body.gymData })
     },
     onError: (error) => {
       console.log(error)

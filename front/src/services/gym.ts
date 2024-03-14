@@ -1,34 +1,33 @@
 import { API_ENDPOINT } from '@/const/endpoints'
+import { queryKeys } from '@/const/queryKeys'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import {
-  StrapiGym,
-  StrapiGymData,
-  StrapiGymDataMedia,
-  StrapiResponse,
-} from '@/types/strapi.types'
+import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi.types'
 
-type getGymByIdServiceProps = {
+type getGymByIdQueryProps = {
   id: number
 }
-export const getGymByIdService = ({ id }: getGymByIdServiceProps) => {
-  return fetcherGet<StrapiResponse<StrapiGym>>({
-    url:
-      API_ENDPOINT.STRAPI +
-      '/gyms/' +
-      id +
-      '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*&populate[open_time][populate]=*',
-    auth: true,
-  })
+export const getGymByIdQuery = ({ id }: getGymByIdQueryProps) => {
+  const query = {
+    queryKey: [queryKeys.gymInfo, id],
+    queryFn: async () =>
+      fetcherGet({
+        url:
+          API_ENDPOINT.STRAPI +
+          '/gyms/' +
+          id +
+          '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*&populate[open_time][populate]=*',
+        auth: true,
+      }),
+  }
+
+  return query
 }
 
-type updateGymInfoServiceProps = {
+type updateGymInfoProps = {
   gymId: number
   gymData: StrapiGymData | StrapiGymDataMedia
 }
-export const updateGymInfoService = ({
-  gymId,
-  gymData,
-}: updateGymInfoServiceProps) => {
+export const updateGymInfo = ({ gymId, gymData }: updateGymInfoProps) => {
   return fetcher<StrapiGymData>({
     url: API_ENDPOINT.STRAPI + '/gyms/' + gymId,
     method: 'PUT',

@@ -1,3 +1,4 @@
+'use client'
 import { LeftSubSidebar } from '@/components/authenticated/leftSubNavbar'
 import { GymSubNavigation } from './subNavigation/gymSubNavigation'
 import { MyProfileSubNavigation } from './subNavigation/myProfileSubNavigation'

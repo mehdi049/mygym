@@ -6,23 +6,18 @@ import {
   dehydrate,
 } from '@tanstack/react-query'
 import { cookies } from 'next/headers'
-import { queryKeys } from '@/const/queryKeys'
-import { getClassesByGymId } from '@/services/classes'
+import { getClassesByGymIdQuery } from '@/services/classes'
 
 export default async function Page() {
   const gymId = getCookie('gym', { cookies })
 
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery({
-    queryKey: [queryKeys.gymClasses, gymId],
-    queryFn: async () =>
-      getClassesByGymId({
-        id: parseInt(gymId as string),
-      }),
-  })
+  await queryClient.prefetchQuery(
+    getClassesByGymIdQuery({ id: parseInt(gymId as string) })
+  )
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Planning />
+      <Planning id={parseInt(gymId as string)} />
     </HydrationBoundary>
   )
 }

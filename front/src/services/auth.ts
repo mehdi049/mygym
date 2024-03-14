@@ -2,16 +2,17 @@ import { ROUTES } from '@/routes'
 import { unsetNavCookies, unsetToken } from '@/lib/utils/cookies'
 import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiAuthSuccess, StrapiUserMe } from '@/types/strapi.types'
+import { StrapiAuthSuccess } from '@/types/strapi.types'
+import { queryKeys } from '@/const/queryKeys'
 
-export type signInServiceProps = {
+export type signInQueryProps = {
   identifier: string
   password: string
 }
-export const signInService = async ({
+export const signInQuery = async ({
   identifier,
   password,
-}: signInServiceProps) => {
+}: signInQueryProps) => {
   return fetcher<StrapiAuthSuccess>({
     url: API_ENDPOINT.STRAPI + '/auth/local',
     method: 'POST',
@@ -20,11 +21,16 @@ export const signInService = async ({
   })
 }
 
-export const getSignedInAccountService = async () => {
-  return fetcherGet<StrapiUserMe>({
-    url: API_ENDPOINT.STRAPI + '/users/me?populate=*',
-    auth: true,
-  })
+export const getSignedInAccountService = () => {
+  const query = {
+    queryKey: [queryKeys.accountInfo],
+    queryFn: async () =>
+      fetcherGet({
+        url: API_ENDPOINT.STRAPI + '/users/me?populate=*',
+        auth: true,
+      }),
+  }
+  return query
 }
 
 export const signOut = () => {

@@ -1,5 +1,14 @@
-import { TextFieldProps } from './textField'
-
+export type TextAreaProps = {
+  value: string
+  placeholder?: string
+  name?: string
+  label?: string
+  helper?: string
+  error?: string
+  disabled?: boolean
+  id?: string
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+}
 export const TextAreaField = ({
   value,
   placeholder,
@@ -10,7 +19,7 @@ export const TextAreaField = ({
   disabled,
   id,
   onChange,
-}: TextFieldProps) => {
+}: TextAreaProps) => {
   return (
     <div className="w-full">
       {label && <label className="mb-2 block text-sm">{label}</label>}

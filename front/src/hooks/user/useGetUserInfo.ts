@@ -1,19 +1,18 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { getUserInfoWithGymBaiscInfoAndLogoByAccountIdService } from '@/services/userInfo'
-import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
-import { queryKeys } from '@/const/queryKeys'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
+import { getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery } from '@/services/userInfo'
+import { IdProps } from '@/types/numberProps.types'
+import { StrapiResponse, StrapiUserInfo } from '@/types/strapi.types'
 
-const useGetUserInfoWithGymBaiscInfoAndLogoByAccountId = () => {
-  const accountId = getCurrentAccountIdFromToken()
-  return useQuery({
-    queryKey: [queryKeys.userInfo, accountId],
-    queryFn: async () =>
-      getUserInfoWithGymBaiscInfoAndLogoByAccountIdService({
-        accountId: accountId,
-      }),
-  })
+const useGetUserInfoWithGymBaiscInfoAndLogoByAccountId = ({
+  id,
+}: IdProps): UseQueryResult<StrapiResponse<StrapiUserInfo[]>> => {
+  return useQuery(
+    getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery({
+      accountId: id,
+    })
+  )
 }
 
 export default useGetUserInfoWithGymBaiscInfoAndLogoByAccountId

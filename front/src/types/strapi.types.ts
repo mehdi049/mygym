@@ -5,10 +5,6 @@ export type StrapiErrorResponseError = {
   status: number
 }
 
-export type StrapiQueryResult<T> = {
-  data: T[]
-}
-
 export type StrapiResponse<T> = {
   data: T
   error: StrapiErrorResponseError

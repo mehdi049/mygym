@@ -1,14 +1,11 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { queryKeys } from '@/const/queryKeys'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { getSignedInAccountService } from '@/services/auth'
+import { StrapiUserMe } from '@/types/strapi.types'
 
-const useGetUserMe = () => {
-  return useQuery({
-    queryKey: [queryKeys.accountInfo],
-    queryFn: async () => getSignedInAccountService(),
-  })
+const useGetUserMe = (): UseQueryResult<StrapiUserMe> => {
+  return useQuery(getSignedInAccountService())
 }
 
 export default useGetUserMe

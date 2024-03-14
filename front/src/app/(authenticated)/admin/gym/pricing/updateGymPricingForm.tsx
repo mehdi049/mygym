@@ -18,6 +18,7 @@ import {
   handleErrors,
 } from '@/lib/errorHandler/errorHandler'
 import { TextAreaField } from '@/components/ui/textAreaField'
+import { getCookie } from 'cookies-next'
 
 const emptyPack: GymPackPrice = {
   name: undefined,
@@ -30,7 +31,10 @@ const emptyPack: GymPackPrice = {
 }
 
 export default function UpdateGymPricingForm() {
-  const { data, isLoading, isError, isSuccess } = useGetGymInfo()
+  const id = getCookie('gym')
+  const { data, isLoading, isError, isSuccess } = useGetGymInfo({
+    id: parseInt(id as string),
+  })
   const { isPending, mutate } = useUpdateGymInfo()
 
   const gym = data?.data.attributes

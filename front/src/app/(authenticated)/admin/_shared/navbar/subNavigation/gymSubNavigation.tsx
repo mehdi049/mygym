@@ -1,6 +1,7 @@
 'use client'
 
 import useGetUserInfoWithGymBaiscInfoAndLogoByAccountId from '@/hooks/user/useGetUserInfo'
+import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
 import { ROUTES } from '@/routes'
 import { getCookie, setCookie } from 'cookies-next'
 import Link from 'next/link'
@@ -16,7 +17,11 @@ const SUB_NAVIGATION = {
 export const GymSubNavigation = () => {
   const selectedSubNavCookie = getCookie('dash_sub_navigation')
 
-  const { data } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId()
+  const accountId = getCurrentAccountIdFromToken()
+  const { data } = useGetUserInfoWithGymBaiscInfoAndLogoByAccountId({
+    id: accountId,
+  })
+
   const [selectedSubNav, setSelectedSubNav] = useState<string>(
     selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
   )
