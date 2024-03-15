@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "class_names",
+  "info": {
+    "singularName": "class-name",
+    "pluralName": "class-names",
+    "displayName": "class name",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "bg_color": {
+      "type": "string"
+    }
+  }
+}

@@ -11,15 +11,19 @@ import { ZodError, literal, object, string, union } from 'zod'
 import { TextAreaField } from '@/components/ui/textAreaField'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
-import useGetGymInfo from '@/hooks/gym/useGetGymInfo'
-import { Select, SelectOption } from '@/components/ui/select'
+import useGetGymById from '@/hooks/gym/useGetGymById'
+import { SelectField, SelectFieldOption } from '@/components/ui/selectField'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
+import { getCookie } from 'cookies-next'
 
 const DEFAULT_OPENING_TIME = '06'
 const DEFAULT_CLOSING_TIME = '23'
 
 export default function UpdateGymInfoForm() {
-  const { data, isLoading, isError, isSuccess } = useGetGymInfo({ id: 1 })
+  const id = getCookie('gym')
+  const { data, isLoading, isError, isSuccess } = useGetGymById({
+    id: parseInt(id as string),
+  })
   const { isPending, mutate } = useUpdateGymInfo()
 
   const gym = data?.data.attributes
@@ -54,7 +58,7 @@ export default function UpdateGymInfoForm() {
   )
   const [googleMapLinkError, setGoogleMapLinkError] = useState<string>()
 
-  const [timeOptions, setTimeOptions] = useState<SelectOption[]>([])
+  const [timeOptions, setTimeOptions] = useState<SelectFieldOption[]>([])
   const [openTimeMonday, setOpenTimeMonday] = useState<string>(
     openTime?.monday?.open ? openTime?.monday?.open : DEFAULT_OPENING_TIME
   )
@@ -195,7 +199,7 @@ export default function UpdateGymInfoForm() {
   }, [isLoading])
 
   useEffect(() => {
-    const _timeOptions: SelectOption[] = []
+    const _timeOptions: SelectFieldOption[] = []
     ;[...Array(24).keys()].map((x) => {
       return _timeOptions.push({
         label: doubleDigitDisplay(x.toString()),
@@ -553,15 +557,15 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Lundi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeMonday(e.target.value)}
-                  options={timeOptions as SelectOption[]}
+                  options={timeOptions as SelectFieldOption[]}
                   value={openTimeMonday?.substring(0, 2)}
                 />
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeMonday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeMonday?.substring(0, 2)}
@@ -571,7 +575,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Mardi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeTuesday(e.target.value)}
                   options={timeOptions}
                   value={openTimeTuesday?.substring(0, 2)}
@@ -579,7 +583,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeTuesday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeTuesday?.substring(0, 2)}
@@ -589,7 +593,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Mercredi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeWednesday(e.target.value)}
                   options={timeOptions}
                   value={openTimeWednesday?.substring(0, 2)}
@@ -597,7 +601,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeWednesday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeWednesday?.substring(0, 2)}
@@ -607,7 +611,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Jeudi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeThursday(e.target.value)}
                   options={timeOptions}
                   value={openTimeThursday?.substring(0, 2)}
@@ -615,7 +619,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeThursday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeThursday?.substring(0, 2)}
@@ -625,7 +629,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Vendredi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeFriday(e.target.value)}
                   options={timeOptions}
                   value={openTimeFriday?.substring(0, 2)}
@@ -633,7 +637,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeFriday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeFriday?.substring(0, 2)}
@@ -643,7 +647,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Samedi</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeSaturday(e.target.value)}
                   options={timeOptions}
                   value={openTimeSaturday?.substring(0, 2)}
@@ -651,7 +655,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeSaturday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeSaturday?.substring(0, 2)}
@@ -661,7 +665,7 @@ export default function UpdateGymInfoForm() {
             <div className="flex gap-4 items-center">
               <p className="font-bold w-full max-w-24">Dimanche</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setOpenTimeSunday(e.target.value)}
                   options={timeOptions}
                   value={openTimeSunday?.substring(0, 2)}
@@ -669,7 +673,7 @@ export default function UpdateGymInfoForm() {
               </div>
               <p>jusqu'à</p>
               <div className="w-full max-w-24">
-                <Select
+                <SelectField
                   onChange={(e) => setCloseTimeSunday(e.target.value)}
                   options={timeOptions}
                   value={closeTimeSunday?.substring(0, 2)}

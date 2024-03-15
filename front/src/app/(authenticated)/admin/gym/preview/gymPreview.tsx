@@ -3,7 +3,7 @@
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import { ErrorArea } from '@/components/ui/error'
 import { LoadingArea } from '@/components/ui/loading'
-import useGetGymInfo from '@/hooks/gym/useGetGymInfo'
+import useGetGymById from '@/hooks/gym/useGetGymById'
 import { displayStrapiImage } from '@/lib/utils/utils'
 
 import Image from 'next/image'
@@ -12,7 +12,7 @@ import PlanningCallendarByGymId from '@/app/_components/planning/planningCalenda
 
 export default function GymPreview() {
   const id = getCookie('gym')
-  const { data, isLoading, isError } = useGetGymInfo({
+  const { data, isLoading, isError } = useGetGymById({
     id: parseInt(id as string),
   })
 

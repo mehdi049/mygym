@@ -1,11 +1,11 @@
-export type SelectOption = {
+export type SelectFieldOption = {
   label: string
   value: string | number
   disabled?: boolean
 }
-type SelectProps = {
+type SelectFieldProps = {
   value: string | number
-  options: SelectOption[]
+  options: SelectFieldOption[]
   label?: string
   name?: string
   helper?: string
@@ -14,7 +14,7 @@ type SelectProps = {
   id?: string
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
-export const Select = ({
+export const SelectField = ({
   value,
   options,
   label,
@@ -24,7 +24,7 @@ export const Select = ({
   disabled,
   id,
   onChange,
-}: SelectProps) => {
+}: SelectFieldProps) => {
   return (
     <div className="w-full">
       {label && <label className="mb-2 block text-sm">{label}</label>}

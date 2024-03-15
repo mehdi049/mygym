@@ -16,9 +16,8 @@ export const getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery = ({
       fetcherGet({
         url:
           API_ENDPOINT.STRAPI +
-          '/user-infos?filters[account][id][$eq]=' +
-          accountId +
-          '&populate[gym][populate]=logo',
+          '/user-infos?populate[profile_picture][populate]&populate[gym][populate]=logo&filters[account][id][$eq]=' +
+          accountId,
         auth: true,
         token: token,
       }),

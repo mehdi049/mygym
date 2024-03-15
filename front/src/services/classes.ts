@@ -12,8 +12,19 @@ export const getClassesByGymIdQuery = ({ id }: getClassesByGymIdQueryProps) => {
       fetcherGet({
         url:
           API_ENDPOINT.STRAPI +
-          '/classes?populate[room][populate][0]=gym&populate[coaches][populate]=*&populate[attendees][populate]=*&filters[room][gym][id][$eq]=' +
+          '/classes?populate[class_name][populate]=*&populate[room][populate][0]=gym&populate[coaches][populate]=*&populate[attendees][populate]=*&filters[room][gym][id][$eq]=' +
           id,
+      }),
+  }
+  return query
+}
+
+export const getAllClassesNamesQuery = () => {
+  const query = {
+    queryKey: [queryKeys.gymClassesNames],
+    queryFn: async () =>
+      fetcherGet({
+        url: API_ENDPOINT.STRAPI + '/class-names',
       }),
   }
   return query

@@ -1,6 +1,8 @@
-import type { Metadata } from 'next'
 import 'react-toastify/dist/ReactToastify.css'
 import '../globals.css'
+
+import type { Metadata } from 'next'
+
 import Providers from '../providers'
 import { Footer } from '@/components/authenticated/footer'
 import Navigation from './navigation'

@@ -1,7 +1,7 @@
 'use client'
 
 import useGetUserMe from '@/hooks/user/useGetUserMe'
-import { userRoleNames } from '@/const/constant'
+import { USER_ROLES } from '@/const/constant'
 import { AdminNavigation } from './admin/_shared/navbar/adminNavigation'
 
 export default function Navigation() {
@@ -14,7 +14,7 @@ export default function Navigation() {
   return (
     <>
       {(data?.role.name.toLowerCase() as string) ===
-        userRoleNames.admin.toLowerCase() && <AdminNavigation />}
+        USER_ROLES.ADMIN.toLowerCase() && <AdminNavigation />}
     </>
   )
 }

@@ -39,8 +39,8 @@ export const TextField = ({
         name={name}
         placeholder={placeholder}
         className={
-          'border border-gray-200 rounded-md  p-2 block w-full ' +
-          (error ? 'border-red-500' : 'border-gray-100')
+          'border rounded-md p-2 block w-full ' +
+          (error ? 'border-red-500' : 'border-gray-200')
         }
         id={id}
         disabled={disabled}

@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
-    },
     "start": {
       "type": "datetime"
     },
@@ -42,6 +39,11 @@
     "is_les_mills": {
       "type": "boolean",
       "default": false
+    },
+    "class_name": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::class-name.class-name"
     }
   }
 }

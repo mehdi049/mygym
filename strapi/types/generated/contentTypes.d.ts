@@ -793,7 +793,6 @@ export interface ApiClassClass extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
     start: Attribute.DateTime;
     end: Attribute.DateTime;
     room: Attribute.Relation<'api::class.class', 'oneToOne', 'api::room.room'>;
@@ -809,6 +808,11 @@ export interface ApiClassClass extends Schema.CollectionType {
       'api::user-info.user-info'
     >;
     is_les_mills: Attribute.Boolean & Attribute.DefaultTo<false>;
+    class_name: Attribute.Relation<
+      'api::class.class',
+      'oneToOne',
+      'api::class-name.class-name'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -820,6 +824,38 @@ export interface ApiClassClass extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::class.class',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiClassNameClassName extends Schema.CollectionType {
+  collectionName: 'class_names';
+  info: {
+    singularName: 'class-name';
+    pluralName: 'class-names';
+    displayName: 'class name';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Unique;
+    bg_color: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::class-name.class-name',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::class-name.class-name',
       'oneToOne',
       'admin::user'
     > &
@@ -852,11 +888,11 @@ export interface ApiGymGym extends Schema.CollectionType {
       'api::user-info.user-info'
     >;
     website: Attribute.String;
-    email: Attribute.String;
     prices: Attribute.Component<'gym-components.gym-prices'>;
     slug: Attribute.UID<'api::gym.gym', 'name'>;
     open_time: Attribute.Component<'gym-components.open-time'>;
     rooms: Attribute.Relation<'api::gym.gym', 'oneToMany', 'api::room.room'>;
+    email: Attribute.Email;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::gym.gym', 'oneToOne', 'admin::user'> &
@@ -954,6 +990,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::class.class': ApiClassClass;
+      'api::class-name.class-name': ApiClassNameClassName;
       'api::gym.gym': ApiGymGym;
       'api::room.room': ApiRoomRoom;
       'api::user-info.user-info': ApiUserInfoUserInfo;

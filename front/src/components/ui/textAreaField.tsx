@@ -27,8 +27,8 @@ export const TextAreaField = ({
         name={name}
         placeholder={placeholder}
         className={
-          'border  p-2 block w-full h-80 resize-none ' +
-          (error ? 'border-red-500' : 'border-gray-100')
+          'border p-2 block w-full h-80 resize-none ' +
+          (error ? 'border-red-500' : 'border-gray-200')
         }
         id={id}
         disabled={disabled}

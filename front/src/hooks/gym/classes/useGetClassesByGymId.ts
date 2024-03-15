@@ -6,10 +6,10 @@ import { getClassesByGymIdQuery } from '@/services/classes'
 import { StrapiClass, StrapiResponse } from '@/types/strapi.types'
 import { IdProps } from '@/types/numberProps.types'
 
-const usegetClassesByGymIdQuery = ({
+const useGetClassesByGymId = ({
   id,
 }: IdProps): UseQueryResult<StrapiResponse<StrapiClass[]>> => {
   return useQuery(getClassesByGymIdQuery({ id: id }))
 }
 
-export default usegetClassesByGymIdQuery
+export default useGetClassesByGymId

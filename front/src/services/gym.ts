@@ -15,7 +15,7 @@ export const getGymByIdQuery = ({ id }: getGymByIdQueryProps) => {
           API_ENDPOINT.STRAPI +
           '/gyms/' +
           id +
-          '?populate[prices][populate]=*&populate[address][populate]=*&populate[map][populate]=*&populate[logo][populate]=*&populate[social_media][populate]=*&populate[user_infos][populate]=*&populate[open_time][populate]=*',
+          '?populate[prices][populate]=*&populate[address][populate]&populate[map][populate]&populate[logo][populate]=*&populate[social_media][populate]&populate[open_time][populate]=*&populate[rooms][populate]',
         auth: true,
       }),
   }

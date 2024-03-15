@@ -11,7 +11,7 @@ export default function Planning({ id }: IdProps) {
       <h1 className="text-xl font-bold mb-8">PLANNING</h1>
 
       <DashboardBodyContainer>
-        <PlanningCallendarByGymId id={id} />
+        <PlanningCallendarByGymId id={id} editMode={true} />
       </DashboardBodyContainer>
     </>
   )

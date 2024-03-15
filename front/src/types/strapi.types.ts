@@ -161,6 +161,14 @@ type GymPrice = {
   packs?: GymPackPrice[]
 }
 
+export type GymRoom = {
+  attributes: {
+    name: string
+    gym: StrapiGym
+  }
+  id: number
+}
+
 export type StrapiGym = {
   attributes: {
     description: string
@@ -175,6 +183,7 @@ export type StrapiGym = {
     open_time?: GymOpenTime
     social_media?: StrapiSocialMediaLinks
     prices?: GymPrice
+    rooms?: { data?: GymRoom[] }
     user_infos?: {
       data?: StrapiUserInfo[]
     }
@@ -221,19 +230,33 @@ export type StrapiGymDataMedia = {
   logo: number
 }
 
-export type StrapiRoom = {
-  name: string
-  gym: {
-    data?: StrapiGym
+export type StrapiClassName = {
+  attributes: {
+    name: string
+    bg_color: string
+    updatedAt: Date
+    createdAt: Date
   }
-  updatedAt: Date
-  createdAt: Date
+  id: number
+}
+export type StrapiRoom = {
+  attributes: {
+    name: string
+    gym: {
+      data?: StrapiGym
+    }
+    updatedAt: Date
+    createdAt: Date
+  }
+  id: number
 }
 export type StrapiClass = {
   attributes: {
     start: Date
     end: Date
-    name: string
+    class_name: {
+      data: StrapiClassName
+    }
     is_les_mills: boolean
     max_attendees?: number
     room: {

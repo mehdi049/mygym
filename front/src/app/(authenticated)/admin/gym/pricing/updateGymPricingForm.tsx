@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ZodError, coerce, object, string } from 'zod'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
-import useGetGymInfo from '@/hooks/gym/useGetGymInfo'
+import useGetGymById from '@/hooks/gym/useGetGymById'
 import { GymPackPrice } from '@/types/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -32,7 +32,7 @@ const emptyPack: GymPackPrice = {
 
 export default function UpdateGymPricingForm() {
   const id = getCookie('gym')
-  const { data, isLoading, isError, isSuccess } = useGetGymInfo({
+  const { data, isLoading, isError, isSuccess } = useGetGymById({
     id: parseInt(id as string),
   })
   const { isPending, mutate } = useUpdateGymInfo()
