@@ -3,7 +3,8 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query'
 
 import { getAllClassesNamesQuery } from '@/services/classes'
-import { StrapiClassName, StrapiResponse } from '@/types/strapi.types'
+import { StrapiResponse } from '@/types/strapi/strapi.types'
+import { StrapiClassName } from '@/types/strapi/gym.types'
 
 const useGetAllClassesNames = (): UseQueryResult<
   StrapiResponse<StrapiClassName[]>

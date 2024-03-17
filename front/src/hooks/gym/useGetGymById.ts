@@ -2,8 +2,9 @@
 
 import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { getGymByIdQuery } from '@/services/gym'
-import { StrapiGym, StrapiResponse } from '@/types/strapi.types'
+import { StrapiResponse } from '@/types/strapi/strapi.types'
 import { IdProps } from '@/types/numberProps.types'
+import { StrapiGym } from '@/types/strapi/gym.types'
 
 const useGetGymById = ({
   id,

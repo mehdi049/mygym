@@ -1,8 +1,8 @@
 import { QueryClient, useMutation } from '@tanstack/react-query'
 import { updateGymInfo } from '@/services/gym'
-import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi.types'
 import { displaySuccessToast } from '@/lib/utils/utils'
 import { queryKeys } from '@/const/queryKeys'
+import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi/gym.types'
 
 const useUpdateGymInfo = () => {
   return useMutation({

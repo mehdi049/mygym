@@ -1,4 +1,4 @@
-import { StrapiMedia } from '@/types/strapi.types'
+import { StrapiMedia } from '@/types/strapi/strapi.types'
 import { getTokenFromLocalCookie } from './cookies'
 import { STRAPI_URL } from '../../const/constant'
 import { toast } from 'react-toastify'

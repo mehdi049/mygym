@@ -54,8 +54,7 @@ const Button = ({
   } else
     switch (variant) {
       case 'primary':
-        styleClass +=
-          'text-white bg-red-500 hover:bg-red-violet cursor-pointer '
+        styleClass += 'text-white bg-red-500 hover:bg-red-600 cursor-pointer '
         break
       case 'secondary':
         styleClass +=

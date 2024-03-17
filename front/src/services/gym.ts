@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from '@/const/endpoints'
 import { queryKeys } from '@/const/queryKeys'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi.types'
+import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi/gym.types'
 
 type getGymByIdQueryProps = {
   id: number

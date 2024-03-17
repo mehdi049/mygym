@@ -8,7 +8,6 @@ import dayjs from 'dayjs'
 import { LoadingArea } from '@/components/ui/loading'
 import { ErrorArea } from '@/components/ui/error'
 import { useEffect, useState } from 'react'
-import { StrapiClass } from '@/types/strapi.types'
 import { IdProps } from '@/types/numberProps.types'
 import useGetClassesByGymId from '@/hooks/gym/classes/useGetClassesByGymId'
 import { Slider } from '@/components/ui/slider'
@@ -20,6 +19,7 @@ import useGetAllClassesNames from '@/hooks/gym/classes/useGetAllClassesNames'
 import useGetCoachesByGymId from '@/hooks/coach/useGetCoachesByGymId'
 import useGetGymById from '@/hooks/gym/useGetGymById'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
+import { StrapiClass } from '@/types/strapi/gym.types'
 
 type PlanningSelectedDateProps = {
   date: Date

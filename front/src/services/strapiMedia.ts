@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherMedia } from '@/lib/utils/fetcher'
-import { StrapiMediaData } from '@/types/strapi.types'
+import { StrapiMediaData } from '@/types/strapi/strapi.types'
 
 type uploadStrapiMediaProps = {
   media: FormData

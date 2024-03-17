@@ -1,6 +1,9 @@
 import { ZodError } from 'zod'
 import { API_RESPONSE_ERRORS, ERRORS } from './errorMapper'
-import { StrapiErrorResponseError, StrapiResponse } from '@/types/strapi.types'
+import {
+  StrapiErrorResponseError,
+  StrapiResponse,
+} from '@/types/strapi/strapi.types'
 import { toast } from 'react-toastify'
 
 export const handleErrors = (error: unknown) => {

@@ -2,7 +2,7 @@ import { ROUTES } from '@/routes'
 import { unsetNavCookies, unsetToken } from '@/lib/utils/cookies'
 import { API_ENDPOINT } from '@/const/endpoints'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
-import { StrapiAuthSuccess } from '@/types/strapi.types'
+import { StrapiAuthSuccess } from '@/types/strapi/strapi.types'
 import { queryKeys } from '@/const/queryKeys'
 
 export type signInQueryProps = {

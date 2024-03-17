@@ -10,7 +10,6 @@ import { ZodError, coerce, object, string } from 'zod'
 import DashboardBodyContainer from '@/components/authenticated/dashboardBodyContainer'
 import DashboardGroupContainer from '@/components/authenticated/dashboardGroupContainer'
 import useGetGymById from '@/hooks/gym/useGetGymById'
-import { GymPackPrice } from '@/types/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -19,6 +18,7 @@ import {
 } from '@/lib/errorHandler/errorHandler'
 import { TextAreaField } from '@/components/ui/textAreaField'
 import { getCookie } from 'cookies-next'
+import { GymPackPrice } from '@/types/strapi/gym.types'
 
 const emptyPack: GymPackPrice = {
   name: undefined,
