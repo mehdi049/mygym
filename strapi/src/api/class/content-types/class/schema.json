@@ -44,6 +44,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::class-name.class-name"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Cancelled"
+      ],
+      "default": "Active"
     }
   }
 }

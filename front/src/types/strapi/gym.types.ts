@@ -35,6 +35,8 @@ export type StrapiRoom = {
   id: number
 }
 
+export type ClassStatus = 'Active' | 'Cancelled'
+
 export type StrapiClassDataUpdate = {
   start: Date
   end: Date
@@ -44,6 +46,7 @@ export type StrapiClassDataUpdate = {
   room: number
   coaches: number[]
   attendees?: number[]
+  status?: ClassStatus
   updatedAt?: Date
   createdAt?: Date
 }

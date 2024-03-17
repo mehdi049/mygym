@@ -1,8 +1,9 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { displaySuccessToast } from '@/lib/utils/utils'
-import { queryKeys } from '@/const/queryKeys'
 import { StrapiClassDataUpdate } from '@/types/strapi/gym.types'
 import { addGymClass } from '@/services/classes'
+import getQueryClient from '@/app/getQueryClient'
+import { queryKeys } from '@/const/queryKeys'
 
 const useAddClass = () => {
   return useMutation({
@@ -15,7 +16,7 @@ const useAddClass = () => {
     onSuccess: (response) => {
       if (response) {
         displaySuccessToast('Cours ajouté avec succés')
-        const queryClient = new QueryClient()
+        const queryClient = getQueryClient()
         queryClient.invalidateQueries({ queryKey: [queryKeys.gymClasses] })
       }
     },

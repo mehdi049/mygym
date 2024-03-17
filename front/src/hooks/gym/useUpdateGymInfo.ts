@@ -1,8 +1,9 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { updateGymInfo } from '@/services/gym'
 import { displaySuccessToast } from '@/lib/utils/utils'
 import { queryKeys } from '@/const/queryKeys'
 import { StrapiGymData, StrapiGymDataMedia } from '@/types/strapi/gym.types'
+import getQueryClient from '@/app/getQueryClient'
 
 const useUpdateGymInfo = () => {
   return useMutation({
@@ -18,8 +19,7 @@ const useUpdateGymInfo = () => {
     onSuccess: (response) => {
       if (response) {
         displaySuccessToast('Information mis à jour avec succés')
-        const queryClient = new QueryClient()
-        //queryClient.refetchQueries({ queryKey: [queryKeys.gymInfo] })
+        const queryClient = getQueryClient()
         queryClient.invalidateQueries({ queryKey: [queryKeys.gymInfo] })
       }
     },

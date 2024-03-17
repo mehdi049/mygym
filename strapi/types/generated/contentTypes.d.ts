@@ -813,6 +813,8 @@ export interface ApiClassClass extends Schema.CollectionType {
       'oneToOne',
       'api::class-name.class-name'
     >;
+    status: Attribute.Enumeration<['Active', 'Cancelled']> &
+      Attribute.DefaultTo<'Active'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

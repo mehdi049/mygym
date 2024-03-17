@@ -8,3 +8,8 @@ export const USER_ROLES = {
   COACH: 'Coach',
   MEMBER: 'Member',
 }
+
+export const CLASS_STATUS = {
+  ACTIVE: 'Active',
+  CANCELLED: 'Cancelled',
+}
