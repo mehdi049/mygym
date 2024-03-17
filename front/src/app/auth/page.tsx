@@ -40,12 +40,12 @@ export default function Auth() {
       })
     } catch (error) {
       if (error instanceof ZodError) {
-        const erros = error.errors
+        const errors = error.errors
         setPassworError(
-          erros.find((err) => err.path.includes('password'))?.message
+          errors.find((err) => err.path.includes('password'))?.message
         )
         setIdentifierError(
-          erros.find((err) => err.path.includes('identifier'))?.message
+          errors.find((err) => err.path.includes('identifier'))?.message
         )
       }
     }

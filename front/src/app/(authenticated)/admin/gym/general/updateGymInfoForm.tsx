@@ -398,41 +398,40 @@ export default function UpdateGymInfoForm() {
       })
     } catch (error) {
       if (error instanceof ZodError) {
-        console.log(error)
-        const erros = error.errors
-        setNameError(erros.find((err) => err.path.includes('name'))?.message)
-        setPhoneError(erros.find((err) => err.path.includes('phone'))?.message)
-        setEmailError(erros.find((err) => err.path.includes('email'))?.message)
+        const errors = error.errors
+        setNameError(errors.find((err) => err.path.includes('name'))?.message)
+        setPhoneError(errors.find((err) => err.path.includes('phone'))?.message)
+        setEmailError(errors.find((err) => err.path.includes('email'))?.message)
         setDescriptionError(
-          erros.find((err) => err.path.includes('description'))?.message
+          errors.find((err) => err.path.includes('description'))?.message
         )
         setWebsiteError(
-          erros.find((err) => err.path.includes('website'))?.message
+          errors.find((err) => err.path.includes('website'))?.message
         )
-        setCityError(erros.find((err) => err.path.includes('city'))?.message)
+        setCityError(errors.find((err) => err.path.includes('city'))?.message)
         setZipCodeError(
-          erros.find((err) => err.path.includes('zipCode'))?.message
+          errors.find((err) => err.path.includes('zipCode'))?.message
         )
         setStreetError(
-          erros.find((err) => err.path.includes('street'))?.message
+          errors.find((err) => err.path.includes('street'))?.message
         )
         setGoogleMapLinkError(
-          erros.find((err) => err.path.includes('googleMapLink'))?.message
+          errors.find((err) => err.path.includes('googleMapLink'))?.message
         )
         setFbLinkError(
-          erros.find((err) => err.path.includes('fbLink'))?.message
+          errors.find((err) => err.path.includes('fbLink'))?.message
         )
         setInstaLinkError(
-          erros.find((err) => err.path.includes('instaLink'))?.message
+          errors.find((err) => err.path.includes('instaLink'))?.message
         )
         setTwLinkError(
-          erros.find((err) => err.path.includes('twLink'))?.message
+          errors.find((err) => err.path.includes('twLink'))?.message
         )
         setYoutubeLinkError(
-          erros.find((err) => err.path.includes('youtubeLink'))?.message
+          errors.find((err) => err.path.includes('youtubeLink'))?.message
         )
         setLiLinkError(
-          erros.find((err) => err.path.includes('liLink'))?.message
+          errors.find((err) => err.path.includes('liLink'))?.message
         )
       }
     }

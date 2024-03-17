@@ -17,8 +17,8 @@ export type StrapiClassName = {
   attributes: {
     name: string
     bg_color: string
-    updatedAt: Date
-    createdAt: Date
+    updatedAt?: Date
+    createdAt?: Date
   }
   id: number
 }
@@ -29,29 +29,44 @@ export type StrapiRoom = {
     gym: {
       data?: StrapiGym
     }
-    updatedAt: Date
-    createdAt: Date
+    updatedAt?: Date
+    createdAt?: Date
   }
   id: number
 }
 
-export type StrapiClass = {
-  attributes: {
-    start: Date
-    end: Date
-    class_name: {
-      data: StrapiClassName
-    }
-    is_les_mills: boolean
-    max_attendees?: number
-    room: {
-      data?: StrapiRoom
-    }
-    coaches: { data?: StrapiUserInfo[] }
-    attendees: { data?: StrapiUserInfo[] }
-    updatedAt: Date
-    createdAt: Date
+export type StrapiClassDataUpdate = {
+  start: Date
+  end: Date
+  class_name: number
+  is_les_mills: boolean
+  max_attendees?: number
+  room: number
+  coaches: number[]
+  attendees?: number[]
+  updatedAt?: Date
+  createdAt?: Date
+}
+
+export type StrapiClassData = {
+  start: Date
+  end: Date
+  class_name: {
+    data: StrapiClassName
   }
+  is_les_mills: boolean
+  max_attendees?: number
+  room: {
+    data?: StrapiRoom
+  }
+  coaches: { data?: StrapiUserInfo[] }
+  attendees?: { data?: StrapiUserInfo[] }
+  updatedAt?: Date
+  createdAt?: Date
+}
+
+export type StrapiClass = {
+  attributes: StrapiClassData
   id: number
 }
 

@@ -116,12 +116,12 @@ export default function UpdateGymPricingForm() {
       })
     } catch (error) {
       if (error instanceof ZodError) {
-        const erros = error.errors
+        const errors = error.errors
         setSubscribtionPriceError(
-          erros.find((err) => err.path.includes('subscription_fees'))?.message
+          errors.find((err) => err.path.includes('subscription_fees'))?.message
         )
       }
-      // handle packs erros
+      // handle packs errors
       handleErrors(error)
     }
   }

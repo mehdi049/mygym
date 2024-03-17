@@ -1,6 +1,7 @@
 import { API_ENDPOINT } from '@/const/endpoints'
 import { queryKeys } from '@/const/queryKeys'
-import { fetcherGet } from '@/lib/utils/fetcher'
+import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
+import { StrapiClassDataUpdate } from '@/types/strapi/gym.types'
 
 type getClassesByGymIdQueryProps = {
   id: number
@@ -28,4 +29,29 @@ export const getAllClassesNamesQuery = () => {
       }),
   }
   return query
+}
+
+type addGymClassProps = {
+  data: StrapiClassDataUpdate
+}
+
+export const addGymClass = ({ data }: addGymClassProps) => {
+  return fetcher<StrapiClassDataUpdate>({
+    url: API_ENDPOINT.STRAPI + '/classes',
+    method: 'POST',
+    body: { data: data } as unknown as BodyInit,
+  })
+}
+
+type updateGymClassProps = {
+  classId: number
+  data: StrapiClassDataUpdate
+}
+
+export const updateGymClass = ({ classId, data }: updateGymClassProps) => {
+  return fetcher<StrapiClassDataUpdate>({
+    url: API_ENDPOINT.STRAPI + '/classes/' + classId,
+    method: 'PUT',
+    body: { data: data } as unknown as BodyInit,
+  })
 }

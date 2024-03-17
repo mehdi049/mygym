@@ -20,6 +20,9 @@ import useGetCoachesByGymId from '@/hooks/coach/useGetCoachesByGymId'
 import useGetGymById from '@/hooks/gym/useGetGymById'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
 import { StrapiClass } from '@/types/strapi/gym.types'
+import useAddClass from '@/hooks/gym/classes/useAddClass'
+import { handleErrors } from '@/lib/errorHandler/errorHandler'
+import { ZodError, coerce, date, object } from 'zod'
 
 type PlanningSelectedDateProps = {
   date: Date
@@ -74,6 +77,8 @@ export default function PlanningCallendarByGymId({
     isSuccess: isSuccessAllClassesNames,
   } = useGetAllClassesNames()
 
+  const { mutate } = useAddClass()
+
   const [classNamesOptions, setClassNamesOptions] = useState<
     SelectFieldOption[]
   >([])
@@ -90,9 +95,13 @@ export default function PlanningCallendarByGymId({
 
   const [selectedDateTime, setSelectedDateTime] = useState<Date>()
   const [startTime, setStartTime] = useState<string>('')
+  const [startTimeError, setStartTimeError] = useState<string>('')
   const [endTime, setEndTime] = useState<string>('')
+  const [endTimeError, setEndTimeError] = useState<string>('')
 
   const [maxAttendees, setMaxAttendees] = useState<number>()
+  const [maxAttendeesError, setMaxAttendeesError] = useState<string>()
+
   const [isLesMills, setIsLesMills] = useState<boolean>(true)
 
   useEffect(() => {
@@ -145,7 +154,6 @@ export default function PlanningCallendarByGymId({
 
   const handleDateClick = (arg: PlanningSelectedDateProps) => {
     if (editMode) {
-      console.log(arg)
       setSelectedDateTime(arg.date)
       setStartTime(
         doubleDigitDisplay(arg.date.getHours().toString()) +
@@ -182,15 +190,94 @@ export default function PlanningCallendarByGymId({
     const _data: PlanningProps[] = []
 
     data.map((x) => {
-      _data.push({
-        start: x.attributes.start.toString(),
-        end: x.attributes.end.toString(),
-        title: x.attributes.class_name.data.attributes.name,
-        id: '',
-      })
+      if (
+        x.attributes.start &&
+        x.attributes.end &&
+        x.attributes.class_name &&
+        x.attributes.class_name.data
+      )
+        _data.push({
+          start: x.attributes.start.toString(),
+          end: x.attributes.end.toString(),
+          title: x.attributes.class_name.data.attributes.name,
+          id: '',
+        })
     })
 
     setPlanningData(_data)
+  }
+
+  const classSchema = object({
+    startTime: date({
+      required_error: 'Date obligatoire',
+    }),
+    endTime: date({
+      required_error: 'Date obligatoire',
+    }),
+    maxAttendees: coerce
+      .number()
+      .positive({
+        message: 'Maximum de participants invalide',
+      })
+      .nullish(),
+  }).refine((data) => data.endTime > data.startTime, {
+    message: 'Date de fin doit être supèrieur à la date de debut',
+    path: ['endDate'],
+  })
+
+  const resetError = () => {
+    setStartTimeError('')
+    setEndTimeError('')
+    setMaxAttendeesError('')
+  }
+
+  const handleAddClass = () => {
+    try {
+      resetError()
+
+      const _startTime = dayjs(selectedDateTime)
+        .hour(parseInt(startTime.substring(0, 2)))
+        .minute(parseInt(startTime.substring(3, 5)))
+
+      const _endTime = dayjs(selectedDateTime)
+        .hour(parseInt(endTime.substring(0, 2)))
+        .minute(parseInt(endTime.substring(3, 5)))
+
+      classSchema.parse({
+        startTime: new Date(_startTime.toString()),
+        endTime: new Date(_endTime.toString()),
+        maxAttendees:
+          !maxAttendees || isNaN(maxAttendees) ? undefined : maxAttendees,
+      })
+
+      mutate({
+        data: {
+          start: new Date(_startTime.toString()),
+          end: new Date(_endTime.toString()),
+          class_name: parseInt(className),
+          is_les_mills: isLesMills,
+          room: parseInt(room),
+          coaches: [parseInt(coach)],
+          max_attendees: maxAttendees,
+        },
+      })
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const errors = error.errors
+        console.log(errors)
+        setEndTimeError(
+          errors.find((err) => err.path.includes('startTime'))
+            ?.message as string
+        )
+        setEndTimeError(
+          errors.find((err) => err.path.includes('endDate'))?.message as string
+        )
+        setMaxAttendeesError(
+          errors.find((err) => err.path.includes('maxAttendees'))
+            ?.message as string
+        )
+      }
+    }
   }
 
   useEffect(() => {
@@ -236,14 +323,14 @@ export default function PlanningCallendarByGymId({
               label="Début"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
-              //error={nameError}
+              error={startTimeError}
             />
             <TextField
               label="Fin"
               type="time"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              //error={phoneError}
+              error={endTimeError}
             />
           </div>
           <TextField
@@ -251,14 +338,14 @@ export default function PlanningCallendarByGymId({
             value={maxAttendees?.toString() as string}
             type="number"
             onChange={(e) => setMaxAttendees(parseInt(e.target.value))}
-            //error={phoneError}
+            error={maxAttendeesError}
           />
           <CheckboxField
             label="Les Mills"
             checked={isLesMills}
             onChange={() => setIsLesMills(!isLesMills)}
           />
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" onClick={() => handleAddClass()}>
             Ajouter
           </Button>
         </div>
