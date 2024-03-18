@@ -17,7 +17,7 @@ const useUpdateClass = () => {
       if (response) {
         displaySuccessToast('Cours mis à jour avec succés')
         const queryClient = getQueryClient()
-        queryClient.invalidateQueries({ queryKey: [queryKeys.gymClasses] })
+        queryClient.refetchQueries({ queryKey: [queryKeys.gymClasses] })
       }
     },
   })

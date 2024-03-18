@@ -64,6 +64,7 @@ export type StrapiClassData = {
   }
   coaches: { data?: StrapiUserInfo[] }
   attendees?: { data?: StrapiUserInfo[] }
+  status?: ClassStatus
   updatedAt?: Date
   createdAt?: Date
 }

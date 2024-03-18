@@ -11,7 +11,8 @@ export const getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery = ({
   token,
 }: getUserInfoWithGymBasicInfoAndLogoByAccountIdQueryProps) => {
   const query = {
-    queryKey: [queryKeys.gymInfo, accountId, token],
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [queryKeys.gymInfo, accountId],
     queryFn: async () =>
       fetcherGet({
         url:

@@ -1,6 +1,7 @@
 import { API_ENDPOINT } from '@/const/endpoints'
 import { queryKeys } from '@/const/queryKeys'
 import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
+import { IdProps } from '@/types/numberProps.types'
 import { StrapiClassDataUpdate } from '@/types/strapi/gym.types'
 
 type getClassesByGymIdQueryProps = {
@@ -8,7 +9,8 @@ type getClassesByGymIdQueryProps = {
 }
 export const getClassesByGymIdQuery = ({ id }: getClassesByGymIdQueryProps) => {
   const query = {
-    queryKey: [queryKeys.gymClasses, id],
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [queryKeys.gymClasses],
     queryFn: async () =>
       fetcherGet({
         url:
@@ -53,5 +55,12 @@ export const updateGymClass = ({ classId, data }: updateGymClassProps) => {
     url: API_ENDPOINT.STRAPI + '/classes/' + classId,
     method: 'PUT',
     body: { data: data } as unknown as BodyInit,
+  })
+}
+
+export const deleteGymClass = ({ id }: IdProps) => {
+  return fetcher<StrapiClassDataUpdate>({
+    url: API_ENDPOINT.STRAPI + '/classes/' + id,
+    method: 'DELETE',
   })
 }

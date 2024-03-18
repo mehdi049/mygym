@@ -11,8 +11,9 @@ import { useEffect, useState } from 'react'
 import { IdProps } from '@/types/numberProps.types'
 import useGetClassesByGymId from '@/hooks/gym/classes/useGetClassesByGymId'
 import { Slider } from '@/components/ui/slider'
-import { StrapiClass } from '@/types/strapi/gym.types'
+import { ClassStatus, StrapiClass } from '@/types/strapi/gym.types'
 import ManageClassesForm from '@/app/(authenticated)/admin/gym/planning/manageClassForm'
+import Badge from '@/components/ui/badge'
 
 type PlanningSelectedDateProps = {
   date: Date
@@ -25,6 +26,10 @@ type PlanningProps = {
   start: string
   end: string
   id?: string
+  extendedProps?: {
+    status?: ClassStatus
+    coach: string
+  }
 }
 
 type PlanningFormatterProps = {
@@ -32,6 +37,10 @@ type PlanningFormatterProps = {
   event: {
     title: string
     id?: string
+    extendedProps?: {
+      status?: ClassStatus
+      coach: string
+    }
   }
 }
 
@@ -78,12 +87,22 @@ export default function PlanningCallendarByGymId({
 
   const renderEventContent = (event: PlanningFormatterProps) => {
     return (
-      <div>
-        <span className="text-xs block" style={{ fontSize: '8px' }}>
-          {event.timeText}
+      <div className="realtive">
+        <span className="text-xxs block">{event.timeText}</span>
+
+        <span className="text-xs font-bold block">{event.event.title}</span>
+
+        <span className="text-xxs block">
+          {event.event.extendedProps?.coach}
         </span>
-        <span className="text-xs font-bold">{event.event.title}</span>
-        <span className="text-xs font-bold">{event.event.id}</span>
+
+        {event.event.extendedProps?.status === 'Cancelled' && (
+          <p className="absolute top-0 right-0.5">
+            <Badge variant="error" textSize="text-xxs">
+              Annulé
+            </Badge>
+          </p>
+        )}
       </div>
     )
   }
@@ -103,6 +122,10 @@ export default function PlanningCallendarByGymId({
           end: x.attributes.end.toString(),
           title: x.attributes.class_name.data.attributes.name,
           id: x.id.toString(),
+          extendedProps: {
+            status: x.attributes.status,
+            coach: x.attributes.coaches.data[0].attributes.first_name,
+          },
         })
     })
 
@@ -111,7 +134,7 @@ export default function PlanningCallendarByGymId({
 
   useEffect(() => {
     if (isSuccess) generateEventsBasedOnAPIResponse(data.data)
-  }, [isLoading])
+  }, [data])
 
   if (isLoading) return <LoadingArea />
 

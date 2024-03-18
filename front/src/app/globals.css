@@ -23,3 +23,8 @@ input[type='number'] {
 .bg-white-transparent {
   background-color: rgba(255, 255, 255, 0.7);
 }
+
+/* text size */
+.text-xxs {
+  font-size: 8px;
+}

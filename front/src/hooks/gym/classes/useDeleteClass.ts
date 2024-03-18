@@ -1,21 +1,20 @@
 import { useMutation } from '@tanstack/react-query'
 import { displaySuccessToast } from '@/lib/utils/utils'
-import { StrapiClassDataUpdate } from '@/types/strapi/gym.types'
-import { addGymClass } from '@/services/classes'
+import { deleteGymClass } from '@/services/classes'
 import getQueryClient from '@/app/getQueryClient'
 import { queryKeys } from '@/const/queryKeys'
 
-const useAddClass = () => {
+const useDeleteClass = () => {
   return useMutation({
-    mutationFn: (body: { data: StrapiClassDataUpdate }) => {
-      return addGymClass({ data: body.data })
+    mutationFn: (body: { id: number }) => {
+      return deleteGymClass({ id: body.id })
     },
     onError: (error) => {
       console.log(error)
     },
     onSuccess: (response) => {
       if (response) {
-        displaySuccessToast('Cours ajouté avec succés')
+        displaySuccessToast('Cours retiré avec succés')
         const queryClient = getQueryClient()
         queryClient.refetchQueries({ queryKey: [queryKeys.gymClasses] })
       }
@@ -23,4 +22,4 @@ const useAddClass = () => {
   })
 }
 
-export default useAddClass
+export default useDeleteClass

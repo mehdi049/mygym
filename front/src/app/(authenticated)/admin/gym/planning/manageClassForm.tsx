@@ -16,6 +16,8 @@ import { ZodError, coerce, date, object } from 'zod'
 import { doubleDigitDisplay } from '@/lib/utils/utils'
 import { StrapiClass } from '@/types/strapi/gym.types'
 import useUpdateClass from '@/hooks/gym/classes/useUpdateClass'
+import useDeleteClass from '@/hooks/gym/classes/useDeleteClass'
+import { handleErrors } from '@/lib/errorHandler/errorHandler'
 
 interface ManageClassesFormProps extends IdProps {
   selectedDateTime?: Date
@@ -50,6 +52,7 @@ export default function ManageClassesForm({
 
   const { mutate: mutateAdd } = useAddClass()
   const { mutate: mutateUpdate } = useUpdateClass()
+  const { mutate: mutateDelete } = useDeleteClass()
 
   const [classNamesOptions, setClassNamesOptions] = useState<
     SelectFieldOption[]
@@ -82,40 +85,6 @@ export default function ManageClassesForm({
       doubleDigitDisplay(new Date(date).getMinutes().toString())
     return formattedDate
   }
-
-  // useEffect for Add
-  useEffect(() => {
-    setClassName(
-      classNamesOptions.find(
-        (x) => x.value === selectedClass?.attributes.class_name.data.id
-      )?.value as string
-    )
-    if (
-      selectedClass?.attributes.coaches &&
-      selectedClass?.attributes.coaches.data
-    )
-      setCoach(selectedClass?.attributes.coaches.data[0].id.toString())
-
-    if (selectedClass?.attributes.room.data)
-      setRoom(selectedClass?.attributes.room.data?.id.toString())
-
-    if (selectedClass?.attributes.start) {
-      setSelectedDay(
-        dayjs(selectedClass?.attributes.start).format('dddd, D MMMM')
-      )
-
-      setStartTime(formatDateToTimeInputFormat(selectedClass?.attributes.start))
-
-      setEndTime(formatDateToTimeInputFormat(selectedClass?.attributes.end))
-    }
-
-    setMaxAttendees(selectedClass?.attributes.max_attendees)
-    setIsLesMills(
-      selectedClass?.attributes.is_les_mills
-        ? selectedClass?.attributes.is_les_mills
-        : false
-    )
-  }, [selectedClass])
 
   useEffect(() => {
     if (isSuccessAllClassesNames) {
@@ -164,6 +133,40 @@ export default function ManageClassesForm({
       setRoom(_options[0].value as string)
     }
   }, [isLoadingGym])
+
+  // useEffect for Add
+  useEffect(() => {
+    setClassName(
+      classNamesOptions.find(
+        (x) => x.value === selectedClass?.attributes.class_name.data.id
+      )?.value as string
+    )
+    if (
+      selectedClass?.attributes.coaches &&
+      selectedClass?.attributes.coaches.data
+    )
+      setCoach(selectedClass?.attributes.coaches.data[0].id.toString())
+
+    if (selectedClass?.attributes.room.data)
+      setRoom(selectedClass?.attributes.room.data?.id.toString())
+
+    if (selectedClass?.attributes.start) {
+      setSelectedDay(
+        dayjs(selectedClass?.attributes.start).format('dddd, D MMMM')
+      )
+
+      setStartTime(formatDateToTimeInputFormat(selectedClass?.attributes.start))
+
+      setEndTime(formatDateToTimeInputFormat(selectedClass?.attributes.end))
+    }
+
+    setMaxAttendees(selectedClass?.attributes.max_attendees)
+    setIsLesMills(
+      selectedClass?.attributes.is_les_mills
+        ? selectedClass?.attributes.is_les_mills
+        : false
+    )
+  }, [selectedClass])
 
   const classSchema = object({
     startTime: date({
@@ -300,6 +303,16 @@ export default function ManageClassesForm({
     }
   }
 
+  const handleDeleteClass = () => {
+    try {
+      mutateDelete({
+        id: selectedClass?.id as number,
+      })
+    } catch (error) {
+      handleErrors(error)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {selectedClass ? (
@@ -369,6 +382,13 @@ export default function ManageClassesForm({
             onClick={() => handleUpdateClass(true)}
           >
             Annuler le cours
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => handleDeleteClass()}
+          >
+            Retirer
           </Button>
         </>
       ) : (
