@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const SUB_NAVIGATION = {
-  INFO: 'info',
+  ACCOUNT: 'account',
   PWD: 'pwd',
   PREVIEW: 'preview',
 }
@@ -18,7 +18,7 @@ export const MyProfileSubNavigation = () => {
     id: accountId,
   })
   const [selectedSubNav, setSelectedSubNav] = useState<string>(
-    selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.INFO
+    selectedSubNavCookie ? selectedSubNavCookie : SUB_NAVIGATION.ACCOUNT
   )
 
   const linkClass =
@@ -34,24 +34,24 @@ export const MyProfileSubNavigation = () => {
       <ul className="mt-12">
         <li className="list-none">
           <Link
-            href={ROUTES.ADMIN.GYM_GENERAL}
+            href={ROUTES.ADMIN.PROFILE_ACCOUNT}
             className={
               linkClass +
-              (selectedSubNav === SUB_NAVIGATION.INFO
+              (selectedSubNav === SUB_NAVIGATION.ACCOUNT
                 ? 'bg-gray-200 font-bold'
                 : '')
             }
             onClick={() => {
-              setSelectedSubNav(SUB_NAVIGATION.INFO)
-              setCookie('dash_sub_navigation', SUB_NAVIGATION.INFO)
+              setSelectedSubNav(SUB_NAVIGATION.ACCOUNT)
+              setCookie('dash_sub_navigation', SUB_NAVIGATION.ACCOUNT)
             }}
           >
-            Informations générales
+            Mon compte
           </Link>
         </li>
         <li className="list-none">
           <Link
-            href={ROUTES.ADMIN.GYM_PRICING}
+            href={ROUTES.ADMIN.PROFILE_PWD}
             className={
               linkClass +
               (selectedSubNav === SUB_NAVIGATION.PWD
@@ -68,7 +68,7 @@ export const MyProfileSubNavigation = () => {
         </li>
         <li className="list-none">
           <Link
-            href={ROUTES.ADMIN.GYM_PRICING}
+            href={ROUTES.ADMIN.PROFILE_PREVIEW}
             className={
               linkClass +
               (selectedSubNav === SUB_NAVIGATION.PREVIEW

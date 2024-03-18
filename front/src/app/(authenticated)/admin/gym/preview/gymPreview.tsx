@@ -30,7 +30,7 @@ export default function GymPreview() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold uppercase mb-8">Preview</h1>
+      <h1 className="text-xl font-bold mb-8">Preview</h1>
 
       <DashboardBodyContainer>
         <div className="mb-4">

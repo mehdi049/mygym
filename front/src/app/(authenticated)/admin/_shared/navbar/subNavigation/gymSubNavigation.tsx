@@ -88,6 +88,7 @@ export const GymSubNavigation = () => {
             Planning de la semaine
           </Link>
         </li>
+        {/* 
         <li className="list-none">
           <Link
             href={ROUTES.ADMIN.GYM_STAT}
@@ -105,6 +106,7 @@ export const GymSubNavigation = () => {
             Statistique
           </Link>
         </li>
+        */}
         <li className="list-none">
           <Link
             href={ROUTES.ADMIN.GYM_PREVIEW}

@@ -1,4 +1,3 @@
-import Profile from './profile'
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { getCurrentAccountIdFromToken } from '@/lib/utils/utils'
@@ -6,6 +5,7 @@ import { getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery } from '@/services/u
 
 import { cookies } from 'next/headers'
 import getQueryClient from '@/app/getQueryClient'
+import Account from './account'
 
 export default async function Page() {
   const token = getCookie('token', { cookies })
@@ -21,7 +21,7 @@ export default async function Page() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Profile />
+      <Account />
     </HydrationBoundary>
   )
 }

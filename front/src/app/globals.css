@@ -28,3 +28,9 @@ input[type='number'] {
 .text-xxs {
   font-size: 8px;
 }
+
+/* */
+.fc-header-toolbar h2 {
+  font-size: 18px !important;
+  font-weight: bold;
+}

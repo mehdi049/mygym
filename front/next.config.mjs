@@ -8,7 +8,12 @@ const nextConfig = {
     return [
       {
         source: '/admin',
-        destination: '/admin/profile',
+        destination: '/admin/profile/account',
+        permanent: true,
+      },
+      {
+        source: '/admin/profile',
+        destination: '/admin/profile/account',
         permanent: true,
       },
       {

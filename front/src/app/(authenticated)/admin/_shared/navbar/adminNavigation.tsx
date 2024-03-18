@@ -71,7 +71,7 @@ export const AdminNavigation = () => {
         <ul className="mt-4">
           <li className="list-none">
             <Link
-              href={ROUTES.ADMIN.PROFILE}
+              href={ROUTES.ADMIN.PROFILE_ACCOUNT}
               className={
                 linkClass +
                 (selectedNav === NAVIGATION.PROFILE

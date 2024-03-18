@@ -8,7 +8,7 @@ import PlanningCallendarByGymId from '@/app/_components/planning/planningCalenda
 export default function Planning({ id }: IdProps) {
   return (
     <>
-      <h1 className="text-xl font-bold mb-8">PLANNING</h1>
+      <h1 className="text-xl font-bold mb-8">Planning</h1>
 
       <DashboardBodyContainer>
         <PlanningCallendarByGymId id={id} editMode={true} />
