@@ -86,88 +86,6 @@ export default function ManageClassesForm({
     return formattedDate
   }
 
-  useEffect(() => {
-    if (isSuccessAllClassesNames) {
-      const _options: SelectFieldOption[] = []
-
-      allClassesNames.data.forEach((className) => {
-        _options.push({
-          label: className.attributes.name,
-          value: className.id,
-        })
-      })
-      setClassNamesOptions(_options)
-      setClassName(_options[0].value as string)
-    }
-  }, [isLoadingAllClassesNames])
-
-  useEffect(() => {
-    if (isSuccessCoaches) {
-      const _options: SelectFieldOption[] = []
-
-      coaches.data.forEach((className) => {
-        _options.push({
-          label:
-            className.attributes.first_name +
-            ' ' +
-            className.attributes.last_name,
-          value: className.id,
-        })
-      })
-      setCoachOptions(_options)
-      setCoach(_options[0].value as string)
-    }
-  }, [isLoadingCoaches])
-
-  useEffect(() => {
-    if (isSuccessGym) {
-      const _options: SelectFieldOption[] = []
-
-      gym.data.attributes.rooms?.data?.forEach((room) => {
-        _options.push({
-          label: room.attributes.name,
-          value: room.id,
-        })
-      })
-      setRoomOptions(_options)
-      setRoom(_options[0].value as string)
-    }
-  }, [isLoadingGym])
-
-  // useEffect for Add
-  useEffect(() => {
-    setClassName(
-      classNamesOptions.find(
-        (x) => x.value === selectedClass?.attributes.class_name.data.id
-      )?.value as string
-    )
-    if (
-      selectedClass?.attributes.coaches &&
-      selectedClass?.attributes.coaches.data
-    )
-      setCoach(selectedClass?.attributes.coaches.data[0].id.toString())
-
-    if (selectedClass?.attributes.room.data)
-      setRoom(selectedClass?.attributes.room.data?.id.toString())
-
-    if (selectedClass?.attributes.start) {
-      setSelectedDay(
-        dayjs(selectedClass?.attributes.start).format('dddd, D MMMM')
-      )
-
-      setStartTime(formatDateToTimeInputFormat(selectedClass?.attributes.start))
-
-      setEndTime(formatDateToTimeInputFormat(selectedClass?.attributes.end))
-    }
-
-    setMaxAttendees(selectedClass?.attributes.max_attendees)
-    setIsLesMills(
-      selectedClass?.attributes.is_les_mills
-        ? selectedClass?.attributes.is_les_mills
-        : false
-    )
-  }, [selectedClass])
-
   const classSchema = object({
     startTime: date({
       required_error: 'Date obligatoire',
@@ -192,66 +110,92 @@ export default function ManageClassesForm({
     setMaxAttendeesError('')
   }
 
-  const handleAddClass = () => {
-    try {
-      resetError()
+  // load classes list
+  useEffect(() => {
+    if (isSuccessAllClassesNames) {
+      const _options: SelectFieldOption[] = []
 
-      const _startTime = dayjs(selectedDateTime)
-        .hour(parseInt(startTime.substring(0, 2)))
-        .minute(parseInt(startTime.substring(3, 5)))
-
-      const _endTime = dayjs(selectedDateTime)
-        .hour(parseInt(endTime.substring(0, 2)))
-        .minute(parseInt(endTime.substring(3, 5)))
-
-      classSchema.parse({
-        startTime: new Date(_startTime.toString()),
-        endTime: new Date(_endTime.toString()),
-        maxAttendees:
-          !maxAttendees || isNaN(maxAttendees) ? undefined : maxAttendees,
+      allClassesNames.data.forEach((className) => {
+        _options.push({
+          label: className.attributes.name,
+          value: className.id,
+        })
       })
-
-      mutateAdd({
-        data: {
-          start: new Date(_startTime.toString()),
-          end: new Date(_endTime.toString()),
-          class_name: parseInt(className),
-          is_les_mills: isLesMills,
-          room: parseInt(room),
-          coaches: [parseInt(coach)],
-          max_attendees: maxAttendees,
-        },
-      })
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const errors = error.errors
-        setEndTimeError(
-          errors.find((err) => err.path.includes('startTime'))
-            ?.message as string
-        )
-        setEndTimeError(
-          errors.find((err) => err.path.includes('endDate'))?.message as string
-        )
-        setMaxAttendeesError(
-          errors.find((err) => err.path.includes('maxAttendees'))
-            ?.message as string
-        )
-      }
+      setClassNamesOptions(_options)
+      setClassName(_options[0].value as string)
     }
-  }
+  }, [isLoadingAllClassesNames])
+
+  // load coaches
+  useEffect(() => {
+    if (isSuccessCoaches) {
+      const _options: SelectFieldOption[] = []
+
+      coaches.data.forEach((className) => {
+        _options.push({
+          label:
+            className.attributes.first_name +
+            ' ' +
+            className.attributes.last_name,
+          value: className.id,
+        })
+      })
+      setCoachOptions(_options)
+      setCoach(_options[0].value as string)
+    }
+  }, [isLoadingCoaches])
+
+  // load rooms
+  useEffect(() => {
+    if (isSuccessGym) {
+      const _options: SelectFieldOption[] = []
+
+      gym.data.attributes.rooms?.data?.forEach((room) => {
+        _options.push({
+          label: room.attributes.name,
+          value: room.id,
+        })
+      })
+      setRoomOptions(_options)
+      setRoom(_options[0].value as string)
+    }
+  }, [isLoadingGym])
 
   // useEffect for edit
   useEffect(() => {
-    if (selectedDateTime) {
-      setSelectedDay(dayjs(selectedDateTime).format('dddd, D MMMM'))
-      setStartTime(formatDateToTimeInputFormat(selectedDateTime))
-      setEndTime(
-        doubleDigitDisplay((selectedDateTime.getHours() + 1).toString()) +
-          ':' +
-          doubleDigitDisplay(selectedDateTime.getMinutes().toString())
+    if (selectedClass) {
+      setClassName(
+        classNamesOptions.find(
+          (x) => x.value === selectedClass?.attributes.class_name.data.id
+        )?.value as string
+      )
+
+      if (selectedClass?.attributes.coaches.data)
+        setCoach(selectedClass?.attributes.coaches.data[0].id.toString())
+
+      if (selectedClass?.attributes.room.data)
+        setRoom(selectedClass?.attributes.room.data?.id.toString())
+
+      if (selectedClass?.attributes.start) {
+        setSelectedDay(
+          dayjs(selectedClass?.attributes.start).format('dddd, D MMMM')
+        )
+
+        setStartTime(
+          formatDateToTimeInputFormat(selectedClass?.attributes.start)
+        )
+
+        setEndTime(formatDateToTimeInputFormat(selectedClass?.attributes.end))
+      }
+
+      setMaxAttendees(selectedClass?.attributes.max_attendees)
+      setIsLesMills(
+        selectedClass?.attributes.is_les_mills
+          ? selectedClass?.attributes.is_les_mills
+          : false
       )
     }
-  }, [selectedDateTime])
+  }, [selectedClass, classNamesOptions, coachOptions, roomOptions])
 
   const handleUpdateClass = (isCancelled?: boolean) => {
     try {
@@ -303,6 +247,68 @@ export default function ManageClassesForm({
     }
   }
 
+  // useEffect for add
+  useEffect(() => {
+    if (selectedDateTime) {
+      setSelectedDay(dayjs(selectedDateTime).format('dddd, D MMMM'))
+      setStartTime(formatDateToTimeInputFormat(selectedDateTime))
+      setEndTime(
+        doubleDigitDisplay((selectedDateTime.getHours() + 1).toString()) +
+          ':' +
+          doubleDigitDisplay(selectedDateTime.getMinutes().toString())
+      )
+    }
+  }, [selectedDateTime])
+
+  const handleAddClass = () => {
+    try {
+      resetError()
+
+      const _startTime = dayjs(selectedDateTime)
+        .hour(parseInt(startTime.substring(0, 2)))
+        .minute(parseInt(startTime.substring(3, 5)))
+
+      const _endTime = dayjs(selectedDateTime)
+        .hour(parseInt(endTime.substring(0, 2)))
+        .minute(parseInt(endTime.substring(3, 5)))
+
+      classSchema.parse({
+        startTime: new Date(_startTime.toString()),
+        endTime: new Date(_endTime.toString()),
+        maxAttendees:
+          !maxAttendees || isNaN(maxAttendees) ? undefined : maxAttendees,
+      })
+
+      mutateAdd({
+        data: {
+          start: new Date(_startTime.toString()),
+          end: new Date(_endTime.toString()),
+          class_name: parseInt(className),
+          is_les_mills: isLesMills,
+          room: parseInt(room),
+          coaches: [parseInt(coach)],
+          max_attendees: maxAttendees,
+        },
+      })
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const errors = error.errors
+        setEndTimeError(
+          errors.find((err) => err.path.includes('startTime'))
+            ?.message as string
+        )
+        setEndTimeError(
+          errors.find((err) => err.path.includes('endDate'))?.message as string
+        )
+        setMaxAttendeesError(
+          errors.find((err) => err.path.includes('maxAttendees'))
+            ?.message as string
+        )
+      }
+    }
+  }
+
+  // handle delete
   const handleDeleteClass = () => {
     try {
       mutateDelete({

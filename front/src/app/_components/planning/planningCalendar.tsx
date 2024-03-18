@@ -29,6 +29,7 @@ type PlanningProps = {
   extendedProps?: {
     status?: ClassStatus
     coach: string
+    room: string
   }
 }
 
@@ -40,6 +41,7 @@ type PlanningFormatterProps = {
     extendedProps?: {
       status?: ClassStatus
       coach: string
+      room: string
     }
   }
 }
@@ -96,6 +98,12 @@ export default function PlanningCallendarByGymId({
           {event.event.extendedProps?.coach}
         </span>
 
+        <p className="absolute bottom-0.5 right-0.5">
+          <Badge variant="info" textSize="text-xxs">
+            {event.event.extendedProps?.room}
+          </Badge>
+        </p>
+
         {event.event.extendedProps?.status === 'Cancelled' && (
           <p className="absolute top-0 right-0.5">
             <Badge variant="error" textSize="text-xxs">
@@ -124,7 +132,10 @@ export default function PlanningCallendarByGymId({
           id: x.id.toString(),
           extendedProps: {
             status: x.attributes.status,
-            coach: x.attributes.coaches.data[0].attributes.first_name,
+            coach: x.attributes.coaches.data
+              ? x.attributes.coaches.data[0].attributes.first_name
+              : '',
+            room: x.attributes.room.data?.attributes.name as string,
           },
         })
     })

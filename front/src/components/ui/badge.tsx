@@ -19,7 +19,7 @@ const Badge = ({
 
   switch (variant) {
     case 'info':
-      styleClass += 'bg-sky-300'
+      styleClass += 'bg-sky-800'
       break
     case 'warning':
       styleClass += 'bg-amber-300'
