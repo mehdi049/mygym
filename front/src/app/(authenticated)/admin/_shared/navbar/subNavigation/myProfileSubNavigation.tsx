@@ -46,7 +46,7 @@ export const MyProfileSubNavigation = () => {
               setCookie('dash_sub_navigation', SUB_NAVIGATION.ACCOUNT)
             }}
           >
-            Mon compte
+            Mon profil
           </Link>
         </li>
         <li className="list-none">

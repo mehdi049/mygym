@@ -1,6 +1,10 @@
 import { API_ENDPOINT } from '@/const/endpoints'
 import { queryKeys } from '@/const/queryKeys'
-import { fetcherGet } from '@/lib/utils/fetcher'
+import { fetcher, fetcherGet } from '@/lib/utils/fetcher'
+import {
+  StrapiUserInfoData,
+  StrapiUserProfileMedia,
+} from '@/types/strapi/user.types'
 
 type getUserInfoWithGymBasicInfoAndLogoByAccountIdQueryProps = {
   accountId: number
@@ -25,4 +29,19 @@ export const getUserInfoWithGymBasicInfoAndLogoByAccountIdQuery = ({
   }
 
   return query
+}
+
+type updateUserInfoProps = {
+  userInfoId: number
+  userInfoData: StrapiUserInfoData | StrapiUserProfileMedia
+}
+export const updateUserInfo = ({
+  userInfoId,
+  userInfoData,
+}: updateUserInfoProps) => {
+  return fetcher<StrapiUserInfoData>({
+    url: API_ENDPOINT.STRAPI + '/user-infos/' + userInfoId,
+    method: 'PUT',
+    body: { data: userInfoData } as unknown as BodyInit,
+  })
 }

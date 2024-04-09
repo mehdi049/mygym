@@ -319,7 +319,7 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
               <h2 className="text-lg font-bold w-40">Pack</h2>
 
               <TextField
-                value={packs[packKey].name as string}
+                value={packs[packKey].name ?? ''}
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].name = e.target.value
@@ -333,7 +333,7 @@ const Pack = ({ packKey, packs, setPacks }: PackProps) => {
               </h2>
 
               <TextAreaField
-                value={packs[packKey].extra_info as string}
+                value={packs[packKey].extra_info ?? ''}
                 onChange={(e) => {
                   const p = [...packs]
                   p[packKey].extra_info = e.target.value

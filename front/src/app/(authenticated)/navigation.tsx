@@ -13,8 +13,9 @@ export default function Navigation() {
 */
   return (
     <>
-      {(data?.role.name.toLowerCase() as string) ===
-        USER_ROLES.ADMIN.toLowerCase() && <AdminNavigation />}
+      {data?.role.name.toLowerCase() === USER_ROLES.ADMIN.toLowerCase() && (
+        <AdminNavigation />
+      )}
     </>
   )
 }

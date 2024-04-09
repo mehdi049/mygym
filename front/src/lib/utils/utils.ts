@@ -8,7 +8,7 @@ export const getCurrentAccountIdFromToken = (token?: string) => {
   const jwtToken = token ? token : getTokenFromLocalCookie()
   if (jwtToken) {
     try {
-      const { id } = JSON.parse(atob((jwtToken as string).split('.')[1]))
+      const { id } = JSON.parse(atob(jwtToken.split('.')[1]))
       return id
     } catch (error) {
       console.log(error)

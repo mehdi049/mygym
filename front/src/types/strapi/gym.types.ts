@@ -127,7 +127,7 @@ export type StrapiGymData = {
   open_time?: GymOpenTime
 }
 
-export type StrapiGymDataMedia = {
+export type StrapiGymLogoMedia = {
   logo: number
 }
 

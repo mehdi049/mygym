@@ -1,17 +1,23 @@
 import { useMutation } from '@tanstack/react-query'
-import { updateGymInfo } from '@/services/gym'
 import { displaySuccessToast } from '@/lib/utils/utils'
 import { queryKeys } from '@/const/queryKeys'
-import { StrapiGymData, StrapiGymLogoMedia } from '@/types/strapi/gym.types'
 import getQueryClient from '@/app/getQueryClient'
+import {
+  StrapiUserInfoData,
+  StrapiUserProfileMedia,
+} from '@/types/strapi/user.types'
+import { updateUserInfo } from '@/services/userInfo'
 
-const useUpdateGymInfo = () => {
+const useUpdateUserInfo = () => {
   return useMutation({
     mutationFn: (body: {
-      gymId: number
-      gymData: StrapiGymData | StrapiGymLogoMedia
+      userInfoId: number
+      userInfoData: StrapiUserInfoData | StrapiUserProfileMedia
     }) => {
-      return updateGymInfo({ gymId: body.gymId, gymData: body.gymData })
+      return updateUserInfo({
+        userInfoId: body.userInfoId,
+        userInfoData: body.userInfoData,
+      })
     },
     onError: (error) => {
       console.log(error)
@@ -20,10 +26,10 @@ const useUpdateGymInfo = () => {
       if (response) {
         displaySuccessToast('Information mis à jour avec succés')
         const queryClient = getQueryClient()
-        queryClient.invalidateQueries({ queryKey: [queryKeys.gymInfo] })
+        queryClient.invalidateQueries({ queryKey: [queryKeys.userInfo] })
       }
     },
   })
 }
 
-export default useUpdateGymInfo
+export default useUpdateUserInfo

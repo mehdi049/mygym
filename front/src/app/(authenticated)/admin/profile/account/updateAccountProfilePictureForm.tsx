@@ -3,11 +3,11 @@
 import { displayStrapiImage } from '@/lib/utils/utils'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import useUpdateGymLogo from '@/hooks/gym/useUpdateGymLogo'
 import { StrapiMedia } from '@/types/strapi/strapi.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { validateImageUpload } from '@/lib/utils/fileValidation'
+import useUpdateProfilePicture from '@/hooks/user/useUpdateProfilePicture'
 
 type UpdateAccountProfilePictureFormProps = {
   currentLogoMedia: StrapiMedia
@@ -21,8 +21,8 @@ export default function UpdateAccountProfilePictureForm({
     data,
     mutate: mutateUpload,
     isSuccess: isSuccessUpload,
-  } = useUpdateGymLogo({
-    gymId: userInfoId,
+  } = useUpdateProfilePicture({
+    userInfoId: userInfoId,
     currentMediaId: currentLogoMedia.data
       ? currentLogoMedia.data.id
       : undefined,

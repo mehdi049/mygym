@@ -1,6 +1,5 @@
 export const ROUTES = {
   HOME: '/',
-  AUTH: '/auth',
   ADMIN: {
     PROFILE_ACCOUNT: '/admin/profile/account',
     PROFILE_PWD: '/admin/profile/password',

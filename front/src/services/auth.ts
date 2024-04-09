@@ -36,5 +36,5 @@ export const getSignedInAccountService = () => {
 export const signOut = () => {
   unsetToken()
   unsetNavCookies()
-  if (typeof window !== 'undefined') document.location.href = ROUTES.AUTH
+  if (typeof window !== 'undefined') document.location.href = ROUTES.HOME
 }

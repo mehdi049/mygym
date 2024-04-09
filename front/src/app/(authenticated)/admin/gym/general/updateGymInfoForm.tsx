@@ -33,29 +33,25 @@ export default function UpdateGymInfoForm() {
   const socialMedia = gym?.social_media
   const openTime = gym?.open_time
 
-  const [name, setName] = useState<string>(gym?.name as string)
+  const [name, setName] = useState<string>(gym?.name ?? '')
   const [nameError, setNameError] = useState<string>()
-  const [phone, setPhone] = useState<string>(gym?.phone as string)
+  const [phone, setPhone] = useState<string>(gym?.phone ?? '')
   const [phoneError, setPhoneError] = useState<string>()
-  const [email, setEmail] = useState<string>(gym?.email as string)
+  const [email, setEmail] = useState<string>(gym?.email ?? '')
   const [emailError, setEmailError] = useState<string>()
-  const [description, setDescription] = useState<string>(
-    gym?.description as string
-  )
+  const [description, setDescription] = useState<string>(gym?.description ?? '')
   const [descriptionError, setDescriptionError] = useState<string>()
-  const [website, setWebsite] = useState<string>(gym?.website as string)
+  const [website, setWebsite] = useState<string>(gym?.website ?? '')
   const [websiteError, setWebsiteError] = useState<string>()
 
-  const [city, setCity] = useState<string>(address?.city as string)
+  const [city, setCity] = useState<string>(address?.city ?? '')
   const [cityError, setCityError] = useState<string>()
-  const [zipCode, setZipCode] = useState<string>(address?.zip_code as string)
+  const [zipCode, setZipCode] = useState<string>(address?.zip_code ?? '')
   const [zipCodeError, setZipCodeError] = useState<string>()
-  const [street, setStreet] = useState<string>(address?.street as string)
+  const [street, setStreet] = useState<string>(address?.street ?? '')
   const [streetError, setStreetError] = useState<string>()
 
-  const [googleMapLink, setGoogleMapLink] = useState<string>(
-    map?.link as string
-  )
+  const [googleMapLink, setGoogleMapLink] = useState<string>(map?.link ?? '')
   const [googleMapLinkError, setGoogleMapLinkError] = useState<string>()
 
   const [timeOptions, setTimeOptions] = useState<SelectFieldOption[]>([])
@@ -104,34 +100,34 @@ export default function UpdateGymInfoForm() {
     openTime?.sunday?.close ? openTime?.sunday?.close : DEFAULT_CLOSING_TIME
   )
 
-  const [fbLink, setFbLink] = useState<string>(socialMedia?.facebook as string)
+  const [fbLink, setFbLink] = useState<string>(socialMedia?.facebook ?? '')
   const [fbLinkError, setFbLinkError] = useState<string>()
   const [instaLink, setInstaLink] = useState<string>(
-    socialMedia?.instagram as string
+    socialMedia?.instagram ?? ''
   )
   const [instaLinkError, setInstaLinkError] = useState<string>()
-  const [twLink, setTwLink] = useState<string>(socialMedia?.twitter as string)
+  const [twLink, setTwLink] = useState<string>(socialMedia?.twitter ?? '')
   const [twLinkError, setTwLinkError] = useState<string>()
   const [youtubeLink, setYoutubeLink] = useState<string>(
-    socialMedia?.youtube as string
+    socialMedia?.youtube ?? ''
   )
   const [youtubeLinkError, setYoutubeLinkError] = useState<string>()
-  const [liLink, setLiLink] = useState<string>(socialMedia?.linkedin as string)
+  const [liLink, setLiLink] = useState<string>(socialMedia?.linkedin ?? '')
   const [liLinkError, setLiLinkError] = useState<string>()
 
   useEffect(() => {
     if (isSuccess) {
-      setName(gym?.name as string)
-      setPhone(gym?.phone as string)
-      setEmail(gym?.email as string)
-      setDescription(gym?.description as string)
-      setWebsite(gym?.website as string)
+      setName(gym?.name ?? '')
+      setPhone(gym?.phone ?? '')
+      setEmail(gym?.email ?? '')
+      setDescription(gym?.description ?? '')
+      setWebsite(gym?.website ?? '')
 
-      setCity(address?.city as string)
-      setZipCode(address?.zip_code as string)
-      setStreet(address?.street as string)
+      setCity(address?.city ?? '')
+      setZipCode(address?.zip_code ?? '')
+      setStreet(address?.street ?? '')
 
-      setGoogleMapLink(map?.link as string)
+      setGoogleMapLink(map?.link ?? '')
 
       setOpenTimeMonday(
         openTime?.monday?.open ? openTime?.monday?.open : DEFAULT_OPENING_TIME
@@ -190,11 +186,11 @@ export default function UpdateGymInfoForm() {
         openTime?.sunday?.close ? openTime?.sunday?.close : DEFAULT_CLOSING_TIME
       )
 
-      setFbLink(socialMedia?.facebook as string)
-      setInstaLink(socialMedia?.instagram as string)
-      setTwLink(socialMedia?.twitter as string)
-      setYoutubeLink(socialMedia?.youtube as string)
-      setLiLink(socialMedia?.linkedin as string)
+      setFbLink(socialMedia?.facebook ?? '')
+      setInstaLink(socialMedia?.instagram ?? '')
+      setTwLink(socialMedia?.twitter ?? '')
+      setYoutubeLink(socialMedia?.youtube ?? '')
+      setLiLink(socialMedia?.linkedin ?? '')
     }
   }, [isLoading])
 
@@ -540,7 +536,7 @@ export default function UpdateGymInfoForm() {
             />
             {map?.link && (
               <a
-                href={map.link as string}
+                href={map.link ?? ''}
                 target="_blank"
                 className=" underline text-xs"
               >

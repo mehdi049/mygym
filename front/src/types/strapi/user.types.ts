@@ -1,6 +1,8 @@
 import { StrapiGym } from './gym.types'
 import { StrapiMedia } from './strapi.types'
 
+export type StrapiUserGender = 'Homme' | 'Femme'
+
 export type StrapiUserMe = {
   blocked: boolean
   confirmed: boolean
@@ -42,14 +44,14 @@ export type StrapiAddress = {
 }
 
 export type StrapiUser = {
-  blocked: boolean
-  confirmed: boolean
+  blocked?: boolean
+  confirmed?: boolean
   email: string
-  id: number
-  provider: string
-  username: string
-  updatedAt: Date
-  createdAt: Date
+  id?: number
+  provider?: string
+  username?: string
+  updatedAt?: Date
+  createdAt?: Date
   role?: {
     data?: StrapiUserRole
   }
@@ -57,25 +59,31 @@ export type StrapiUser = {
 
 export type StrapiUserAccount = {
   attributes: StrapiUser
-  id: number
+  id?: number
+}
+
+export type StrapiUserProfileMedia = {
+  profile_picture: number
+}
+
+export type StrapiUserInfoData = {
+  birthday: string
+  first_name: string
+  last_name: string
+  gender: StrapiUserGender
+  phone: string
+  profile_picture?: StrapiMedia
+  updatedAt?: Date
+  createdAt?: Date
+  account: {
+    data?: StrapiUserAccount
+  }
+  gym?: {
+    data?: StrapiGym
+  }
 }
 
 export type StrapiUserInfo = {
-  attributes: {
-    birthday: string
-    first_name: string
-    last_name: string
-    gender: 'Homme' | 'Femme'
-    phone: string
-    profile_picture?: StrapiMedia
-    updatedAt: Date
-    createdAt: Date
-    account: {
-      data?: StrapiUserAccount
-    }
-    gym?: {
-      data?: StrapiGym
-    }
-  }
+  attributes: StrapiUserInfoData
   id: number
 }

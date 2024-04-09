@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { uploadStrapiMedia } from '@/services/strapiMedia'
 import useDeleteStrapiMedia from '../useDeleteStrapiMedia'
-import useUpdateGymInfo from '../gym/useUpdateGymInfo'
+import useUpdateUserInfo from './useUpdateUserInfo'
 
 type UseUpdateGymLogoProps = {
   userInfoId: number
@@ -11,7 +11,7 @@ const useUpdateProfilePicture = ({
   userInfoId,
   currentMediaId,
 }: UseUpdateGymLogoProps) => {
-  const { mutate } = useUpdateGymInfo()
+  const { mutate } = useUpdateUserInfo()
   const { mutate: mutateMediaDelete } = useDeleteStrapiMedia()
 
   return useMutation({
@@ -24,9 +24,9 @@ const useUpdateProfilePicture = ({
     onSuccess: (response) => {
       if (response && response[0]) {
         mutate({
-          gymId: userInfoId,
-          gymData: {
-            logo: response[0].id,
+          userInfoId: userInfoId,
+          userInfoData: {
+            profile_picture: response[0].id,
           },
         })
         // delete old picture after update

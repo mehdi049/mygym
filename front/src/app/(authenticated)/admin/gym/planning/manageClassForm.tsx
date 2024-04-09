@@ -233,15 +233,13 @@ export default function ManageClassesForm({
       if (error instanceof ZodError) {
         const errors = error.errors
         setEndTimeError(
-          errors.find((err) => err.path.includes('startTime'))
-            ?.message as string
+          errors.find((err) => err.path.includes('startTime'))?.message ?? ''
         )
         setEndTimeError(
-          errors.find((err) => err.path.includes('endDate'))?.message as string
+          errors.find((err) => err.path.includes('endDate'))?.message ?? ''
         )
         setMaxAttendeesError(
-          errors.find((err) => err.path.includes('maxAttendees'))
-            ?.message as string
+          errors.find((err) => err.path.includes('maxAttendees'))?.message ?? ''
         )
       }
     }
@@ -298,11 +296,10 @@ export default function ManageClassesForm({
             ?.message as string
         )
         setEndTimeError(
-          errors.find((err) => err.path.includes('endDate'))?.message as string
+          errors.find((err) => err.path.includes('endDate'))?.message ?? ''
         )
         setMaxAttendeesError(
-          errors.find((err) => err.path.includes('maxAttendees'))
-            ?.message as string
+          errors.find((err) => err.path.includes('maxAttendees'))?.message ?? ''
         )
       }
     }
